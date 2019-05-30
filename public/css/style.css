@@ -1,6 +1,6 @@
 
 /* ==============================================================
-   Color primario: #c9612e;
+   Color primario: #C01829;
    ============================================================== */
 body {
   font-family: 'Roboto', sans-serif; }
@@ -43,6 +43,41 @@ h6 {
 
 p {
   font-size: 15px; }
+a{
+  color: #C01829;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none;
+}
+
+.list-group-item.active{
+  background-color: #C01829;
+  border-color: #C01829;
+}
+
+.background-primary{
+  background: #C01829;
+}
+  .pantalla{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+  }
+
+.header-panel{
+  position: relative;
+  min-height: 170px;
+  width: 100%;
+  background: url('../images/table-d.jpg') no-repeat;
+  background-size: cover;
+}
+.header-panel h4{
+  z-index: 100;
+}
 
 .main-block {
   padding: 90px 0; }
@@ -114,7 +149,7 @@ p {
   height: 70px; }
 
 .is-sticky {
-  background: #c9612e;
+  background: #C01829;
   opacity: 1; }
 
 .transition {
@@ -133,7 +168,7 @@ p {
   @media (max-width: 992px) {
     .fixed {
       border: none;
-      background: #c9612e; } }
+      background: #C01829; } }
 
 .dropdown-menu {
   background: #030303; }
@@ -154,10 +189,10 @@ p {
 .slider {
   background: url(../images/table-d.jpg) no-repeat;
   background-size: cover;
-  min-height: 800px; }
+  min-height: 500px; }
   @media (max-width: 992px) {
     .slider {
-      min-height: 700px; } }
+      min-height: 100vh; } }
 
 .btn-outline-light {
   padding: 10px 16px; }
@@ -227,7 +262,7 @@ p {
   font-size: 18px;
   padding: 17px;
   width: 27%;
-  background: #c9612e;
+  background: #C01829;
   color: #ffffff;
   border: none;
   border-top-right-radius: 3px;
@@ -413,7 +448,7 @@ p {
     .featured-btn-wrap {
       margin: 3px 0 0; } }
   .featured-btn-wrap .btn-danger {
-    background: #c9612e;
+    background: #C01829;
     padding: 16px 50px;
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
@@ -423,7 +458,7 @@ p {
       .featured-btn-wrap .btn-danger {
         width: 100%; } }
     .featured-btn-wrap .btn-danger:hover, .featured-btn-wrap .btn-danger:focus {
-      background: #c9612e;
+      background: #C01829;
       outline: none;
       -webkit-box-shadow: none;
       box-shadow: none; }
