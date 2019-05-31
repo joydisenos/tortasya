@@ -6,7 +6,7 @@
 	</div>
 	<ul class="list-group list-group-flush">
 
-		@role('negocio')
+		@role('negocio|dev')
 		<a href="{{ route('negocio.productos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.productos')) ? 'active' : ''}}">
 			  	Productos

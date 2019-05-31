@@ -63,7 +63,7 @@
                                         <a class="nav-link" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido, {{ title_case(Auth::user()->nombre) }} <span class="icon-arrow-down"></span></a>
 
                                         <div class="dropdown-menu" style="background: #C01829" aria-labelledby="navbarDropdownMenuLink">
-                                            @role('negocio')
+                                            @role('negocio|dev')
                                             <a class="dropdown-item text-white" href="{{ route('negocio.productos') }}">Productos</a>
                                             <a class="dropdown-item text-white" href="{{ route('negocio.productos') }}">Ventas</a>
                                             <a class="dropdown-item text-white" href="{{ route('negocio.productos') }}">Datos</a>

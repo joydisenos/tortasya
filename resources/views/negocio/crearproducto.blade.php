@@ -10,8 +10,15 @@
 		@include('includes.nav-side')
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 
-			<form action="">
+			<form action="{{ route('negocio.guardar.producto') }}" method="post" enctype="multipart/form-data">
 				@csrf
+
+				<div class="row mb-4">
+					<div class="col"></div>
+					<div class="col">
+						<input type="file" name="foto" class="form-control">
+					</div>
+				</div>
 
 				<div class="row mb-4">
 

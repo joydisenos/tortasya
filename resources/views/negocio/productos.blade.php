@@ -24,12 +24,33 @@
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
+									<th>Imagen</th>
 									<th>Nombre</th>
 									<th>Precio</th>
 									<th>Ventas</th>
 									<th>Estatus</th>
 									<th></th>
 								</thead>
+								<tbody>
+									@foreach($productos as $producto)
+									<tr>
+										<td>
+											@if($producto->foto == null)
+											<img src="{{ asset('images/logo-01.png') }}" style="max-width: 50px;" alt="Imagen {{ $producto->nombre }}">
+											@else
+											<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . $producto->foto) }}" style="max-width: 50px;" alt="Imagen {{ $producto->nombre }}">
+											@endif
+										</td>
+										<td>{{ title_case($producto->nombre) }}</td>
+										<td>{{ str_limit($producto->descripcion , 30) }}</td>
+										<td></td>
+										<td>{{ $producto->estatusProducto($producto->estatus) }}</td>
+										<td>
+											<a href="{{ route('negocio.modificar.producto' , [$producto->id]) }}">modificar</a>
+										</td>
+									</tr>
+									@endforeach
+								</tbody>
 							</table>
 						</div>
 					</div>
