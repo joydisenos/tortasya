@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <!-- Required meta tags -->
@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{ asset('css/set1.css')}}">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+
+    <link rel="icon" href="{{asset('images/logo-01.png')}}" type="image/png" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
 </head>
