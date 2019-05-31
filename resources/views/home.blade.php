@@ -156,8 +156,8 @@
             </div>
         </div>
     </section>
-   
-    <!--============================= ADD LISTING =============================-->
+   @guest
+
     <section class="main-block light-bg">
         <div class="container">
             <div class="row">
@@ -171,11 +171,12 @@
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <div class="featured-btn-wrap">
-                        <a href="#" class="btn btn-danger"><span class="ti-plus"></span> Regístrate</a>
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#registro-modal"><span class="ti-plus"></span> Regístrate</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--//END ADD LISTING -->
+ 
+    @endguest
 @endsection

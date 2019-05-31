@@ -1,12 +1,14 @@
 @extends('master.front')
 @section('content')
 
-@include('includes.header')
+@component('components.header')
+    @slot('titulo' , 'Mi Cuenta')
+@endcomponent
 
 <div class="container">
 	<div class="row">
 		@include('includes.nav-side')
-		<div class="col">
+		<div class="col pt-4 pb-4 mt-4 mb-4">
 			
 		</div>
 	</div>

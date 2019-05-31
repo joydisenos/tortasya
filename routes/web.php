@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::post('/alta', 'UsuarioController@alta')->name('alta');
+Route::post('/sugerir', 'UsuarioController@sugerir')->name('sugerir');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -24,4 +26,9 @@ Route::prefix('usuario')->group( function () {
 		Route::get('/direcciones', 'UsuarioController@direcciones')->name('usuario.direcciones');
 		Route::get('/datos', 'UsuarioController@datos')->name('usuario.datos');
 		Route::get('/pedidos', 'UsuarioController@pedidos')->name('usuario.pedidos');
+	});
+
+Route::prefix('panel')->group( function () {
+		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
+		Route::get('/crear/producto', 'NegocioController@crearProducto')->name('negocio.crear.producto');
 	});

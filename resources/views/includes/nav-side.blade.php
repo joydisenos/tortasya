@@ -1,10 +1,18 @@
-<div class="col-md-3">
+<div class="col-md-3 pt-4 pb-4 mt-4 mb-4">
 
 	<div class="text-center">
 		<img src="{{ asset('images/perfil.png') }}" style="max-width: 100px;" class="img-fluid rounded-circle" alt="">
 		<h6 class="m-3">{{ title_case(Auth::user()->nombre) }}</h6>
 	</div>
 	<ul class="list-group list-group-flush">
+
+		@role('negocio')
+		<a href="{{ route('negocio.productos') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.productos')) ? 'active' : ''}}">
+			  	Productos
+			</li>
+		</a>
+		@else
 		<a href="{{ route('usuario.favoritos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.favoritos')) ? 'active' : ''}}">
 			  	Favoritos
@@ -25,6 +33,7 @@
 			  	Pedidos
 			</li>
 		</a>
+		@endrole
 
 		<a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -33,10 +42,6 @@
 			  	Salir
 			</li>
 		</a>
-
-		<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
 	</ul>
 
 </div>

@@ -1,11 +1,16 @@
-@extends('layouts.app')
+@extends('master.front')
 
 @section('content')
+
+@component('components.header')
+    @slot('titulo' , 'Iniciar Sesión')
+@endcomponent
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card m-4">
+                <div class="card-header background-primary text-white">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -39,8 +44,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                        
+                        <div class="form-group row justify-content-end">
+                            
+                            <div class="col-md-8">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -50,10 +57,11 @@
                                 </div>
                             </div>
                         </div>
+                       
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="form-group row mb-0 justify-content-center">
+                            <div class="col-md-8 text-center">
+                                <button type="submit" class="btn btn-danger">
                                     {{ __('Login') }}
                                 </button>
 
