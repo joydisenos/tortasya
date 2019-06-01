@@ -30,8 +30,15 @@ Route::prefix('usuario')->group( function () {
 
 Route::prefix('panel')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
+		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
+		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
 		Route::get('/crear/producto', 'NegocioController@crearProducto')->name('negocio.crear.producto');
 		Route::get('/modificar/producto/{id}', 'NegocioController@modificarProducto')->name('negocio.modificar.producto');
 		Route::post('/actualizar/producto/{id}', 'NegocioController@actualizarProducto')->name('negocio.actualizar.producto');
 		Route::post('/guardar/producto', 'NegocioController@guardarProducto')->name('negocio.guardar.producto');
+	});
+
+Route::prefix('admin')->group( function () {
+		Route::get('/configuraciones', 'AdminController@configuraciones')->name('admin.configuraciones');
+		Route::get('/usuarios', 'AdminController@usuarios')->name('admin.usuarios');
 	});

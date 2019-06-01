@@ -6,33 +6,69 @@
 	</div>
 	<ul class="list-group list-group-flush">
 
+		@role('admin|dev')
+		<a href="{{ route('admin.usuarios') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('admin.usuarios')) ? 'active' : ''}}">
+			  	<i class="fa fa-users mr-3" aria-hidden="true"></i> Usuarios
+			</li>
+		</a>
+
+		<a href="{{ route('admin.configuraciones') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('admin.configuraciones')) ? 'active' : ''}}">
+			  	<i class="fa fa-cog mr-3" aria-hidden="true"></i> Configuraciones
+			</li>
+		</a>
+		@else
+
 		@role('negocio|dev')
 		<a href="{{ route('negocio.productos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.productos')) ? 'active' : ''}}">
-			  	Productos
+			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Productos
+			</li>
+		</a>
+
+		<a href="{{ route('negocio.ventas') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.ventas')) ? 'active' : ''}}">
+			  	<i class="fa fa-money mr-3" aria-hidden="true"></i> Ventas
+			</li>
+		</a>
+
+
+
+		<a href="{{ route('negocio.datos') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.datos')) ? 'active' : ''}}">
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil
+			</li>
+		</a>
+
+		<a href="{{ route('negocio.datos') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.datos')) ? 'active' : ''}}">
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Horario y envíos
 			</li>
 		</a>
 		@else
 		<a href="{{ route('usuario.favoritos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.favoritos')) ? 'active' : ''}}">
-			  	Favoritos
+			  	<i class="fa fa-heart mr-3" aria-hidden="true"></i> Favoritos
 			</li>
 		</a>
 		<a href="{{ route('usuario.direcciones') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.direcciones')) ? 'active' : ''}}">
-			  	Direcciones
+			  	<i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Direcciones
 			</li>
 		</a>
 		<a href="{{ route('usuario.datos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.datos')) ? 'active' : ''}}">
-			  	Datos
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil
 			</li>
 		</a>
 		<a href="{{ route('usuario.pedidos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.pedidos')) ? 'active' : ''}}">
-			  	Pedidos
+			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Pedidos
 			</li>
 		</a>
+		@endrole
+
 		@endrole
 
 		<a href="{{ route('logout') }}"

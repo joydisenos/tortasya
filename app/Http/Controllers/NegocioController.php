@@ -56,4 +56,38 @@ class NegocioController extends Controller
 
     	return view('negocio.editarproducto' , compact('producto'));
     }
+
+    public function actualizarProducto(Request $request , $id)
+    {
+        $validatedData = $request->validate([
+        'nombre' => 'required|max:255',
+        'precio' => 'required',
+        'descripcion' => 'required',
+        ]);
+
+        $data = $request->except(['foto']);
+
+        if( $request->hasFile('foto') )
+        {
+            $rutaFoto = 'archivos/'. Auth::user()->id;
+            $foto = $request->file('foto');
+            $nombreFoto = $foto->getClientOriginalName();
+            $request->file('foto')->storeAs($rutaFoto, $nombreFoto, 'public');
+            $data['foto'] = $nombreFoto;
+        }
+
+        $producto = Producto::findOrFail($id)->update($data);
+
+        return redirect()->route('negocio.productos')->with('status' , 'Producto Actualizado');
+    }
+
+    public function datos()
+    {
+        return view('negocio.datos');
+    }
+
+    public function ventas()
+    {
+        return view('negocio.ventas');
+    }
 }

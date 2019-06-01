@@ -2,7 +2,7 @@
 @section('content')
 
 @component('components.header')
-    @slot('titulo' , 'Favoritos')
+    @slot('titulo' , 'Configuraciones')
 @endcomponent
 
 <div class="container">

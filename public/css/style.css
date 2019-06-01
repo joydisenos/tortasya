@@ -46,6 +46,10 @@ p {
 a{
   color: #C01829;
   text-decoration: none;
+  cursor: pointer !important;
+}
+button{
+  cursor: pointer !important;
 }
 a:hover{
   text-decoration: none;
@@ -93,6 +97,13 @@ a:hover{
 
 .ocultar{
   display: none;
+}
+.menu-pri{
+  background: #ffffff !important;
+  color: #C01829 !important;
+}
+.menu-pri a{
+  color: #C01829 !important;
 }
 
 /* ==============================================================

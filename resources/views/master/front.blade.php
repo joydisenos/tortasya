@@ -26,6 +26,10 @@
 
     <link rel="icon" href="{{asset('images/logo-01.png')}}" type="image/png" />
 
+    <link rel="stylesheet" href="{{ asset('css/toastr.css')}}">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
 </head>
 
@@ -62,20 +66,27 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido, {{ title_case(Auth::user()->nombre) }} <span class="icon-arrow-down"></span></a>
 
-                                        <div class="dropdown-menu" style="background: #C01829" aria-labelledby="navbarDropdownMenuLink">
-                                            @role('negocio|dev')
-                                            <a class="dropdown-item text-white" href="{{ route('negocio.productos') }}">Productos</a>
-                                            <a class="dropdown-item text-white" href="{{ route('negocio.productos') }}">Ventas</a>
-                                            <a class="dropdown-item text-white" href="{{ route('negocio.productos') }}">Datos</a>
+                                        <div class="dropdown-menu menu-pri" aria-labelledby="navbarDropdownMenuLink">
+                                            @role('admin|dev')
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('admin.configuraciones') }}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Configuraciones</a>
                                             @else
-                                            <a class="dropdown-item text-white" href="{{ route('usuario.favoritos') }}">Favoritos</a>
-                                            <a class="dropdown-item text-white" href="{{ route('usuario.direcciones') }}">Direcciones</a>
-                                            <a class="dropdown-item text-white" href="{{ route('usuario.datos') }}">Datos</a>
-                                            <a class="dropdown-item text-white" href="{{ route('usuario.pedidos') }}">Pedidos</a>
+
+                                            @role('negocio|dev')
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.productos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Productos</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.ventas') }}"><i class="fa fa-money mr-3" aria-hidden="true"></i> Ventas</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil</a>
+                                            @else
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.favoritos') }}"><i class="fa fa-heart mr-3" aria-hidden="true"></i> Favoritos</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.direcciones') }}"><i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Direcciones</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.pedidos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Pedidos</a>
                                             @endrole
+                                            
+                                            @endrole
+
                                             <a class="dropdown-item text-white" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Salir</a>
+                                                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i> Salir</a>
 
                                         </div>
                                     </li>
@@ -115,7 +126,7 @@
                     <a class="tab-btn nav-link active" data-target=".login" href="#">Iniciar Sesión</a>
                   </li>
                   <li class="nav-item">
-                    <a class="tab-btn nav-link" data-target=".registro" href="#">Registro</a>
+                    <a class="tab-btn nav-link" data-target=".registro" href="#">Regístrate</a>
                   </li>
                 </ul>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -304,6 +315,15 @@
               <form method="POST" action="{{ route('alta') }}">
                         @csrf
 
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <p>
+                                    Tengo negocio o soy un emprendedor@: Activa tu negocio online de forma rapida. 
+                                    <br>Por favor, bríndanos los siguientes datos
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="form-group row justify-content-center">
                             
 
@@ -437,6 +457,16 @@
                    <form method="POST" action="{{ route('sugerir') }}">
                         @csrf
 
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <p>
+                                    ¿Quieres pedir a un negocio o emprededor@ que aun NO está en Tortas Ya?
+                                    <br>
+                                    Por favor, bríndanos los siguientes datos nos pondremos en contacto lo antes posible.
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="form-group row justify-content-center">
                             
 
@@ -564,6 +594,23 @@
     <script src="{{ asset('js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{ asset('js/popper.min.js')}}"></script>
     <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('js/toastr.js')}}"></script>
+    @if (session('status'))
+    <script>
+        toastr.success( '{{ session("status") }}' );
+    </script>
+    @endif
+
+    @if ($errors->any())
+    
+            @foreach ($errors->all() as $error)
+                <script>
+                    toastr.error( '{{ $error }}' );
+                </script>
+            @endforeach
+        
+    @endif
+    
     <script>
         $(document).ready(function(){
             $('.tab-btn').click(function(e){
