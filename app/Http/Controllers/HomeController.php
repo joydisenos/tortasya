@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Legal;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+   
     public function index()
     {
         return view('home');
+    }
+
+    public function nosotros($pagina = null)
+    {
+        if($pagina == null)
+        {
+            $legal = Legal::where('slug' , 'nosotros')->first();
+        }else{
+            $legal = Legal::where('slug' , $pagina)->first();
+        }
+
+        return view('legales' , compact('legal'));
     }
 }

@@ -83,6 +83,10 @@ a:hover{
   z-index: 100;
 }
 
+.top-btn:hover{
+  color: #000000 !important;
+}
+
 .main-block {
   padding: 90px 0; }
   @media (max-width: 768px) {

@@ -31,6 +31,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
+
+    @yield('header')
+
 </head>
 
 <body>
@@ -57,14 +60,14 @@
                                         <a class="nav-link" href="#">Contacto</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Nosotros</a>
+                                        <a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a>
                                     </li>
                                     @guest
                                     
                                     <li><a href="#" class="btn btn-outline-light top-btn" data-toggle="modal" data-target="#login-modal"><span class="ti-user"></span> Ingresar</a></li>
                                     @else
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido, {{ title_case(Auth::user()->nombre) }} <span class="icon-arrow-down"></span></a>
+                                        <a class="nav-link btn btn-outline-light top-btn" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ title_case(Auth::user()->nombre) }} <span class="icon-arrow-down"></span></a>
 
                                         <div class="dropdown-menu menu-pri" aria-labelledby="navbarDropdownMenuLink">
                                             @role('admin|dev')
@@ -595,6 +598,9 @@
     <script src="{{ asset('js/popper.min.js')}}"></script>
     <script src="{{ asset('js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/toastr.js')}}"></script>
+
+    @yield('scripts')
+    
     @if (session('status'))
     <script>
         toastr.success( '{{ session("status") }}' );

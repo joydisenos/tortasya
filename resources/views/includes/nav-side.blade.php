@@ -1,7 +1,11 @@
 <div class="col-md-3 pt-4 pb-4 mt-4 mb-4">
 
 	<div class="text-center">
+		@if(Auth::user()->foto_perfil == null)
 		<img src="{{ asset('images/perfil.png') }}" style="max-width: 100px;" class="img-fluid rounded-circle" alt="">
+		@else
+		<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . Auth::user()->foto_perfil) }}" style="max-width: 100px;" class="img-fluid rounded-circle" alt="">
+		@endif
 		<h6 class="m-3">{{ title_case(Auth::user()->nombre) }}</h6>
 	</div>
 	<ul class="list-group list-group-flush">
@@ -41,8 +45,8 @@
 			</li>
 		</a>
 
-		<a href="{{ route('negocio.datos') }}">
-		  	<li class="list-group-item {{ (URL::current() == route('negocio.datos')) ? 'active' : ''}}">
+		<a href="#">
+		  	<li class="list-group-item">
 			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Horario y envíos
 			</li>
 		</a>

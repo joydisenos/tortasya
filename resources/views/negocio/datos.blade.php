@@ -11,7 +11,7 @@
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 
 
-				<form action="">
+				<form action="{{ route('negocio.actualizar.datos') }}" method="post" enctype="multipart/form-data">
 					@csrf
 
 					
@@ -50,7 +50,7 @@
 							<p>Foto de Perfil</p>
 						</div>
 						<div class="col">
-							<input type="file" name="perfil" class="form-control">
+							<input type="file" name="foto_perfil" class="form-control">
 						</div>
 					</div>
 
@@ -101,7 +101,7 @@
 							<p>Breve descripción</p>
 						</div>
 						<div class="col">
-							<textarea name="descripcion_negocio" id="" class="form-control" cols="30" rows="10"></textarea>
+							<textarea name="descripcion_negocio" id="" class="form-control" cols="30" rows="10">{{ Auth::user()->negocio->descripcion }}</textarea>
 						</div>
 					</div>
 

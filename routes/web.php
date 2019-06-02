@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 Route::post('/alta', 'UsuarioController@alta')->name('alta');
 Route::post('/sugerir', 'UsuarioController@sugerir')->name('sugerir');
+Route::get('/nosotros', 'HomeController@nosotros')->name('nosotros');
+Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagina');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -32,6 +34,7 @@ Route::prefix('panel')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
+		Route::post('/datos/actualizar', 'NegocioController@actualizarDatos')->name('negocio.actualizar.datos');
 		Route::get('/crear/producto', 'NegocioController@crearProducto')->name('negocio.crear.producto');
 		Route::get('/modificar/producto/{id}', 'NegocioController@modificarProducto')->name('negocio.modificar.producto');
 		Route::post('/actualizar/producto/{id}', 'NegocioController@actualizarProducto')->name('negocio.actualizar.producto');
@@ -40,5 +43,7 @@ Route::prefix('panel')->group( function () {
 
 Route::prefix('admin')->group( function () {
 		Route::get('/configuraciones', 'AdminController@configuraciones')->name('admin.configuraciones');
+		Route::get('/seccion/{pag}', 'AdminController@seccion')->name('admin.editar.seccion');
+		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');
 		Route::get('/usuarios', 'AdminController@usuarios')->name('admin.usuarios');
 	});
