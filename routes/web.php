@@ -11,17 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 Route::post('/alta', 'UsuarioController@alta')->name('alta');
 Route::post('/sugerir', 'UsuarioController@sugerir')->name('sugerir');
 Route::get('/nosotros', 'HomeController@nosotros')->name('nosotros');
 Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagina');
+Route::get('/tienda/{tienda}', 'HomeController@tienda')->name('tienda');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('usuario')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');

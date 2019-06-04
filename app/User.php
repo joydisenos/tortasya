@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Negocio::class , 'user_id');
     }
+
+    public function tiendas()
+    {
+        return $this->where('nombre_negocio' , '!=' , null)->get();
+    }
 }

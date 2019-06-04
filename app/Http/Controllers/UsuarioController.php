@@ -36,7 +36,7 @@ class UsuarioController extends Controller
         'apellido' => 'required|max:255',
         'email' => 'required|unique:users|email|max:255',
         'telefono' => 'required|max:255',
-        'nombre_negocio' => 'required|max:255',
+        'nombre_negocio' => 'required|max:255|unique:users',
         'direccion' => 'required|max:255',
         'ciudad' => 'required|max:255',
         'password' => 'required|min:6|confirmed|string',

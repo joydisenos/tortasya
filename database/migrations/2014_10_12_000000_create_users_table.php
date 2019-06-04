@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('foto_perfil')->nullable();
             $table->string('telefono')->nullable();
             $table->string('nombre_negocio')->nullable();
+            $table->string('slug')->nullable();
             $table->string('direccion')->nullable();
             $table->string('ciudad')->nullable();
             $table->string('email')->unique();

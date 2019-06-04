@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Legal;
+use App\User;
 
 class HomeController extends Controller
 {
    
     public function index()
     {
-        return view('home');
+        $user = new User();
+        $tiendas = $user->tiendas();
+
+        return view('home' , compact('tiendas'));
     }
 
     public function nosotros($pagina = null)
@@ -23,5 +27,14 @@ class HomeController extends Controller
         }
 
         return view('legales' , compact('legal'));
+    }
+
+    public function tienda($slug)
+    {
+        $tienda = User::where('slug' , $slug)->first();
+
+        $productos = $tienda->productos;
+
+        return view('tienda' , compact('tienda' , 'productos'));
     }
 }
