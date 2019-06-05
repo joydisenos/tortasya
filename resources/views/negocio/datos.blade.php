@@ -107,12 +107,47 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Logotipo del Negocio</p>
+						</div>
+						<div class="col">
+							<input type="file" name="logo_local" class="form-control">
+						</div>
+					</div>
+
+					@if(Auth::user()->negocio->logo_local != null)
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							
+						</div>
+						<div class="col">
+							<img src="{{ asset( 'storage/archivos/' . Auth::user()->id . '/' . Auth::user()->negocio->logo_local) }}" class="img-fluid" alt="">
+						</div>
+					</div>
+
+					@endif
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Foto del Negocio</p>
 						</div>
 						<div class="col">
-							<input type="file" name="foto_negocio" class="form-control">
+							<input type="file" name="foto_local" class="form-control">
 						</div>
 					</div>
+
+					@if(Auth::user()->negocio->foto_local != null)
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							
+						</div>
+						<div class="col">
+							<img src="{{ asset( 'storage/archivos/' . Auth::user()->id . '/' . Auth::user()->negocio->foto_local) }}" class="img-fluid" alt="">
+						</div>
+					</div>
+
+					@endif
 
 					<div class="row mb-4">
 						<div class="col">

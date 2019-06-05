@@ -22,9 +22,17 @@
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
-							<th>Ciudad</th>
 							<th>Dirección</th>
+							<th>Ciudad</th>
 						</thead>
+						<tbody>
+							@foreach(Auth::user()->direcciones as $direccion)
+							<tr>
+								<td>{{ $direccion->direccion }}</td>
+								<td>{{ $direccion->ciudad }}</td>
+							</tr>
+							@endforeach
+						</tbody>
 					</table>
 				</div>
 				
@@ -41,17 +49,21 @@
 				      </div>
 				      <div class="modal-body">
 
+				      	<form action="{{ route('usuario.agregar.direccion') }}" method="post">
+				      		@csrf
+
 				        <div class="row justify-content-center mb-3">
 				        	<div class="col-10">
-				        		<input type="text" name="direccion" class="form-control">
+				        		<input type="text" name="direccion" placeholder="Dirección" class="form-control">
 				        	</div>
 				        </div>
 
 				        <div class="row justify-content-center mb-3">
 				        	<div class="col-10">
-				        		<select name="ciudad" class="form-control">
+				        		<!--<select name="ciudad" class="form-control">
 				        			<option value="">Seleccione su ciudad</option>
-				        		</select>
+				        		</select>-->
+				        		<input type="text" name="ciudad" placeholder="Ciudad" class="form-control">
 				        	</div>
 				        </div>
 
@@ -62,6 +74,8 @@
 				        		</button>
 				        	</div>
 				        </div>
+
+				        </form>
 
 				      </div>
 				     

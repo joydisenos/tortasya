@@ -11,7 +11,7 @@
 		<div class="col pt-4 pb-4 mt-4 mb-4">
 
 
-				<form action="">
+				<form action="{{ route('usuario.actualizar.datos') }}" method="post" enctype="multipart/form-data">
 					@csrf
 
 					<div class="row mb-4">
@@ -37,7 +37,7 @@
 							<p>Foto de Perfil</p>
 						</div>
 						<div class="col">
-							<input type="file" name="perfil" class="form-control">
+							<input type="file" name="foto_perfil" class="form-control">
 						</div>
 					</div>
 

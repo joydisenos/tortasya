@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Direccion;
 
 class UsuarioController extends Controller
 {
@@ -51,6 +52,52 @@ class UsuarioController extends Controller
         Auth::login($user);
 
         return redirect('/');
+    }
+
+    public function actualizarDatos(Request $request)
+    {
+        if($request->password != null)
+        {
+            $validatedData = $request->validate([
+            'password' => 'required|min:6|confirmed|string',
+            ]);
+        }
+
+        if( $request->hasFile('foto_perfil') )
+        {
+            $rutaFoto = 'archivos/'. Auth::user()->id;
+            $foto = $request->file('foto_perfil');
+            $nombreFoto = $foto->getClientOriginalName();
+            $request->file('foto_perfil')->storeAs($rutaFoto, $nombreFoto, 'public');
+        }
+
+        $user = Auth::user();
+        if( $request->password != null )
+        {
+            $user->password =  Hash::make($request->password);
+        }
+        if ( $request->hasFile('foto_perfil') )
+        {
+            $user->foto_perfil = $nombreFoto;
+        }
+        $user->save();
+
+        return redirect()->back()->with('status' , 'Datos Actualizados');
+    }
+
+    public function agregarDireccion(Request $request)
+    {
+        $validatedData = $request->validate([
+            'direccion' => 'required',
+            'ciudad' => 'required',
+            ]);
+
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        $direccion = Direccion::create($data);
+
+        return redirect()->back()->with( 'status' , 'Dirección agregada');
     }
 
     public function sugerir(Request $request)

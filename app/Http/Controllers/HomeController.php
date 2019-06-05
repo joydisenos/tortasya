@@ -35,6 +35,8 @@ class HomeController extends Controller
 
         $productos = $tienda->productos;
 
-        return view('tienda' , compact('tienda' , 'productos'));
+        $destacados = $tienda->productos->where('foto' , '!=' , null);
+
+        return view('tienda' , compact('tienda' , 'productos' , 'destacados'));
     }
 }

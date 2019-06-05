@@ -18,6 +18,7 @@ class CreateNegociosTable extends Migration
             $table->integer('user_id');
             $table->text('descripcion')->nullable();
             $table->string('foto_local')->nullable();
+            $table->string('logo_local')->nullable();
             $table->boolean('entrega_domicilio')->default(0);
             $table->boolean('entrega_local')->default(0);
             $table->boolean('tarjeta_delivery')->default(0);

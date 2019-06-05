@@ -116,6 +116,14 @@ class NegocioController extends Controller
             $request->file('foto_local')->storeAs($rutaLocal, $nombreFotoLocal, 'public');
         }
 
+        if( $request->hasFile('logo_local') )
+        {
+            $rutaLogo = 'archivos/'. Auth::user()->id;
+            $fotoLogo = $request->file('logo_local');
+            $nombreLogoLocal = $fotoLogo->getClientOriginalName();
+            $request->file('logo_local')->storeAs($rutaLogo, $nombreLogoLocal, 'public');
+        }
+
         $user = Auth::user();
         if( $request->password != null )
         {
@@ -132,6 +140,11 @@ class NegocioController extends Controller
         if( $request->hasFile('foto_local') )
         {
             $negocio->foto_local = $nombreFotoLocal;
+        }
+
+        if( $request->hasFile('logo_local') )
+        {
+            $negocio->logo_local = $nombreLogoLocal;
         }
         $negocio->save();
 

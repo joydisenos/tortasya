@@ -64,7 +64,7 @@
                                     </li>
                                     @guest
                                     
-                                    <li><a href="#" class="btn btn-outline-light top-btn" data-toggle="modal" data-target="#login-modal"><span class="ti-user"></span> Ingresar</a></li>
+                                    <li><a href="#" class="btn btn-outline-light top-btn" data-toggle="modal" data-target="#login-modal"><i class="fa fa-user mr-2"></i> Ingresar</a></li>
                                     @else
                                     <li class="nav-item dropdown">
                                         <a class="nav-link btn btn-outline-light top-btn" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ title_case(Auth::user()->nombre) }} <span class="icon-arrow-down"></span></a>

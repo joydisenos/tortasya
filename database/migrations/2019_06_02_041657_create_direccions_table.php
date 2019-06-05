@@ -17,6 +17,7 @@ class CreateDireccionsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->text('direccion');
+            $table->string('ciudad');
             $table->boolean('principal')->default(0);
             $table->timestamps();
         });

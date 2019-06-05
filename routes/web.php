@@ -23,8 +23,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('usuario')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');
 		Route::get('/direcciones', 'UsuarioController@direcciones')->name('usuario.direcciones');
+		Route::post('/agregar/direccion', 'UsuarioController@agregarDireccion')->name('usuario.agregar.direccion');
 		Route::get('/datos', 'UsuarioController@datos')->name('usuario.datos');
 		Route::get('/pedidos', 'UsuarioController@pedidos')->name('usuario.pedidos');
+		Route::post('/datos/actualizar', 'UsuarioController@actualizarDatos')->name('usuario.actualizar.datos');
 	});
 
 Route::prefix('panel')->group( function () {
