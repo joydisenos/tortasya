@@ -32,6 +32,18 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
 
+    <style>
+        @media (max-width: 992px){
+                .navbar-collapse{
+                    background-color:rgba(0,0,0,0.6);
+                    text-align: center;
+                }
+                .navbar-collapse li{
+                    margin-bottom: 15px;
+                }
+            }
+    </style>
+
     @yield('header')
 
 </head>

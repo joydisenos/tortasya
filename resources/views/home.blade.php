@@ -1,4 +1,13 @@
 @extends('master.front')
+@section('header')
+<style>
+    .imagen-tienda{
+        height: 200px;
+        background-size: cover;
+        background-position: center center;
+    }
+</style>
+@endsection
 @section('content')
 <!-- SLIDER -->
     <section class="slider d-flex align-items-center">
@@ -58,7 +67,8 @@
                 <div class="col-md-4 featured-responsive">
                     <div class="featured-place-wrap">
                         <a href="{{ route('tienda' , [$tienda->slug]) }}">
-                            <img src="{{ asset('images/featured1.jpg')}}" class="img-fluid" alt="#">
+                            
+                            <div class="imagen-tienda" style="background-image:url('{{ $tienda->negocio != null && $tienda->negocio->foto_local != null ? asset('storage/archivos/' . $tienda->id . '/' . $tienda->negocio->foto_local) : asset('images/cake.jpg')}}')"></div>
                             <span class="featured-rating-orange">6.5</span>
                             <div class="featured-title-box">
                                 <h6>{{ title_case($tienda->nombre_negocio) }}</h6>
@@ -86,13 +96,7 @@
                 @endforeach
                
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="featured-btn-wrap">
-                        <a href="#" class="btn btn-danger">VIEW ALL</a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </section>
    @guest

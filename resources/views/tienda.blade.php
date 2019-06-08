@@ -22,6 +22,20 @@
 	.nav-pills .nav-link.active, .show>.nav-pills .nav-link{
 		background-color: #C01829 !important;
 	}
+	.logo-tienda{
+		max-width: 50px;
+		margin-bottom: 8px;
+	}
+	.contenedor-carrito{
+		max-width: 150px;
+	}
+	@if($tienda->negocio != null && $tienda->negocio->foto_local != null )
+	.header-panel{
+		background-image: url('{{ asset( 'storage/archivos/'. $tienda->id . '/' . $tienda->negocio->foto_local) }}') !important;
+		background-position: center center;
+		background-size: cover;
+	}
+	@endif
 
 </style>
 @endsection
@@ -29,8 +43,17 @@
 @section('content')
 
 @component('components.headertienda')
+	@slot('logo')
+		@if($tienda->negocio != null && $tienda->negocio->logo_local != null)
+		 <img src="{{ asset( 'storage/archivos/'. $tienda->id . '/' . $tienda->negocio->logo_local) }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $tienda->nombre_negocio }}">
+		@else
+		 <img src="{{ asset('images/cake.jpg') }}" class="img-fluid logo-tienda d-inline rounded mr-1" alt="Logo {{ $tienda->nombre_negocio }}">
+		@endif
+	@endslot
     @slot('titulo' , title_case($tienda->nombre_negocio))
-    @slot('puntos' , 8.5)
+    @slot('puntos')
+    	<small><i class="fa fa-star text-warning"></i> 8.5</small> 
+    @endslot
 @endcomponent
 
 <div class="container">
@@ -71,9 +94,9 @@
 						    <h6>{{ title_case($destacado->nombre) }}</h6>
 							<p>{{ $destacado->descripcion }}</p>
 							<h6>${{ number_format($destacado->precio) }}</h6>
-								<button class="btn btn-danger rounded-circle btn-small floating">
+								<a class="btn btn-danger rounded-circle btn-small floating" href="{{ route('agregar.carrito' , $destacado->id) }}">
 									<i class="fa fa-plus"></i>
-								</button>
+								</a>
 						  </div>
 						</div>
 					</div>
@@ -94,18 +117,15 @@
 						
 							<div class="col-md-6 mb-4">
 								<div class="row">
-									<!--<div class="col-3">
-										<img src="{{ $producto->foto == null ? asset('images/logo-01.png') : asset('storage/archivos/' . $tienda->id . '/' . $producto->foto) }}" class="img-fluid" alt="Foto {{ $producto->nombre }}">
-									</div>-->
 									<div class="col">
 										<h6>{{ title_case($producto->nombre) }}</h6>
 										<p>{{ $producto->descripcion }}</p>
 										<h6>${{ number_format($producto->precio) }}</h6>
 									</div>
 									<div class="col-3">
-										<button class="btn btn-danger rounded-circle btn-small">
+										<a class="btn btn-danger rounded-circle btn-small" href="{{ route('agregar.carrito' , $producto->id) }}">
 											<i class="fa fa-plus"></i>
-										</button>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -116,7 +136,7 @@
 					</div>
 					  </div>
 					  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-					  	<p>{{ $tienda->negocio->descripcion }}</p>
+					  	<p>{{ $tienda->negocio != null ? $tienda->negocio->descripcion : '' }}</p>
 					  </div>
 					  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
 			</div>
@@ -125,12 +145,38 @@
 					
 				</div>
 
-				<div class="col-4 pt-4 pb-4 mt-4 mb-4">
+				<div class="col-4 pt-4 pb-4 mt-4 mb-4 d-none d-lg-block">
 					<div class="row">
 						<div class="col text-center border p-4">
-							<h6 class="mb-4">Mi Pedido</h6>
-							<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid mb-4" style="max-width: 150px;" alt="">
+							<h6 class="mb-4">Mi Pedido{{ Cart::count() > 0 ? ' '.Cart::count() : ''}}</h6>
+									@if(Cart::count() == 0)
+								<div class="contenedor-carrito mx-auto">
+									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
+								</div>
 							<p class="mb-4">Aún no tienes pedidos</p>
+									@else
+									<div class="row mb-4 text-left">
+										<div class="col-2"><strong>Cant.</strong></div>
+										<div class="col"><strong>Nombre</strong></div>
+										<div class="col"><strong>Precio</strong></div>
+									</div>
+									<hr>
+									@foreach(Cart::content() as $carro)
+									<div class="row mb-4 text-left">
+										<div class="col-2">{{ $carro->qty }}</div>
+										<div class="col">{{ $carro->name }}</div>
+										<div class="col">${{ number_format($carro->price) }}</div>
+									</div>
+									<hr>
+									@endforeach
+
+									<div class="row text-left">
+										<div class="col-2"></div>
+										<div class="col"><strong>Total:</strong></div>
+										<div class="col"><strong>${{ Cart::subtotal(0, ',', '.') }}</strong></div>
+									</div>
+
+									@endif
 						</div>
 					</div>
 				</div>

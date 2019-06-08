@@ -17,6 +17,7 @@ Route::post('/sugerir', 'UsuarioController@sugerir')->name('sugerir');
 Route::get('/nosotros', 'HomeController@nosotros')->name('nosotros');
 Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagina');
 Route::get('/tienda/{tienda}', 'HomeController@tienda')->name('tienda');
+Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
 
 Route::get('/', 'HomeController@index')->name('home');
 

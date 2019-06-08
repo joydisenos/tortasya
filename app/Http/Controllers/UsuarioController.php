@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\User;
+use App\Producto;
 use App\Direccion;
 
 class UsuarioController extends Controller
@@ -28,6 +30,15 @@ class UsuarioController extends Controller
     public function pedidos()
     {
     	return view('user.pedidos');
+    }
+
+    public function agregarCarrito($id)
+    {
+        $producto = Producto::findOrFail($id);
+
+        $cart = Cart::add($id, $producto->nombre, 1, $producto->precio);
+
+        return redirect()->back()->with('status' , 'Producto agregado');
     }
 
     public function alta(Request $request)
