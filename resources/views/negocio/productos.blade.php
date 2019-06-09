@@ -26,6 +26,7 @@
 								<thead>
 									<th>Imagen</th>
 									<th>Nombre</th>
+									<th>Descripción</th>
 									<th>Precio</th>
 									<th>Ventas</th>
 									<th>Estatus</th>
@@ -43,6 +44,7 @@
 										</td>
 										<td>{{ title_case($producto->nombre) }}</td>
 										<td>{{ str_limit($producto->descripcion , 30) }}</td>
+										<td>{{ number_format($producto->precio) }}</td>
 										<td></td>
 										<td>{{ $producto->estatusProducto($producto->estatus) }}</td>
 										<td>

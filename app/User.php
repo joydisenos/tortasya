@@ -25,6 +25,7 @@ class User extends Authenticatable
         'nombre_negocio', 
         'direccion', 
         'ciudad', 
+        'region', 
         'password',
     ];
 

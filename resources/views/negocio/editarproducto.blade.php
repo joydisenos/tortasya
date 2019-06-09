@@ -46,8 +46,14 @@
 
 				<div class="row mb-4">
 					<div class="col">
+						<input type="text" name="sabores" placeholder="Sabores separados por coma ','" value="{{ $producto->sabores }}" class="form-control">
+					</div>
+				</div>
+
+				<div class="row mb-4">
+					<div class="col">
 						<button class="btn btn-danger">
-							Crear
+							Actualizar
 						</button>
 					</div>
 				</div>

@@ -45,8 +45,8 @@
 			</li>
 		</a>
 
-		<a href="#">
-		  	<li class="list-group-item">
+		<a href="{{ route('negocio.horario') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('negocio.horario')) ? 'active' : ''}}">
 			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Horario y envíos
 			</li>
 		</a>

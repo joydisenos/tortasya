@@ -149,46 +149,7 @@
 
 					@endif
 
-					<div class="row mb-4">
-						<div class="col">
-							<h6>Preferencias</h6>
-						</div>
-					</div>
-
-					<div class="row mb-4">
-						<div class="col-md-4">
-							  
-						        <div class="form-check mb-2 mr-sm-2">
-								    <input class="form-check-input" type="checkbox" name="delivery" id="delivery">
-								    <label class="form-check-label" for="delivery">
-								      Realiza delivery
-								    </label>
-								  </div>
-						     
-						</div>
-
-						<div class="col-md-4">
-			
-						        <div class="form-check mb-2 mr-sm-2">
-								    <input class="form-check-input" type="checkbox" name="pago_entrega" id="pago_entrega">
-								    <label class="form-check-label" for="pago_entrega">
-								      Pago contra entrega
-								    </label>
-								  </div>
-						      
-						</div>
-
-						<div class="col-md-4">
-							 
-						        <div class="form-check mb-2 mr-sm-2">
-								    <input class="form-check-input" type="checkbox"  name="pago_electronico" id="pago_electronico">
-								    <label class="form-check-label" for="pago_electronico">
-								      Pago electrónico
-								    </label>
-								  </div>
-						      
-						</div>
-					</div>
+					
 
 
 				</form>

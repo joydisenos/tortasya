@@ -413,9 +413,36 @@
                            
 
                             <div class="col-md-10">
-                                <input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>
+                                <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
+                                <select name="ciudad" class="form-control" required>
+                                            
+                                    <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                                   
+                                </select>
 
                                 @error('ciudad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                           
+
+                            <div class="col-md-10">
+                                <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
+                                <select name="region" class="form-control" required>
+                                            <option value="">Seleccione Una Región</option>
+                                            
+                                            @foreach(App\Region::regiones()['Metropolitana de Santiago'] as $region)
+                                            <option value="{{ $region }}">{{ $region }}</option>
+                                            @endforeach
+                                           
+                                        </select>
+
+                                @error('region')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -556,9 +583,36 @@
                            
 
                             <div class="col-md-10">
-                                <input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>
+                                <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
+                                <select name="ciudad" class="form-control" required>
+                                            
+                                    <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                                   
+                                </select>
 
                                 @error('ciudad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                           
+
+                            <div class="col-md-10">
+                                <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
+                                <select name="region" class="form-control" required>
+                                            <option value="">Seleccione Una Región</option>
+                                            
+                                            @foreach(App\Region::regiones()['Metropolitana de Santiago'] as $region)
+                                            <option value="{{ $region }}">{{ $region }}</option>
+                                            @endforeach
+                                           
+                                        </select>
+
+                                @error('region')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -13,6 +13,7 @@ class Producto extends Model
         'precio', 
         'nombre',
         'descripcion',
+        'sabores',
     ];
 
     public function negocio()

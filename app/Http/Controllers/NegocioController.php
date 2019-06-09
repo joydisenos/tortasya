@@ -90,6 +90,70 @@ class NegocioController extends Controller
         return view('negocio.datos');
     }
 
+    public function horario()
+    {
+        $negocio = Negocio::firstOrCreate(['user_id' => Auth::user()->id]);
+        if($negocio->horario != null)
+        {
+            $horario = json_decode($negocio->horario);
+        }else{
+            $horario = null;
+        }
+
+        return view('negocio.horarios' ,compact('negocio' ,'horario'));
+    }
+
+    public function actualizarHorario(Request $request)
+    {
+        $horario = [
+            "Mon" =>[
+                $request->d_lunes,
+                $request->h_lunes
+            ],
+            "Tue" =>[
+                $request->d_martes,
+                $request->h_martes
+            ],
+            "Wed" =>[
+                $request->d_miercoles,
+                $request->h_miercoles
+            ],
+            "Thu" =>[
+                $request->d_jueves,
+                $request->h_jueves
+            ],
+            "Fri" =>[
+                $request->d_viernes,
+                $request->h_viernes
+            ],
+            "Sat" =>[
+                $request->d_sabado,
+                $request->h_sabado
+            ],
+            "Sun" =>[
+                $request->d_domingo,
+                $request->h_domingo
+            ],
+        ];
+
+        $horarioString = json_encode($horario);
+
+        $negocio = Negocio::firstOrCreate(['user_id' => Auth::user()->id]);
+        $negocio->horario = $horarioString;
+        $negocio->entrega_domicilio = $request->has('entrega_domicilio') ? 1 : 0;
+        $negocio->entrega_local = $request->has('entrega_local') ? 1 : 0;
+        $negocio->tarjeta_delivery = $request->has('tarjeta_delivery') ? 1 : 0;
+        $negocio->envio_entrega = $request->has('envio_entrega') ? 1 : 0;
+        $negocio->envio_gratis = $request->has('envio_gratis') ? 1 : 0;
+        $negocio->variable = $request->has('variable') ? 1 : 0;
+        $negocio->costo_fijo = $request->has('costo_fijo') ? 1 : 0;
+        $negocio->costo_envio = $request->costo_envio;
+        $negocio->save();
+
+        return redirect()->back()->with('status' , 'Datos actualizados');
+
+    }
+
     public function actualizarDatos(Request $request)
     {
         if($request->password != null)

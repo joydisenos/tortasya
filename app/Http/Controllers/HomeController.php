@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Legal;
 use App\User;
+use App\Region;
 
 class HomeController extends Controller
 {
@@ -13,8 +14,12 @@ class HomeController extends Controller
     {
         $user = new User();
         $tiendas = $user->tiendas();
+        $refRegiones = new Region();
+        $regiones = $refRegiones->regiones();
+        $regiones = $regiones['Metropolitana de Santiago'];
 
-        return view('home' , compact('tiendas'));
+
+        return view('home' , compact('tiendas' , 'regiones'));
     }
 
     public function nosotros($pagina = null)

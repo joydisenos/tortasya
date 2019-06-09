@@ -34,6 +34,8 @@ Route::prefix('panel')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
+		Route::get('/horario', 'NegocioController@horario')->name('negocio.horario');
+		Route::post('/horario', 'NegocioController@actualizarHorario')->name('negocio.actualizar.horario');
 		Route::post('/datos/actualizar', 'NegocioController@actualizarDatos')->name('negocio.actualizar.datos');
 		Route::get('/crear/producto', 'NegocioController@crearProducto')->name('negocio.crear.producto');
 		Route::get('/modificar/producto/{id}', 'NegocioController@modificarProducto')->name('negocio.modificar.producto');

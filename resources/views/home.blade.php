@@ -28,10 +28,20 @@
                             <div class="col-md-10">
                                 <form class="form-wrap mt-4">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <select name="ciudad" class="btn-group1">
-                                            <option value="">Seleccione Una Ciudad</option>
+                                        <select name="ciudad" class="btn-group1" required>
+                                            
+                                            <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                                           
                                         </select>
-                                        <input type="text" placeholder="Distrito / Barrio" class="btn-group2">
+                                        <!--<input type="text" placeholder="Distrito / Barrio" class="btn-group2">-->
+                                        <select name="ciudad" class="btn-group2" required>
+                                            <option value="">Seleccione Una Región</option>
+                                            
+                                            @foreach($regiones as $region)
+                                            <option value="{{ $region }}">{{ $region }}</option>
+                                            @endforeach
+                                           
+                                        </select>
                                         <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>Buscar<i class="pe-7s-angle-right"></i></button>
                                     </div>
                                     <h6 class="text-white mt-3">Indicanos tu dirección</h6>
