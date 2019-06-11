@@ -18,10 +18,14 @@ Route::get('/nosotros', 'HomeController@nosotros')->name('nosotros');
 Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagina');
 Route::get('/tienda/{tienda}', 'HomeController@tienda')->name('tienda');
 Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
+Route::get('/marcar/favorito/{id}', 'UsuarioController@marcarFavorito')->name('marcar.favorito');
+Route::get('/negocios/{ciudad}/{region}', 'HomeController@buscarNegocios')->name('negocios.ciudad');
+Route::post('/buscar', 'HomeController@busquedaNegocios')->name('buscar.negocios.ciudad');
+Route::get('/tienda/{slug}/ordenar', 'UsuarioController@ordenar')->name('ordenar')->middleware('auth');
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::prefix('usuario')->group( function () {
+Route::prefix('usuario')->middleware('auth')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');
 		Route::get('/direcciones', 'UsuarioController@direcciones')->name('usuario.direcciones');
 		Route::post('/agregar/direccion', 'UsuarioController@agregarDireccion')->name('usuario.agregar.direccion');
@@ -30,7 +34,7 @@ Route::prefix('usuario')->group( function () {
 		Route::post('/datos/actualizar', 'UsuarioController@actualizarDatos')->name('usuario.actualizar.datos');
 	});
 
-Route::prefix('panel')->group( function () {
+Route::prefix('panel')->middleware('auth')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
@@ -43,7 +47,7 @@ Route::prefix('panel')->group( function () {
 		Route::post('/guardar/producto', 'NegocioController@guardarProducto')->name('negocio.guardar.producto');
 	});
 
-Route::prefix('admin')->group( function () {
+Route::prefix('admin')->middleware('auth')->group( function () {
 		Route::get('/configuraciones', 'AdminController@configuraciones')->name('admin.configuraciones');
 		Route::get('/seccion/{pag}', 'AdminController@seccion')->name('admin.editar.seccion');
 		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');

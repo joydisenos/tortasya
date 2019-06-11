@@ -21,6 +21,13 @@ class Producto extends Model
     	return $this->belongsTo(User::class , 'user_id');
     }
 
+    public function sabores()
+    {
+        $sabores = explode(',', $this->sabores);
+        
+        return $sabores;
+    }
+
     public function estatusProducto($int)
     {
         switch ($int) {

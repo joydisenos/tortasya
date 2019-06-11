@@ -26,7 +26,8 @@
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
-                                <form class="form-wrap mt-4">
+                                <form class="form-wrap mt-4" method="post" action="{{ route('buscar.negocios.ciudad') }}">
+                                    @csrf
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <select name="ciudad" class="btn-group1" required>
                                             
@@ -34,7 +35,7 @@
                                            
                                         </select>
                                         <!--<input type="text" placeholder="Distrito / Barrio" class="btn-group2">-->
-                                        <select name="ciudad" class="btn-group2" required>
+                                        <select name="region" class="btn-group2" required>
                                             <option value="">Seleccione Una Región</option>
                                             
                                             @foreach($regiones as $region)
@@ -79,12 +80,12 @@
                         <a href="{{ route('tienda' , [$tienda->slug]) }}">
                             
                             <div class="imagen-tienda" style="background-image:url('{{ $tienda->negocio != null && $tienda->negocio->foto_local != null ? asset('storage/archivos/' . $tienda->id . '/' . $tienda->negocio->foto_local) : asset('images/cake.jpg')}}')"></div>
-                            <span class="featured-rating-orange">6.5</span>
+                            <span class="featured-rating-orange">{{ rand(0 , 10) }}</span>
                             <div class="featured-title-box">
                                 <h6>{{ title_case($tienda->nombre_negocio) }}</h6>
-                                <p>Restaurant </p> <span>• </span>
-                                <p>3 Reviews</p> <span> • </span>
-                                <p><span>$$$</span>$$</p>
+                                <!--<p>Restaurant </p> <span>• </span>
+                                <p> Comentarios</p> <span> • </span>-->
+                                <!--<p><span>$$$</span>$$</p>-->
                                 <ul>
                                     <li><span class="icon-location-pin"></span>
                                         <p>{{ $tienda->direccion }}</p>
@@ -95,8 +96,21 @@
 
                                 </ul>
                                 <div class="bottom-icons">
-                                    <div class="open-now">Abierto</div>
-                                    <span class="ti-heart"></span>
+
+                                    <div class="{{ $tienda->horarioDisponible() == 'Abierto'? 'open' : 'closed'}}-now">{{ $tienda->horarioDisponible() }}</div>
+                                    @guest
+                                    @else
+                                        @if( Auth::user()->favoritos->where('negocio_id' , $tienda->id)->count() > 0 )
+
+                                        <a href="{{ route('marcar.favorito' , $tienda->id) }}">
+                                            <span class="fa fa-heart text-danger"></span>
+                                        </a>
+                                        @else
+                                        <a href="{{ route('marcar.favorito' , $tienda->id) }}">
+                                            <span class="ti-heart"></span>
+                                        </a>
+                                        @endif
+                                    @endguest
                                    
                                 </div>
                             </div>

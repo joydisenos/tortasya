@@ -87,16 +87,27 @@
 
 				<div class="row mb-4 d-flex align-items-stretch">
 					@foreach($destacados as $destacado)
-					<div class="col-md-4">
+					<div class="col-md-4 mb-4">
 						<div class="card" style="height: 100%;">
 						  <div class="fotos" style="background: url('{{ asset('storage/archivos/' . $tienda->id . '/' . $destacado->foto) }}') center center; background-size: cover;"></div>
 						  <div class="card-body">
 						    <h6>{{ title_case($destacado->nombre) }}</h6>
 							<p>{{ $destacado->descripcion }}</p>
+							<form action="{{ route('agregar.carrito' , $destacado->id) }}" method="get">
+								@csrf
+							@if($destacado->sabores != null)
+								<select name="sabor" class="form-control mb-4">
+									@foreach($destacado->sabores() as $sabor)
+										<option value="{{ $sabor }}">{{ $sabor }}</option>
+									@endforeach
+								</select>
+							@endif
 							<h6>${{ number_format($destacado->precio) }}</h6>
-								<a class="btn btn-danger rounded-circle btn-small floating" href="{{ route('agregar.carrito' , $destacado->id) }}">
+							
+								<button type="submit" class="btn btn-danger rounded-circle btn-small floating">
 									<i class="fa fa-plus"></i>
-								</a>
+								</button>
+							</form>
 						  </div>
 						</div>
 					</div>
@@ -116,18 +127,35 @@
 
 						
 							<div class="col-md-6 mb-4">
+									<form action="{{ route('agregar.carrito' , $destacado->id) }}" method="get">
 								<div class="row">
+										@csrf
 									<div class="col">
 										<h6>{{ title_case($producto->nombre) }}</h6>
 										<p>{{ $producto->descripcion }}</p>
+										
+										
+												
+													@if($producto->sabores != null)
+														<select name="sabor" class="form-control mb-4">
+															@foreach($producto->sabores() as $sabor)
+																<option value="{{ $sabor }}">{{ $sabor }}</option>
+															@endforeach
+														</select>
+													@endif
 										<h6>${{ number_format($producto->precio) }}</h6>
+												
+										
+										
 									</div>
+
 									<div class="col-3">
-										<a class="btn btn-danger rounded-circle btn-small" href="{{ route('agregar.carrito' , $producto->id) }}">
+										<button class="btn btn-danger rounded-circle btn-small">
 											<i class="fa fa-plus"></i>
-										</a>
+										</button>
 									</div>
 								</div>
+								</form>
 							</div>
 						
 
@@ -148,7 +176,7 @@
 				<div class="col-4 pt-4 pb-4 mt-4 mb-4 d-none d-lg-block">
 					<div class="row">
 						<div class="col text-center border p-4">
-							<h6 class="mb-4">Mi Pedido{{ Cart::count() > 0 ? ' '.Cart::count() : ''}}</h6>
+							<h6 class="mb-4">Mi Pedido <span class="badge badge-danger">{{ Cart::count() > 0 ? ' '.Cart::count() : ''}}</span></h6>
 									@if(Cart::count() == 0)
 								<div class="contenedor-carrito mx-auto">
 									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
@@ -161,19 +189,25 @@
 										<div class="col"><strong>Precio</strong></div>
 									</div>
 									<hr>
-									@foreach(Cart::content() as $carro)
+									@foreach($carrito as $carro)
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
-										<div class="col">{{ $carro->name }}</div>
+										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
 										<div class="col">${{ number_format($carro->price) }}</div>
 									</div>
 									<hr>
 									@endforeach
 
-									<div class="row text-left">
+									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
 										<div class="col"><strong>${{ Cart::subtotal(0, ',', '.') }}</strong></div>
+									</div>
+
+									<div class="row">
+										<div class="col text-center">
+											<a href="{{ route('ordenar' , [$tienda->slug]) }}" class="btn btn-danger">Ordenar</a>
+										</div>
 									</div>
 
 									@endif

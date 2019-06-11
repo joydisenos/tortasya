@@ -6,15 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Gloudemans\Shoppingcart\CartItem;
 use App\User;
 use App\Producto;
 use App\Direccion;
+use App\Favorito;
 
 class UsuarioController extends Controller
 {
     public function favoritos()
     {
-    	return view('user.favoritos');
+        $favoritos = Auth::user()->favoritos;
+
+    	return view('user.favoritos' , compact('favoritos'));
     }
 
     public function direcciones()
@@ -32,11 +36,30 @@ class UsuarioController extends Controller
     	return view('user.pedidos');
     }
 
-    public function agregarCarrito($id)
+    public function ordenar($slug)
+    {
+        $tienda = User::where('slug' , $slug)->first();
+        $productos = $tienda->productos;
+        $productosId = [];
+        foreach ($productos as $key => $producto) {
+            $productosId[$key] = $producto->id;
+        }
+
+        $carrito = Cart::content()->whereIn('id' , $productosId);
+
+        return view('ordenar' , compact('carrito'));
+    }
+
+    public function agregarCarrito($id ,Request $request)
     {
         $producto = Producto::findOrFail($id);
 
-        $cart = Cart::add($id, $producto->nombre, 1, $producto->precio);
+        if($request->has('sabor'))
+        {
+            $cart = Cart::add($id, $producto->nombre, 1, $producto->precio , 0 ,['sabor' => $request->sabor]);
+        }else{
+            $cart = Cart::add($id, $producto->nombre, 1, $producto->precio);
+        }
 
         return redirect()->back()->with('status' , 'Producto agregado');
     }
@@ -54,8 +77,10 @@ class UsuarioController extends Controller
         'password' => 'required|min:6|confirmed|string',
         ]);
 
-        $datos = $request->except(['password_confirmation' , 'password']);
+        $datos = $request->except(['password_confirmation' , 'password' , 'ciudad' , 'region']);
         $datos['password'] = Hash::make($request->password);
+        $datos['ciudad'] = str_slug($request->ciudad);
+        $datos['region'] = str_slug($request->region);
 
         $user = User::create($datos);
         $user->assignRole('negocio');
@@ -114,5 +139,29 @@ class UsuarioController extends Controller
     public function sugerir(Request $request)
     {
         return redirect('/');
+    }
+
+    public function marcarFavorito($id)
+    {
+        $favorito = Favorito::where('user_id' ,  Auth::user()->id)
+                                ->where('negocio_id' , $id)
+                                ->first();
+
+        if($favorito == null)
+        {
+            Favorito::create([
+            "user_id" => Auth::user()->id,
+            "negocio_id" => $id
+            ]);
+
+            $mensaje = 'Agregado a Favorito';
+        }else{
+            $favorito->delete();
+
+            $mensaje = 'Favorito eliminado';
+        }
+        
+
+        return redirect()->back()->with('status' , $mensaje);
     }
 }
