@@ -53,6 +53,12 @@ class User extends Authenticatable
         return $this->hasMany(Producto::class , 'user_id');
     }
 
+    public function productosDisponibles()
+    {
+        return $this->hasMany(Producto::class , 'user_id')
+                    ->where('estatus' , 1);
+    }
+
     public function favoritos()
     {
         return $this->hasMany(Favorito::class , 'user_id');
@@ -77,7 +83,7 @@ class User extends Authenticatable
 
     public function comentarios()
     {
-        $this->hasMany(Comentario::class , 'negocio_id');
+        return $this->hasMany(Comentario::class , 'negocio_id');
     }
 
     public function horarioDisponible()
@@ -102,5 +108,15 @@ class User extends Authenticatable
         }
 
         return $estatus;
+    }
+
+    public function pedidos()
+    {
+        return $this->hasMany(Orden::class , 'user_id')->orderBy('id' , 'desc');
+    }
+
+    public function ventas()
+    {
+        return $this->hasMany(Orden::class , 'negocio_id')->orderBy('id' , 'desc');
     }
 }

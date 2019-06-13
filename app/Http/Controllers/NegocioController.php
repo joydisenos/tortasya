@@ -219,6 +219,17 @@ class NegocioController extends Controller
 
     public function ventas()
     {
-        return view('negocio.ventas');
+        $ventas = Auth::user()->ventas;
+
+        return view('negocio.ventas' , compact('ventas'));
+    }
+
+    public function estatusProducto($id , $estatus)
+    {
+        $producto = Producto::findOrFail($id);
+        $producto->estatus = $estatus;
+        $producto->save();
+
+        return redirect()->back()->with('status' , 'Estatus actualizado');
     }
 }

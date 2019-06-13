@@ -11,6 +11,8 @@ use App\User;
 use App\Producto;
 use App\Direccion;
 use App\Favorito;
+use App\Orden;
+use App\Compra;
 
 class UsuarioController extends Controller
 {
@@ -33,7 +35,65 @@ class UsuarioController extends Controller
 
     public function pedidos()
     {
-    	return view('user.pedidos');
+        $pedidos = Auth::user()->pedidos;
+
+    	return view('user.pedidos' , compact('pedidos'));
+    }
+
+    public function pago($slug , Request $request)
+    {
+        $tienda = User::where('slug' , $slug)->first();
+        $productos = $tienda->productos;
+        $productosId = [];
+        foreach ($productos as $key => $producto) {
+            $productosId[$key] = $producto->id;
+        }
+
+        $carrito = Cart::content()->whereIn('id' , $productosId);
+
+        $ordenRequest = $request->all();
+        $ordenRequest['user_id'] = Auth::user()->id;
+        $ordenRequest['negocio_id'] = $tienda->id;
+
+        $total = 0;
+
+        foreach ($carrito as $key => $producto){
+            $total += $producto->price * $producto->qty;
+        }
+
+        if($tienda->negocio->costo_fijo == 1 && $tienda->negocio->costo_envio > 0 && $request->envio == 'Delivery')
+        {
+            $ordenRequest['total'] = $total + $tienda->negocio->costo_envio;
+        }else{
+            $ordenRequest['total'] = $total;
+        }
+
+        $orden = Orden::create($ordenRequest);
+
+
+        foreach ($carrito as $key => $producto) {
+
+            $productoRequest['user_id'] = Auth::user()->id;
+            $productoRequest['orden_id'] = $orden->id;
+            $productoRequest['producto_id'] = $producto->id;
+            $productoRequest['cantidad'] = $producto->qty;
+
+            if ($producto->options->count() > 0)
+            {
+                $productoRequest['opciones'] = [];
+
+                foreach ($producto->options as $key => $opcion) {
+                    $productoRequest['opciones'][$key] = $opcion;
+                }
+
+                $productoRequest['opciones'] = json_encode($productoRequest['opciones']);
+            }
+
+            $compra = Compra::create($productoRequest);
+        }
+
+        return redirect()->route('usuario.pedidos')->with('status' , 'Compra registrada');
+
     }
 
     public function ordenar($slug)
@@ -46,8 +106,9 @@ class UsuarioController extends Controller
         }
 
         $carrito = Cart::content()->whereIn('id' , $productosId);
+        $total = 0;
 
-        return view('ordenar' , compact('carrito'));
+        return view('ordenar' , compact('carrito' , 'slug' , 'tienda' , 'total'));
     }
 
     public function agregarCarrito($id ,Request $request)

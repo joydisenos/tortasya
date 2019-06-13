@@ -22,6 +22,7 @@ Route::get('/marcar/favorito/{id}', 'UsuarioController@marcarFavorito')->name('m
 Route::get('/negocios/{ciudad}/{region}', 'HomeController@buscarNegocios')->name('negocios.ciudad');
 Route::post('/buscar', 'HomeController@busquedaNegocios')->name('buscar.negocios.ciudad');
 Route::get('/tienda/{slug}/ordenar', 'UsuarioController@ordenar')->name('ordenar')->middleware('auth');
+Route::post('/tienda/{slug}/pago', 'UsuarioController@pago')->name('pago')->middleware('auth');
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -45,6 +46,7 @@ Route::prefix('panel')->middleware('auth')->group( function () {
 		Route::get('/modificar/producto/{id}', 'NegocioController@modificarProducto')->name('negocio.modificar.producto');
 		Route::post('/actualizar/producto/{id}', 'NegocioController@actualizarProducto')->name('negocio.actualizar.producto');
 		Route::post('/guardar/producto', 'NegocioController@guardarProducto')->name('negocio.guardar.producto');
+		Route::get('/estatus/producto/{id}/{estatus}', 'NegocioController@estatusProducto')->name('negocio.estatus.producto');
 	});
 
 Route::prefix('admin')->middleware('auth')->group( function () {

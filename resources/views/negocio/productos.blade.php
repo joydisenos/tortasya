@@ -31,6 +31,7 @@
 									<th>Ventas</th>
 									<th>Estatus</th>
 									<th></th>
+									<th></th>
 								</thead>
 								<tbody>
 									@foreach($productos as $producto)
@@ -47,6 +48,13 @@
 										<td>{{ number_format($producto->precio) }}</td>
 										<td></td>
 										<td>{{ $producto->estatusProducto($producto->estatus) }}</td>
+										<td>
+											@if($producto->estatus == 1)
+											<a href="{{ route('negocio.estatus.producto' , [$producto->id , 0]) }}" class="btn btn-danger">Desactivar</a>
+											@else
+											<a href="{{ route('negocio.estatus.producto' , [$producto->id , 1]) }}" class="btn btn-success">Activar</a>
+											@endif
+										</td>
 										<td>
 											<a href="{{ route('negocio.modificar.producto' , [$producto->id]) }}">modificar</a>
 										</td>

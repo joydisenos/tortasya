@@ -177,7 +177,7 @@
 					<div class="row">
 						<div class="col text-center border p-4">
 							<h6 class="mb-4">Mi Pedido <span class="badge badge-danger">{{ Cart::count() > 0 ? ' '.Cart::count() : ''}}</span></h6>
-									@if(Cart::count() == 0)
+									@if($carrito->count() == 0)
 								<div class="contenedor-carrito mx-auto">
 									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
 								</div>
@@ -189,11 +189,12 @@
 										<div class="col"><strong>Precio</strong></div>
 									</div>
 									<hr>
+
 									@foreach($carrito as $carro)
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($carro->price) }}</div>
+										<div class="col">${{ $total += $carro->price * $carro->qty }}</div>
 									</div>
 									<hr>
 									@endforeach
@@ -201,7 +202,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
-										<div class="col"><strong>${{ Cart::subtotal(0, ',', '.') }}</strong></div>
+										<div class="col"><strong>${{ $total }}</strong></div>
 									</div>
 
 									<div class="row">
