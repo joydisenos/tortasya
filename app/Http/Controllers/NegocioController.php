@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Producto;
 use App\Negocio;
+use App\Orden;
 
 class NegocioController extends Controller
 {
@@ -227,6 +228,15 @@ class NegocioController extends Controller
     public function estatusProducto($id , $estatus)
     {
         $producto = Producto::findOrFail($id);
+        $producto->estatus = $estatus;
+        $producto->save();
+
+        return redirect()->back()->with('status' , 'Estatus actualizado');
+    }
+
+    public function estatusOrden($id , $estatus)
+    {
+        $producto = Orden::findOrFail($id);
         $producto->estatus = $estatus;
         $producto->save();
 

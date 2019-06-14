@@ -13,6 +13,7 @@ use App\Direccion;
 use App\Favorito;
 use App\Orden;
 use App\Compra;
+use App\Comentario;
 
 class UsuarioController extends Controller
 {
@@ -224,5 +225,26 @@ class UsuarioController extends Controller
         
 
         return redirect()->back()->with('status' , $mensaje);
+    }
+
+    public function comentar(Request $request)
+    {
+        $validatedData = $request->validate([
+        'comentario' => 'required',
+        'puntos' => 'required'
+        ]);
+
+        $orden = Orden::findOrFail($request->orden_id);
+        $orden->estatus = 3;
+        $orden->save();
+
+        $data['comentario'] = $request->comentario;
+        $data['puntos'] = $request->puntos;
+        $data['user_id'] = $request->user_id;
+        $data['negocio_id'] = $orden->negocio->id;
+
+        $comentario = Comentario::create($data);
+
+        return redirect()->back()->with('status' , 'Comentario publicado');
     }
 }

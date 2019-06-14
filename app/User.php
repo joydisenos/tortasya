@@ -86,6 +86,12 @@ class User extends Authenticatable
         return $this->hasMany(Comentario::class , 'negocio_id');
     }
 
+    public function puntaje($negocio)
+    {
+        return Comentario::where('negocio_id' , $negocio)
+                    ->avg('puntos');
+    }
+
     public function horarioDisponible()
     {
         $horario = json_decode($this->negocio->horario);

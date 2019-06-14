@@ -19,6 +19,7 @@
 						<th>Envío</th>
 						<th>Pago</th>
 						<th>Estatus</th>
+						<th>Marcar</th>
 					</thead>
 					<tbody>
 						@foreach($ventas as $venta)
@@ -29,6 +30,12 @@
 							<td>{{ $venta->envio }}</td>
 							<td>{{ $venta->pago }}</td>
 							<td>{{ $venta->verEstatus($venta->estatus) }}</td>
+							<td>
+								@if($venta->estatus == 1)
+								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
+								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+								@endif
+							</td>
 						</tr>
 						@endforeach
 					</tbody>

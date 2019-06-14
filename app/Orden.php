@@ -34,6 +34,11 @@ class Orden extends Model
     public function verEstatus($estatus)
     {
     	switch ($estatus) {
+
+            case 0:
+                $respuesta = 'Rechazado';
+                break;
+
     		case 1:
     			$respuesta = 'Pendiente';
     			break;
@@ -41,6 +46,10 @@ class Orden extends Model
     		case 2:
     			$respuesta = 'Enviado';
     			break;
+
+            case 3:
+                $respuesta = 'Comentado';
+                break;
     		
     		default:
     			$respuesta = 'Por Revision';

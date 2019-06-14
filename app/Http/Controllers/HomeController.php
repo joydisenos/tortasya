@@ -60,6 +60,7 @@ class HomeController extends Controller
         $tienda = User::where('slug' , $slug)->first();
         $productos = $tienda->productosDisponibles;
         $destacados = $tienda->productos->where('foto' , '!=' , null)->where('estatus' , 1);
+        $horario = json_decode($tienda->negocio->horario);
 
         $productosId = [];
         foreach ($productos as $key => $producto) {
@@ -69,6 +70,6 @@ class HomeController extends Controller
         $carrito = Cart::content()->whereIn('id' , $productosId);
         $total = 0;
 
-        return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total'));
+        return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total' , 'horario'));
     }
 }

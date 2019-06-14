@@ -52,7 +52,7 @@
 	@endslot
     @slot('titulo' , title_case($tienda->nombre_negocio))
     @slot('puntos')
-    	<small><i class="fa fa-star text-warning"></i> 8.5</small> 
+    	<small><i class="fa fa-star text-warning"></i> {{ number_format($tienda->puntaje($tienda->id) , 1) }}</small> 
     @endslot
 @endcomponent
 
@@ -67,10 +67,10 @@
 					    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#menu" role="tab" aria-controls="pills-home" aria-selected="true">Menu</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Información</a>
+					    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#informacion" role="tab" aria-controls="pills-profile" aria-selected="false">Información</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Comentarios</a>
+					    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#comentarios" role="tab" aria-controls="pills-contact" aria-selected="false">Comentarios</a>
 					  </li>
 					</ul>
 				</div>
@@ -78,12 +78,15 @@
 
 			<div class="tab-content" id="pills-tabContent">
 				<div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="pills-home-tab">
-				  	<div class="row">
+				
+				@if($destacados->count() > 0)
+				<div class="row">
 					<div class="col">
 						<h4><i class="fa fa-star text-warning"></i> Recomendados</h4>
 						<hr>
 					</div>
 				</div>
+				@endif
 
 				<div class="row mb-4 d-flex align-items-stretch">
 					@foreach($destacados as $destacado)
@@ -114,12 +117,14 @@
 					@endforeach
 				</div>
 
+					@if($productos->count() > 0)
 					<div class="row">
 						<div class="col">
 							<h4>Productos</h4>
 							<hr>
 						</div>
 					</div>
+					@endif
 
 					<div class="row mb-4">
 
@@ -163,10 +168,111 @@
 
 					</div>
 					  </div>
-					  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-					  	<p>{{ $tienda->negocio != null ? $tienda->negocio->descripcion : '' }}</p>
+					  <div class="tab-pane fade" id="informacion" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+					  	<div class="row mb-4">
+					  		<div class="col">
+					  			<p>{{ $tienda->negocio != null ? $tienda->negocio->descripcion : '' }}</p>
+					  		</div>
+					  	</div>
+
+					  	<div class="row mb-4">
+					  		<div class="col">
+					  			<h5>Horario</h5>
+					  		</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Lunes</div>
+					  		<div class="col">{{ $horario->Mon[0] == null ? 'Cerrado' : $horario->Mon[0] }}</div>
+					  		<div class="col">{{ $horario->Mon[1] == null ? 'Cerrado' : $horario->Mon[1] }}</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Martes</div>
+					  		<div class="col">{{ $horario->Tue[0] == null ? 'Cerrado' : $horario->Tue[0] }}</div>
+					  		<div class="col">{{ $horario->Tue[1] == null ? 'Cerrado' : $horario->Tue[1] }}</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Miercoles</div>
+					  		<div class="col">{{ $horario->Wed[0] == null ? 'Cerrado' : $horario->Wed[0] }}</div>
+					  		<div class="col">{{ $horario->Wed[1] == null ? 'Cerrado' : $horario->Wed[1] }}</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Jueves</div>
+					  		<div class="col">{{ $horario->Thu[0] == null ? 'Cerrado' : $horario->Thu[0] }}</div>
+					  		<div class="col">{{ $horario->Thu[1] == null ? 'Cerrado' : $horario->Thu[1] }}</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Viernes</div>
+					  		<div class="col">{{ $horario->Fri[0] == null ? 'Cerrado' : $horario->Fri[0] }}</div>
+					  		<div class="col">{{ $horario->Fri[1] == null ? 'Cerrado' : $horario->Fri[1] }}</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Sábado</div>
+					  		<div class="col">{{ $horario->Sat[0] == null ? 'Cerrado' : $horario->Sat[0] }}</div>
+					  		<div class="col">{{ $horario->Sat[1] == null ? 'Cerrado' : $horario->Sat[1] }}</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col">Domingo</div>
+					  		<div class="col">{{ $horario->Sun[0] == null ? 'Cerrado' : $horario->Sun[0] }}</div>
+					  		<div class="col">{{ $horario->Sun[1] == null ? 'Cerrado' : $horario->Sun[1] }}</div>
+					  	</div>
 					  </div>
-					  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+					  <div class="tab-pane fade" id="comentarios" role="tabpanel" aria-labelledby="pills-contact-tab">
+					  	@if($tienda->comentarios->count() == 0)
+					  		<div class="row">
+					  			<div class="col">
+					  				<h5>Este negocio aún no tiene comentarios</h5>
+					  			</div>
+					  		</div>
+					  	@endif
+
+					  	@foreach($tienda->comentarios as $comentario)
+					  		<div class="row mb-4">
+					  			<div class="col-2">
+					  				<img src="{{ $comentario->user->foto_perfil == null ? asset('images/perfil.png') : asset('storage/archivos/' . $comentario->user->id . '/' . $comentario->user->foto_perfil) }}" alt="" class="img-fluid rounded-circle">
+					  			</div>
+					  			<div class="col-8 d-flex align-items-center">
+					  				<p>"{{ $comentario->comentario }}"</p>
+					  			</div>
+					  			<div class="col-2 d-flex align-items-center">
+					  				@if($comentario->puntos == 1)
+					  				<i class="fa fa-star text-warning"></i>
+					  				@elseif($comentario->puntos == 2)
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				@elseif($comentario->puntos == 3)
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				@elseif($comentario->puntos == 4)
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				@elseif($comentario->puntos == 5)
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				<i class="fa fa-star text-warning"></i>
+					  				@endif
+					  			</div>
+
+					  			<div class="col-12 text-center">
+					  				<p>{{ title_case($comentario->user->nombre) }}</p>
+					  			</div>
+					  		</div>
+
+					  		<hr>
+					  	@endforeach
+					  </div>
 			</div>
 
 					

@@ -33,6 +33,7 @@ Route::prefix('usuario')->middleware('auth')->group( function () {
 		Route::get('/datos', 'UsuarioController@datos')->name('usuario.datos');
 		Route::get('/pedidos', 'UsuarioController@pedidos')->name('usuario.pedidos');
 		Route::post('/datos/actualizar', 'UsuarioController@actualizarDatos')->name('usuario.actualizar.datos');
+		Route::post('/comentar', 'UsuarioController@comentar')->name('usuario.comentar');
 	});
 
 Route::prefix('panel')->middleware('auth')->group( function () {
@@ -47,6 +48,7 @@ Route::prefix('panel')->middleware('auth')->group( function () {
 		Route::post('/actualizar/producto/{id}', 'NegocioController@actualizarProducto')->name('negocio.actualizar.producto');
 		Route::post('/guardar/producto', 'NegocioController@guardarProducto')->name('negocio.guardar.producto');
 		Route::get('/estatus/producto/{id}/{estatus}', 'NegocioController@estatusProducto')->name('negocio.estatus.producto');
+		Route::get('/estatus/orden/{id}/{estatus}', 'NegocioController@estatusOrden')->name('negocio.estatus.orden');
 	});
 
 Route::prefix('admin')->middleware('auth')->group( function () {

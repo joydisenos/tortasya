@@ -35,7 +35,7 @@
                         <a href="{{ route('tienda' , [$favorito->tienda->slug]) }}">
                             
                             <div class="imagen-tienda" style="background-image:url('{{ $favorito->tienda->negocio != null && $favorito->tienda->negocio->foto_local != null ? asset('storage/archivos/' . $favorito->tienda->id . '/' . $favorito->tienda->negocio->foto_local) : asset('images/cake.jpg')}}')"></div>
-                            <span class="featured-rating-orange">{{ rand(0 , 10) }}</span>
+                            <span class="featured-rating-orange">{{ number_format($favorito->tienda->puntaje($favorito->tienda->id) , 1) }}</span>
                             <div class="featured-title-box">
                                 <h6>{{ title_case($favorito->tienda->nombre_negocio) }}</h6>
                                 <!--<p>Restaurant </p> <span>• </span>
