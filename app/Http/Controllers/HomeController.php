@@ -8,6 +8,7 @@ use Gloudemans\Shoppingcart\CartItem;
 use App\Legal;
 use App\User;
 use App\Region;
+use App\Comentario;
 
 class HomeController extends Controller
 {
@@ -19,9 +20,12 @@ class HomeController extends Controller
         $refRegiones = new Region();
         $regiones = $refRegiones->regiones();
         $regiones = $regiones['Metropolitana de Santiago'];
+        $logoRestaurant = $user->whereHas('negocio' , function ($query) {
+            $query->where('logo_local', '!=', 'null');
+        })->take(6)->get();
+        $comentarios = Comentario::take(6)->get();
 
-
-        return view('home' , compact('tiendas' , 'regiones'));
+        return view('home' , compact('tiendas' , 'regiones' ,'logoRestaurant' ,'comentarios'));
     }
 
     public function buscarNegocios($ciudad , $region)

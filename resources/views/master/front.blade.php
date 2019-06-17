@@ -67,8 +67,10 @@
                                 <ul class="navbar-nav">
                                     
                                     
-                                    
-                                    <li class="nav-item active">
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-light top-btn" href="#" data-toggle="modal" data-target="#registro-modal"><i class="fa fa-rocket mr-2"></i> Sugiere Negocios</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#">Contacto</a>
                                     </li>
                                     <li class="nav-item">

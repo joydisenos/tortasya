@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email', 
         'telefono', 
         'nombre_negocio', 
+        'slug', 
         'direccion', 
         'ciudad', 
         'region', 
@@ -94,6 +95,8 @@ class User extends Authenticatable
 
     public function horarioDisponible()
     {
+        if($this->negocio->horario != null)
+        {
         $horario = json_decode($this->negocio->horario);
        
         foreach ($horario as $key => $horas) {
@@ -114,6 +117,9 @@ class User extends Authenticatable
         }
 
         return $estatus;
+        }else{
+            return "Cerrado";
+        }
     }
 
     public function pedidos()

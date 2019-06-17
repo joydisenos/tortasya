@@ -18,8 +18,8 @@ class CreateOrdensTable extends Migration
             $table->integer('user_id');
             $table->integer('negocio_id');
             $table->integer('direccion_id')->nullable();
-            $table->string('envio');
-            $table->string('pago');
+            $table->string('envio')->default('No Definido');
+            $table->string('pago')->default('No Definido');
             $table->float('total')->default(0);
             $table->string('estatus')->default(1);
             $table->timestamps();

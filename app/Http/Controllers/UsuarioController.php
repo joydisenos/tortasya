@@ -143,6 +143,7 @@ class UsuarioController extends Controller
         $datos['password'] = Hash::make($request->password);
         $datos['ciudad'] = str_slug($request->ciudad);
         $datos['region'] = str_slug($request->region);
+        $datos['slug'] = str_slug($request->nombre_negocio);
 
         $user = User::create($datos);
         $user->assignRole('negocio');

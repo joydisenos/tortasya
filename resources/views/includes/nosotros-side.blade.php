@@ -1,9 +1,13 @@
 <div class="col-md-3 pt-4 pb-4 mt-4 mb-4">
-
+	
+	@guest
+	@else
 	<div class="text-center">
 		<img src="{{ asset('images/perfil.png') }}" style="max-width: 100px;" class="img-fluid rounded-circle" alt="">
 		<h6 class="m-3">{{ title_case(Auth::user()->nombre) }}</h6>
 	</div>
+	@endguest
+	
 	<ul class="list-group list-group-flush">
 
 		

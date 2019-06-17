@@ -175,7 +175,8 @@
 					  			<p>{{ $tienda->negocio != null ? $tienda->negocio->descripcion : '' }}</p>
 					  		</div>
 					  	</div>
-
+						
+						@if($horario != null)
 					  	<div class="row mb-4">
 					  		<div class="col">
 					  			<h5>Horario</h5>
@@ -223,6 +224,8 @@
 					  		<div class="col">{{ $horario->Sun[0] == null ? 'Cerrado' : $horario->Sun[0] }}</div>
 					  		<div class="col">{{ $horario->Sun[1] == null ? 'Cerrado' : $horario->Sun[1] }}</div>
 					  	</div>
+					  	@endif
+
 					  </div>
 					  <div class="tab-pane fade" id="comentarios" role="tabpanel" aria-labelledby="pills-contact-tab">
 					  	@if($tienda->comentarios->count() == 0)
@@ -266,7 +269,7 @@
 					  			</div>
 
 					  			<div class="col-12 text-center">
-					  				<p>{{ title_case($comentario->user->nombre) }}</p>
+					  				<p>{{ title_case($comentario->user->nombre) }} {{ title_case($comentario->user->apellido) }}</p>
 					  			</div>
 					  		</div>
 
@@ -282,7 +285,7 @@
 				<div class="col-4 pt-4 pb-4 mt-4 mb-4 d-none d-lg-block">
 					<div class="row">
 						<div class="col text-center border p-4">
-							<h6 class="mb-4">Mi Pedido <span class="badge badge-danger">{{ Cart::count() > 0 ? ' '.Cart::count() : ''}}</span></h6>
+							<h6 class="mb-4">Mi Pedido <span class="badge badge-danger">{{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</span></h6>
 									@if($carrito->count() == 0)
 								<div class="contenedor-carrito mx-auto">
 									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
