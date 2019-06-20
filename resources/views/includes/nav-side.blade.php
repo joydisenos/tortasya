@@ -27,13 +27,13 @@
 		@role('negocio|dev')
 		<a href="{{ route('negocio.productos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.productos')) ? 'active' : ''}}">
-			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Productos
+			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Mis Productos
 			</li>
 		</a>
 
 		<a href="{{ route('negocio.ventas') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.ventas')) ? 'active' : ''}}">
-			  	<i class="fa fa-money mr-3" aria-hidden="true"></i> Ventas
+			  	<i class="fa fa-money mr-3" aria-hidden="true"></i> Mis Ventas
 			</li>
 		</a>
 
@@ -41,7 +41,7 @@
 
 		<a href="{{ route('negocio.datos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.datos')) ? 'active' : ''}}">
-			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mi Perfil
 			</li>
 		</a>
 
@@ -63,12 +63,12 @@
 		</a>
 		<a href="{{ route('usuario.datos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.datos')) ? 'active' : ''}}">
-			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mi Perfil
 			</li>
 		</a>
 		<a href="{{ route('usuario.pedidos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.pedidos')) ? 'active' : ''}}">
-			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Pedidos
+			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Mis Pedidos
 			</li>
 		</a>
 		@endrole

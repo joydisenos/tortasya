@@ -2,7 +2,7 @@
 @section('content')
 
 @component('components.header')
-    @slot('titulo' , 'Mis Datos')
+    @slot('titulo' , 'Mi Perfil')
 @endcomponent
 
 <div class="container">
@@ -36,9 +36,9 @@
 					</div>
 
 					<div class="row mb-4 justify-content-end">
-						<div class="col-md-8">
+						<div class="col-md-8 text-center">
 								<p>Deseas destacar tu negocio por 30 días?
-								Tu negocio aparecerá en las primeras posiciones de tu localidad! Destacar por $90</p>
+								Tu negocio aparecerá en las primeras posiciones de tu localidad! Destacar por $4.990</p>
 							<a mp-mode="dftl" href="https://www.mercadopago.com/mlc/checkout/pay?pref_id=443525800-b6353ec8-a8e6-400b-84d3-887edb039b09" name="MP-payButton" class='blue-ar-l-rn-none'>Destacar</a>
 							<script type="text/javascript">
 							(function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();

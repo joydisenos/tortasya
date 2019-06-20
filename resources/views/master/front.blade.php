@@ -33,6 +33,19 @@
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
 
     <style>
+        .list-group-item{
+            font-size: 12px;
+        }
+        .foot-menu{
+            font-size: 12px;
+        }
+        .app{
+            min-height: 200px;
+        }
+        .principal{
+            overflow: hidden;
+            width: 100%;
+        }
         @media (max-width: 992px){
                 .navbar-collapse{
                     background-color:rgba(0,0,0,0.6);
@@ -89,14 +102,14 @@
                                             @else
 
                                             @role('negocio|dev')
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.productos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Productos</a>
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.ventas') }}"><i class="fa fa-money mr-3" aria-hidden="true"></i> Ventas</a>
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.productos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Mis Productos</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.ventas') }}"><i class="fa fa-money mr-3" aria-hidden="true"></i> Mis Ventas</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mi Perfil</a>
                                             @else
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.favoritos') }}"><i class="fa fa-heart mr-3" aria-hidden="true"></i> Favoritos</a>
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.direcciones') }}"><i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Direcciones</a>
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Perfil</a>
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.pedidos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Pedidos</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mi Perfil</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.pedidos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Mis Pedidos</a>
                                             @endrole
                                             
                                             @endrole
@@ -116,14 +129,94 @@
             </div>
         </div>
     </div>
+
+        
     @yield('content')
+
     <!--============================= FOOTER =============================-->
-    <footer class="main-block dark-bg">
+    <footer class="main-block background-primary">
         <div class="container">
+            
+
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="list-unstyled foot-menu">
+                        <a href="{{ route('nosotros') }}">
+                            <li class="text-white mb-2">
+                                Nosotros
+                            </li>
+                        </a>
+
+                        <a href="{{ route('nosotros.pagina' , 'beneficios-para-los-consumidores') }}">
+                            <li class="text-white mb-2">
+                                Beneficios para los Consumidores
+                            </li>
+                        </a>
+
+                        <a href="{{ route('nosotros.pagina' , 'preguntas-frecuentes') }}">
+                            <li class="text-white mb-2">
+                                Preguntas Frecuentes
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <ul class="list-unstyled foot-menu">
+
+                        
+                        <a href="#" data-toggle="modal" data-target="#registro-modal">
+                            <li class="text-white mb-2">
+                                Sugiere Negocios
+                            </li>
+                        </a>
+
+                        <a href="{{ route('nosotros.pagina' , 'beneficios-para-las-empresas-emprendedores-y-pastelerias') }}">
+                            <li class="text-white mb-2">
+                                Beneficios para las empresas, emprendedores y Pastelerías
+                            </li>
+                        </a>
+
+                        <a href="{{ route('nosotros.pagina' , 'terminos-y-condiciones') }}">
+                            <li class="text-white mb-2">
+                                Términos y Condiciones
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+
+                <div class="col-md-2"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-2"></div>
+
+                <div class="col-md-2">
+                    <p class="text-white">Síguenos en:</p>
+                    <ul class="list-unstyled list-inline">
+                        <a href="#">
+                            <li class="text-white mb-2 list-inline-item mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 512 512" width="20px" class=""><g><path d="m305 256c0 27.0625-21.9375 49-49 49s-49-21.9375-49-49 21.9375-49 49-49 49 21.9375 49 49zm0 0" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/><path d="m370.59375 169.304688c-2.355469-6.382813-6.113281-12.160157-10.996094-16.902344-4.742187-4.882813-10.515625-8.640625-16.902344-10.996094-5.179687-2.011719-12.960937-4.40625-27.292968-5.058594-15.503906-.707031-20.152344-.859375-59.402344-.859375-39.253906 0-43.902344.148438-59.402344.855469-14.332031.65625-22.117187 3.050781-27.292968 5.0625-6.386719 2.355469-12.164063 6.113281-16.902344 10.996094-4.882813 4.742187-8.640625 10.515625-11 16.902344-2.011719 5.179687-4.40625 12.964843-5.058594 27.296874-.707031 15.5-.859375 20.148438-.859375 59.402344 0 39.25.152344 43.898438.859375 59.402344.652344 14.332031 3.046875 22.113281 5.058594 27.292969 2.359375 6.386719 6.113281 12.160156 10.996094 16.902343 4.742187 4.882813 10.515624 8.640626 16.902343 10.996094 5.179688 2.015625 12.964844 4.410156 27.296875 5.0625 15.5.707032 20.144532.855469 59.398438.855469 39.257812 0 43.90625-.148437 59.402344-.855469 14.332031-.652344 22.117187-3.046875 27.296874-5.0625 12.820313-4.945312 22.953126-15.078125 27.898438-27.898437 2.011719-5.179688 4.40625-12.960938 5.0625-27.292969.707031-15.503906.855469-20.152344.855469-59.402344 0-39.253906-.148438-43.902344-.855469-59.402344-.652344-14.332031-3.046875-22.117187-5.0625-27.296874zm-114.59375 162.179687c-41.691406 0-75.488281-33.792969-75.488281-75.484375s33.796875-75.484375 75.488281-75.484375c41.6875 0 75.484375 33.792969 75.484375 75.484375s-33.796875 75.484375-75.484375 75.484375zm78.46875-136.3125c-9.742188 0-17.640625-7.898437-17.640625-17.640625s7.898437-17.640625 17.640625-17.640625 17.640625 7.898437 17.640625 17.640625c-.003906 9.742188-7.898437 17.640625-17.640625 17.640625zm0 0" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/><path d="m256 0c-141.363281 0-256 114.636719-256 256s114.636719 256 256 256 256-114.636719 256-256-114.636719-256-256-256zm146.113281 316.605469c-.710937 15.648437-3.199219 26.332031-6.832031 35.683593-7.636719 19.746094-23.246094 35.355469-42.992188 42.992188-9.347656 3.632812-20.035156 6.117188-35.679687 6.832031-15.675781.714844-20.683594.886719-60.605469.886719-39.925781 0-44.929687-.171875-60.609375-.886719-15.644531-.714843-26.332031-3.199219-35.679687-6.832031-9.8125-3.691406-18.695313-9.476562-26.039063-16.957031-7.476562-7.339844-13.261719-16.226563-16.953125-26.035157-3.632812-9.347656-6.121094-20.035156-6.832031-35.679687-.722656-15.679687-.890625-20.6875-.890625-60.609375s.167969-44.929688.886719-60.605469c.710937-15.648437 3.195312-26.332031 6.828125-35.683593 3.691406-9.808594 9.480468-18.695313 16.960937-26.035157 7.339844-7.480469 16.226563-13.265625 26.035157-16.957031 9.351562-3.632812 20.035156-6.117188 35.683593-6.832031 15.675781-.714844 20.683594-.886719 60.605469-.886719s44.929688.171875 60.605469.890625c15.648437.710937 26.332031 3.195313 35.683593 6.824219 9.808594 3.691406 18.695313 9.480468 26.039063 16.960937 7.476563 7.34375 13.265625 16.226563 16.953125 26.035157 3.636719 9.351562 6.121094 20.035156 6.835938 35.683593.714843 15.675781.882812 20.683594.882812 60.605469s-.167969 44.929688-.886719 60.605469zm0 0" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/></g> </svg>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="text-white mb-2 list-inline-item mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 49.652 49.652" style="enable-background:new 0 0 49.652 49.652;" xml:space="preserve" class=""><g><g>
+                                    <g>
+                                        <path d="M24.826,0C11.137,0,0,11.137,0,24.826c0,13.688,11.137,24.826,24.826,24.826c13.688,0,24.826-11.138,24.826-24.826    C49.652,11.137,38.516,0,24.826,0z M31,25.7h-4.039c0,6.453,0,14.396,0,14.396h-5.985c0,0,0-7.866,0-14.396h-2.845v-5.088h2.845    v-3.291c0-2.357,1.12-6.04,6.04-6.04l4.435,0.017v4.939c0,0-2.695,0-3.219,0c-0.524,0-1.269,0.262-1.269,1.386v2.99h4.56L31,25.7z    " data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+                                    </g>
+                                </g></g> 
+                                </svg>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <hr style="border-color:rgba(255,255,255,0.4);">
+
             <div class="row">
                 <div class="col-md-12">
-                    <div class="copyright">
-                       <span class="text-white">© {{ date('Y') }} TortasYa.com Todos los derechos Reservados.</span>
+                    <div class="copyright text-left">
+                       <span class="text-white foot-menu">© {{ date('Y') }} TortasYa.com Todos los derechos Reservados.</span>
                     </div>
                 </div>
             </div>
@@ -131,185 +224,7 @@
     </footer>
     <!--//END FOOTER -->
 
-    @guest
-    <!-- Modal -->
-        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document"> 
-            <div class="modal-content">
-              <div class="modal-header">
-    
-                <ul class="nav nav-tabs card-header-tabs">
-                  <li class="nav-item">
-                    <a class="tab-btn nav-link active" data-target=".login" href="#">Iniciar Sesión</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="tab-btn nav-link" data-target=".registro" href="#">Regístrate</a>
-                  </li>
-                </ul>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
-              <div class="modal-body mt-4 mb-4 login">
-
-              <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                <div class="container-fluid">
-                <div class="form-group row justify-content-center">
-
-                            <div class="col-md-10">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row justify-content-center">
-                    
-                            <div class="col-md-10">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Contraseña" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        
-                        
-                        <div class="row pl-4 pr-4 justify-content-center">
-                            
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                 @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
-                                    </div>
-                            </div>
-
-                        </div>
-                        
-
-                        <div class="form-group row mb-0 justify-content-center">
-                                <div class="col-md-10 text-center">
-                                    <button type="submit" class="btn btn-danger btn-block">
-                                        {{ __('Login') }}
-                                    </button>
-                                </div>
-                            </div>
-                </div>
-
-                  
-                    
-                 
-            </form>
-              </div>
-
-              <div class="modal-body modal-body mt-4 mb-4 ocultar registro">
-                  <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row justify-content-center">
-                            
-
-                            <div class="col-md-10">
-                                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre" required autocomplete="nombre" autofocus>
-
-                                @error('nombre')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                         <div class="form-group row justify-content-center">
-                           
-
-                            <div class="col-md-10">
-                                <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ old('apellido') }}" placeholder="Apellido" required autocomplete="apellido" autofocus>
-
-                                @error('apellido')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row justify-content-center">
-                            
-
-                            <div class="col-md-10">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row justify-content-center">
-                            
-
-                            <div class="col-md-10">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Contraseña" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row justify-content-center">
-                            
-                            <div class="col-md-10">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirme su contraseña" autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0 justify-content-center">
-                            <div class="col-md-10 text-center">
-                                <button type="submit" class="btn btn-danger btn-block">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-              </div>
-
-
-            </div>
-          </div>
-        </div>
-
-
-         <div class="modal fade" id="registro-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+     <div class="modal fade" id="registro-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document"> 
             <div class="modal-content">
               <div class="modal-header">
@@ -650,6 +565,186 @@
 
             </div>
           </div>
+
+    @guest
+    <!-- Modal -->
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document"> 
+            <div class="modal-content">
+              <div class="modal-header">
+    
+                <ul class="nav nav-tabs card-header-tabs">
+                  <li class="nav-item">
+                    <a class="tab-btn nav-link active" data-target=".login" href="#">Iniciar Sesión</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="tab-btn nav-link" data-target=".registro" href="#">Regístrate</a>
+                  </li>
+                </ul>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body mt-4 mb-4 login">
+
+              <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                <div class="container-fluid">
+                <div class="form-group row justify-content-center">
+
+                            <div class="col-md-10">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                    
+                            <div class="col-md-10">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Contraseña" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        
+                        
+                        <div class="row pl-4 pr-4 justify-content-center">
+                            
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                 @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                    @endif
+                                    </div>
+                            </div>
+
+                        </div>
+                        
+
+                        <div class="form-group row mb-0 justify-content-center">
+                                <div class="col-md-10 text-center">
+                                    <button type="submit" class="btn btn-danger btn-block">
+                                        {{ __('Login') }}
+                                    </button>
+                                </div>
+                            </div>
+                </div>
+
+                  
+                    
+                 
+            </form>
+              </div>
+
+              <div class="modal-body modal-body mt-4 mb-4 ocultar registro">
+                  <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <div class="form-group row justify-content-center">
+                            
+
+                            <div class="col-md-10">
+                                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre" required autocomplete="nombre" autofocus>
+
+                                @error('nombre')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                         <div class="form-group row justify-content-center">
+                           
+
+                            <div class="col-md-10">
+                                <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ old('apellido') }}" placeholder="Apellido" required autocomplete="apellido" autofocus>
+
+                                @error('apellido')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                            
+
+                            <div class="col-md-10">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                            
+
+                            <div class="col-md-10">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Contraseña" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-center">
+                            
+                            <div class="col-md-10">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirme su contraseña" autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0 justify-content-center">
+                            <div class="col-md-10 text-center">
+                                <button type="submit" class="btn btn-danger btn-block">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+
+        
         
     @else
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

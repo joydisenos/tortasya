@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = new User();
-        $tiendas = $user->tiendas();
+        $tiendas = $user->destacados();
         $refRegiones = new Region();
         $regiones = $refRegiones->regiones();
         $regiones = $regiones['Metropolitana de Santiago'];
@@ -71,9 +71,13 @@ class HomeController extends Controller
             $productosId[$key] = $producto->id;
         }
 
+        $comentarios = new Comentario();
+        $comentariosEstadisticas = $comentarios->estadisticas($tienda->id);
+        
+
         $carrito = Cart::content()->whereIn('id' , $productosId);
         $total = 0;
 
-        return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total' , 'horario'));
+        return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total' , 'horario','comentariosEstadisticas'));
     }
 }

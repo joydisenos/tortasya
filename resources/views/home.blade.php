@@ -6,6 +6,21 @@
         background-size: cover;
         background-position: center center;
     }
+    .app{
+        background: url('{{asset('images/ciudad.jpg')}}');
+        background-size: cover;
+        background-position: center center;
+    }
+    .img-cont{
+        position:relative;
+    }
+    .img-cont img{
+        position: absolute;
+        bottom:-90px;
+        right: 100px;
+        max-width: 220px;
+        transform: rotate(20deg);
+    }
 </style>
 @endsection
 @section('content')
@@ -19,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="slider-content_wrap">
-                                    <h3 class="text-white"><strong>Tortas a domicilio online</strong></h3>
+                                    <h3 class="text-white"><strong>Postres y Tortas a domicilio o retiro en tienda</strong></h3>
                                     
                                 </div>
                             </div>
@@ -47,7 +62,7 @@
                                     </div>
                                     <h6 class="text-white mt-3">Indicanos tu dirección</h6>
                                 </form>
-                                <div class="slider-link text-white text-left">
+                                <div class="slider-link text-white text-left d-none d-md-block">
                                     <div class="row mt-4">
                                         <div class="col">
                                             <div class="row">
@@ -113,7 +128,7 @@
             <div class="row">
 
                 @foreach($tiendas as $tienda)
-                <div class="col-md-4 featured-responsive">
+                <div class="col-md-3 mb-4 featured-responsive">
                     <div class="featured-place-wrap">
                         <a href="{{ route('tienda' , [$tienda->slug]) }}">
                             
@@ -257,6 +272,19 @@
                 </div>
             </div>
             
+        </div>
+    </section>
+
+    <section class="app align-items-center d-flex d-sm-none d-md-flex img-cont">
+        <div class="container">
+            <div class="row align-items-center d-flex">
+                <div class="col-md-8">
+                    <h4 class="text-white">Muy pronto TortasYa en tu celular</h4>
+                </div>
+                
+                    <div class="col-md-4"></div>
+                    <img src="{{ asset('images/movil.png') }}" alt="">
+            </div>
         </div>
     </section>
  

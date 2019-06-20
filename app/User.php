@@ -82,6 +82,14 @@ class User extends Authenticatable
                     ->get();
     }
 
+    public function destacados()
+    {
+        return $this->where('nombre_negocio' , '!=' , null)
+                    ->whereHas('negocio')
+                    ->take(12)
+                    ->get();
+    }
+
     public function comentarios()
     {
         return $this->hasMany(Comentario::class , 'negocio_id');

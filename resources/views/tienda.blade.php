@@ -20,7 +20,10 @@
 		right: 10px;
 	}
 	.nav-pills .nav-link.active, .show>.nav-pills .nav-link{
-		background-color: #C01829 !important;
+		background-color: #ffffff !important;
+		color: #C01829 !important;
+		border-bottom: solid medium #C01829 !important;
+		border-radius: 0;
 	}
 	.logo-tienda{
 		max-width: 50px;
@@ -70,7 +73,7 @@
 					    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#informacion" role="tab" aria-controls="pills-profile" aria-selected="false">Información</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#comentarios" role="tab" aria-controls="pills-contact" aria-selected="false">Comentarios</a>
+					    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#comentarios" role="tab" aria-controls="pills-contact" aria-selected="false">Opiniones</a>
 					  </li>
 					</ul>
 				</div>
@@ -179,7 +182,7 @@
 						@if($horario != null)
 					  	<div class="row mb-4">
 					  		<div class="col">
-					  			<h5>Horario</h5>
+					  			<h5>Horarios</h5>
 					  		</div>
 					  	</div>
 
@@ -188,42 +191,49 @@
 					  		<div class="col">{{ $horario->Mon[0] == null ? 'Cerrado' : $horario->Mon[0] }}</div>
 					  		<div class="col">{{ $horario->Mon[1] == null ? 'Cerrado' : $horario->Mon[1] }}</div>
 					  	</div>
+					  	<hr>
 
 					  	<div class="row">
 					  		<div class="col">Martes</div>
 					  		<div class="col">{{ $horario->Tue[0] == null ? 'Cerrado' : $horario->Tue[0] }}</div>
 					  		<div class="col">{{ $horario->Tue[1] == null ? 'Cerrado' : $horario->Tue[1] }}</div>
 					  	</div>
+					  	<hr>
 
 					  	<div class="row">
 					  		<div class="col">Miercoles</div>
 					  		<div class="col">{{ $horario->Wed[0] == null ? 'Cerrado' : $horario->Wed[0] }}</div>
 					  		<div class="col">{{ $horario->Wed[1] == null ? 'Cerrado' : $horario->Wed[1] }}</div>
 					  	</div>
+					  	<hr>
 
 					  	<div class="row">
 					  		<div class="col">Jueves</div>
 					  		<div class="col">{{ $horario->Thu[0] == null ? 'Cerrado' : $horario->Thu[0] }}</div>
 					  		<div class="col">{{ $horario->Thu[1] == null ? 'Cerrado' : $horario->Thu[1] }}</div>
 					  	</div>
+					  	<hr>
 
 					  	<div class="row">
 					  		<div class="col">Viernes</div>
 					  		<div class="col">{{ $horario->Fri[0] == null ? 'Cerrado' : $horario->Fri[0] }}</div>
 					  		<div class="col">{{ $horario->Fri[1] == null ? 'Cerrado' : $horario->Fri[1] }}</div>
 					  	</div>
+					  	<hr>
 
 					  	<div class="row">
 					  		<div class="col">Sábado</div>
 					  		<div class="col">{{ $horario->Sat[0] == null ? 'Cerrado' : $horario->Sat[0] }}</div>
 					  		<div class="col">{{ $horario->Sat[1] == null ? 'Cerrado' : $horario->Sat[1] }}</div>
 					  	</div>
+					  	<hr>
 
 					  	<div class="row">
 					  		<div class="col">Domingo</div>
 					  		<div class="col">{{ $horario->Sun[0] == null ? 'Cerrado' : $horario->Sun[0] }}</div>
 					  		<div class="col">{{ $horario->Sun[1] == null ? 'Cerrado' : $horario->Sun[1] }}</div>
 					  	</div>
+					  	<hr>
 					  	@endif
 
 					  </div>
@@ -231,7 +241,16 @@
 					  	@if($tienda->comentarios->count() == 0)
 					  		<div class="row">
 					  			<div class="col">
-					  				<h5>Este negocio aún no tiene comentarios</h5>
+					  				<h5>Este negocio aún no tiene opiniones</h5>
+					  			</div>
+					  		</div>
+					  	@else
+					  		<div class="row mt-4 mb-4">
+					  			<div class="col d-flex align-items-center">
+					  				<h6 class="background-primary text-white d-inline p-2 rounded"><i class="fa fa-star text-warning"></i> {{ number_format($tienda->puntaje($tienda->id) , 1) }}</h6>
+					  			</div>
+					  			<div class="col">
+					  				<canvas id="myChart"></canvas>
 					  			</div>
 					  		</div>
 					  	@endif
@@ -326,4 +345,33 @@
 				</div>
 	</div>
 </div>
+@endsection
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var datos = [{{ $comentariosEstadisticas }}];
+	var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'horizontalBar',
+
+    // The data for our dataset
+    data: {
+        labels: ['Excelente', 'Muy Bueno', 'Bueno', 'Regular', 'Malo'],
+        datasets: [{
+            label: 'Opiniones',
+            backgroundColor: '#C01829',
+            borderColor: 'rgb(255, 99, 132)',
+            data: datos
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+    	legend: {
+            display: false
+        }
+    }
+});
+</script>
 @endsection
