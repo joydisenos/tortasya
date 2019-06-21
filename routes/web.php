@@ -56,4 +56,5 @@ Route::prefix('admin')->middleware('auth')->group( function () {
 		Route::get('/seccion/{pag}', 'AdminController@seccion')->name('admin.editar.seccion');
 		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');
 		Route::get('/usuarios', 'AdminController@usuarios')->name('admin.usuarios');
+		Route::post('/destacar/{id}', 'AdminController@destacar')->name('admin.destacar');
 	});

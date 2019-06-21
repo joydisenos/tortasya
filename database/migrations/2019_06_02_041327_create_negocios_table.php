@@ -17,6 +17,7 @@ class CreateNegociosTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->text('descripcion')->nullable();
+            $table->date('destacado')->nullable();
             $table->string('foto_local')->nullable();
             $table->string('logo_local')->nullable();
             $table->string('horario')->nullable();

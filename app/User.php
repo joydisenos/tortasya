@@ -85,7 +85,10 @@ class User extends Authenticatable
     public function destacados()
     {
         return $this->where('nombre_negocio' , '!=' , null)
-                    ->whereHas('negocio')
+                    ->whereHas('negocio' , function($query) {
+                        $hoy = Carbon::now()->format('Y-m-d');
+                        $query->where('destacado' , '>=' , $hoy);
+                    })
                     ->take(12)
                     ->get();
     }
