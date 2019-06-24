@@ -58,4 +58,22 @@ class Orden extends Model
 
     	return $respuesta;
     }
+
+    public function verDireccion($id)
+    {
+        $direccionRef = Direccion::findOrFail($id);
+        $direccion = json_decode($direccionRef->direccion);
+        if($direccion == null){
+            $direccion = json_encode([
+                                        "alias" => null,
+                                        "comuna" => null,
+                                        "calle" => null,
+                                        "numero" => null,
+                                        "departamento" => null,
+                                        "referencia" => null
+                                    ]);
+        }
+
+        return $direccion;
+    }
 }

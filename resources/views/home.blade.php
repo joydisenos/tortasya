@@ -14,7 +14,7 @@
     .img-cont{
         position:relative;
     }
-    .img-cont img{
+    .img-cont #mobile-img{
         position: absolute;
         bottom:-90px;
         right: 100px;
@@ -280,10 +280,12 @@
             <div class="row align-items-center d-flex">
                 <div class="col-md-8">
                     <h4 class="text-white">Muy pronto TortasYa en tu celular</h4>
+                    <img src="{{ asset('images/android-badge.png') }}" class="img-fluid mr-4" style="max-width: 150px;" alt="">
+                    <img src="{{ asset('images/disponible-app-store.png') }}" class="img-fluid" style="max-width: 150px;" alt="">
                 </div>
                 
                     <div class="col-md-4"></div>
-                    <img src="{{ asset('images/movil.png') }}" alt="">
+                    <img src="{{ asset('images/movil.png') }}" id="mobile-img" alt="">
             </div>
         </div>
     </section>

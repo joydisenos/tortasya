@@ -2,9 +2,9 @@
 
 	<div class="text-center">
 		@if(Auth::user()->foto_perfil == null)
-		<img src="{{ asset('images/perfil.png') }}" style="max-width: 100px;" class="img-fluid rounded-circle" alt="">
+		<img src="{{ asset('images/perfil.png') }}" style="max-width: 100px;" class="img-fluid rounded" alt="">
 		@else
-		<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . Auth::user()->foto_perfil) }}" style="max-width: 100px;" class="img-fluid rounded-circle" alt="">
+		<img src="{{ asset('storage/archivos/' . Auth::user()->id . '/' . Auth::user()->foto_perfil) }}" style="max-width: 100px;" class="img-fluid rounded" alt="">
 		@endif
 		<h6 class="m-3">{{ title_case(Auth::user()->nombre) }}</h6>
 	</div>
@@ -20,6 +20,12 @@
 		<a href="{{ route('admin.configuraciones') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('admin.configuraciones')) ? 'active' : ''}}">
 			  	<i class="fa fa-cog mr-3" aria-hidden="true"></i> Configuraciones
+			</li>
+		</a>
+
+		<a href="{{ route('admin.sugerencias') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('admin.sugerencias')) ? 'active' : ''}}">
+			  	<i class="fa fa-check mr-3" aria-hidden="true"></i> Sugerencias
 			</li>
 		</a>
 		@else
@@ -50,15 +56,30 @@
 			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Horario y envíos
 			</li>
 		</a>
-		@else
 		<a href="{{ route('usuario.favoritos') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.favoritos')) ? 'active' : ''}}">
-			  	<i class="fa fa-heart mr-3" aria-hidden="true"></i> Favoritos
+			  	<i class="fa fa-heart mr-3" aria-hidden="true"></i> Mis Favoritos
 			</li>
 		</a>
 		<a href="{{ route('usuario.direcciones') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('usuario.direcciones')) ? 'active' : ''}}">
-			  	<i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Direcciones
+			  	<i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Mis Direcciones
+			</li>
+		</a>
+		<a href="{{ route('usuario.pedidos') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('usuario.pedidos')) ? 'active' : ''}}">
+			  	<i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Mis Pedidos
+			</li>
+		</a>
+		@else
+		<a href="{{ route('usuario.favoritos') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('usuario.favoritos')) ? 'active' : ''}}">
+			  	<i class="fa fa-heart mr-3" aria-hidden="true"></i> Mis Favoritos
+			</li>
+		</a>
+		<a href="{{ route('usuario.direcciones') }}">
+		  	<li class="list-group-item {{ (URL::current() == route('usuario.direcciones')) ? 'active' : ''}}">
+			  	<i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Mis Direcciones
 			</li>
 		</a>
 		<a href="{{ route('usuario.datos') }}">

@@ -43,10 +43,19 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Teléfono</p>
+						</div>
+						<div class="col">
+							<input type="text" name="telefono" class="form-control" value="{{ Auth::user()->telefono }}" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Cambiar Contraseña</p>
 						</div>
 						<div class="col">
-							<input type="password" name="password" class="form-control">
+							<input type="password" name="password" class="form-control" autocomplete="off">
 						</div>
 					</div>
 

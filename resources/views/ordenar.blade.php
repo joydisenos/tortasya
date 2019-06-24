@@ -87,7 +87,7 @@
 						<h6>Seleccione su Dirección</h6>
 
 						@foreach(Auth::user()->direcciones as $direccion)
-							<input type="radio" name="direccion_id" class="mb-4" id="d-{{$direccion->id}}" value="{{ $direccion->id }}" required> <label for="d-{{$direccion->id}}">{{ $direccion->direccion }}</label> <br>
+							<input type="radio" name="direccion_id" class="mb-4" id="d-{{$direccion->id}}" value="{{ $direccion->id }}" required> <label for="d-{{$direccion->id}}">{{ json_decode($direccion->direccion)->alias }}, {{ $direccion->ciudad }}</label> <br>
 						@endforeach
 
 						<hr>

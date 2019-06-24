@@ -58,10 +58,19 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
+							<p>Teléfono</p>
+						</div>
+						<div class="col">
+							<input type="text" name="telefono" class="form-control" value="{{ Auth::user()->telefono }}" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
 							<p>Cambiar Contraseña</p>
 						</div>
 						<div class="col">
-							<input type="password" name="password" class="form-control">
+							<input type="password" name="password" class="form-control" autocomplete="off">
 						</div>
 					</div>
 
@@ -94,7 +103,25 @@
 							<p>Dirección</p>
 						</div>
 						<div class="col">
-							<input type="text" name="direccion_negocio" value="{{ Auth::user()->direccion }}" class="form-control">
+							<input type="text" id="direccion" name="direccion_negocio" value="{{ Auth::user()->direccion }}" class="form-control" autocomplete="off">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Latitud</p>
+						</div>
+						<div class="col">
+							<input type="text" name="latitud" id="lat" value="{{ Auth::user()->latitud }}" class="form-control">
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Longitud</p>
+						</div>
+						<div class="col">
+							<input type="text" name="longitud" id="long" value="{{ Auth::user()->longitud }}" class="form-control">
 						</div>
 					</div>
 

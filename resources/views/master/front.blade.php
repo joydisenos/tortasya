@@ -30,6 +30,8 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <link href="{{ asset('maps/leaflet.css') }}" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
 
     <style>
@@ -45,6 +47,9 @@
         .principal{
             overflow: hidden;
             width: 100%;
+        }
+        .color-primary{
+            color: #C01829;
         }
         @media (max-width: 992px){
                 .navbar-collapse{
@@ -98,7 +103,11 @@
 
                                         <div class="dropdown-menu menu-pri" aria-labelledby="navbarDropdownMenuLink">
                                             @role('admin|dev')
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('admin.usuarios') }}"><i class="fa fa-users mr-3" aria-hidden="true"></i> Usuarios</a>
+                                            
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('admin.configuraciones') }}"><i class="fa fa-cog mr-3" aria-hidden="true"></i> Configuraciones</a>
+                                            
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('admin.sugerencias') }}"><i class="fa fa-check mr-3" aria-hidden="true"></i> Sugerencias</a>
                                             @else
 
                                             @role('negocio|dev')
@@ -106,8 +115,8 @@
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.ventas') }}"><i class="fa fa-money mr-3" aria-hidden="true"></i> Mis Ventas</a>
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('negocio.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mi Perfil</a>
                                             @else
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.favoritos') }}"><i class="fa fa-heart mr-3" aria-hidden="true"></i> Favoritos</a>
-                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.direcciones') }}"><i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Direcciones</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.favoritos') }}"><i class="fa fa-heart mr-3" aria-hidden="true"></i> Mis Favoritos</a>
+                                            <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.direcciones') }}"><i class="fa fa-map-marker mr-3" aria-hidden="true"></i> Mis Direcciones</a>
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.datos') }}"><i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Mi Perfil</a>
                                             <a class="dropdown-item mb-2 text-white" href="{{ route('usuario.pedidos') }}"><i class="fa fa-birthday-cake mr-3" aria-hidden="true"></i> Mis Pedidos</a>
                                             @endrole
@@ -214,10 +223,13 @@
             <hr style="border-color:rgba(255,255,255,0.4);">
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-10">
                     <div class="copyright text-left">
                        <span class="text-white foot-menu">© {{ date('Y') }} TortasYa.com Todos los derechos Reservados.</span>
                     </div>
+                </div>
+                <div class="col-2">
+                    <img src="{{ asset('images/logotipo-blanco.svg') }}" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -246,7 +258,8 @@
 
               <form method="POST" action="{{ route('alta') }}">
                         @csrf
-
+                        <input type="hidden" value="" id="lat_alta" name="latitud">
+                        <input type="hidden" value="" id="long_alta" name="longitud">
                         <div class="row justify-content-center">
                             <div class="col-md-10">
                                 <p>
@@ -316,7 +329,7 @@
                            
 
                             <div class="col-md-10">
-                                <input id="direccion" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" placeholder="Dirección de su Negocio" required autocomplete="direccion" autofocus>
+                                <input id="direccion_alta" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" placeholder="Dirección de su Negocio" required autocomplete="direccion" autofocus>
 
                                 @error('direccion')
                                     <span class="invalid-feedback" role="alert">
@@ -430,7 +443,7 @@
                             
 
                             <div class="col-md-10">
-                                <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre" required autocomplete="nombre" autofocus>
+                                <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre" required autocomplete="nombre" autofocus>
 
                                 @error('nombre')
                                     <span class="invalid-feedback" role="alert">
@@ -444,7 +457,7 @@
                            
 
                             <div class="col-md-10">
-                                <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ old('apellido') }}" placeholder="Apellido" required autocomplete="apellido" autofocus>
+                                <input type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ old('apellido') }}" placeholder="Apellido" required autocomplete="apellido" autofocus>
 
                                 @error('apellido')
                                     <span class="invalid-feedback" role="alert">
@@ -458,7 +471,7 @@
                            
 
                             <div class="col-md-10">
-                                <input id="telefono" type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" placeholder="Teléfono" required autocomplete="telefono" autofocus>
+                                <input type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" placeholder="Teléfono" required autocomplete="telefono" autofocus>
 
                                 @error('telefono')
                                     <span class="invalid-feedback" role="alert">
@@ -472,7 +485,7 @@
                            
 
                             <div class="col-md-10">
-                                <input id="nombre_negocio" type="text" class="form-control @error('nombre_negocio') is-invalid @enderror" name="nombre_negocio" value="{{ old('nombre_negocio') }}" placeholder="Nombre de su Negocio" required autocomplete="nombre_negocio" autofocus>
+                                <input type="text" class="form-control @error('nombre_negocio') is-invalid @enderror" name="nombre_negocio" value="{{ old('nombre_negocio') }}" placeholder="Nombre de su Negocio" required autocomplete="nombre_negocio" autofocus>
 
                                 @error('nombre_negocio')
                                     <span class="invalid-feedback" role="alert">
@@ -486,7 +499,7 @@
                            
 
                             <div class="col-md-10">
-                                <input id="direccion" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" placeholder="Dirección de su Negocio" required autocomplete="direccion" autofocus>
+                                <input type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" placeholder="Dirección de su Negocio" required autocomplete="direccion" autofocus>
 
                                 @error('direccion')
                                     <span class="invalid-feedback" role="alert">
@@ -761,6 +774,7 @@
     <script src="{{ asset('js/popper.min.js')}}"></script>
     <script src="{{ asset('js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/toastr.js')}}"></script>
+    <script src="{{ asset('maps/leaflet.js')}}"></script>
 
     @yield('scripts')
     
@@ -779,6 +793,43 @@
             @endforeach
         
     @endif
+
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.16.4"></script>
+    <script>
+      var placesAutocomplete = places({
+        appId: 'plGXL4THWSWQ',
+        apiKey: '50d89247afd701d5c502b3b060c7f82a',
+        container: document.querySelector('#direccion')
+      });
+
+      placesAutocomplete.on('change', 
+        //e => console.log(e.suggestion)
+        function (e){
+            lat = e.suggestion.latlng.lat;
+            long = e.suggestion.latlng.lng;
+
+            $('#lat').val(lat);
+            $('#long').val(long);
+        }
+        );
+
+      var placesAutocompleteAlta = places({
+        appId: 'plGXL4THWSWQ',
+        apiKey: '50d89247afd701d5c502b3b060c7f82a',
+        container: document.querySelector('#direccion_alta')
+      });
+
+      placesAutocompleteAlta.on('change', 
+        //e => console.log(e.suggestion)
+        function (e){
+            lat = e.suggestion.latlng.lat;
+            long = e.suggestion.latlng.lng;
+
+            $('#lat_alta').val(lat);
+            $('#long_alta').val(long);
+        }
+        );
+    </script>
     
     <script>
         $(document).ready(function(){

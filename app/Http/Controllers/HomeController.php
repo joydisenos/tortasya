@@ -80,4 +80,9 @@ class HomeController extends Controller
 
         return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total' , 'horario','comentariosEstadisticas'));
     }
+
+    public function bienvenido()
+    {
+        return view('bienvenido');
+    }
 }

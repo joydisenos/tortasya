@@ -17,14 +17,14 @@
 <div class="container">
 	<div class="row">
 		@include('includes.nav-side')
-		<div class="col pt-4 pb-4 mt-4 mb-4">
+		<div class="col pt-4 pb-4 mt-4 mb-4 {{ $favoritos->count() == 0 ? 'align-items-center d-flex text-center justify-content-center' : '' }}">
 
-			<div class="row">
+			<div class="row {{ $favoritos->count() == 0 ? 'justify-content-center' : '' }}">
 
 				@if($favoritos->count() == 0)
 
 				<div class="col text-center">
-					<h3>Aún no tienes negocios Favoritos</h3>
+					<h3 class="color-primary mb-4">Aún no tienes negocios Favoritos</h3>
 					<a href="{{ url('/') }}" class="btn btn-danger">Comenzar Ahora</a>
 				</div>
 				@endif

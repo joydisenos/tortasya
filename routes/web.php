@@ -25,13 +25,18 @@ Route::get('/tienda/{slug}/ordenar', 'UsuarioController@ordenar')->name('ordenar
 Route::post('/tienda/{slug}/pago', 'UsuarioController@pago')->name('pago')->middleware('auth');
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/bienvenido', 'HomeController@bienvenido')->name('bienvenido')->middleware('auth');
 
 Route::prefix('usuario')->middleware('auth')->group( function () {
 		Route::get('/favoritos', 'UsuarioController@favoritos')->name('usuario.favoritos');
 		Route::get('/direcciones', 'UsuarioController@direcciones')->name('usuario.direcciones');
+		Route::get('/direcciones/editar/{id}', 'UsuarioController@editarDireccion')->name('usuario.editar.direccion');
+		Route::post('/direcciones/actualizar/{id}', 'UsuarioController@actualizarDireccion')->name('usuario.actualizar.direccion');
 		Route::post('/agregar/direccion', 'UsuarioController@agregarDireccion')->name('usuario.agregar.direccion');
+		Route::get('/borrar/direccion/{id}', 'UsuarioController@borrarDireccion')->name('usuario.borrar.direccion');
 		Route::get('/datos', 'UsuarioController@datos')->name('usuario.datos');
 		Route::get('/pedidos', 'UsuarioController@pedidos')->name('usuario.pedidos');
+		Route::get('/ver/pedido/{id}', 'UsuarioController@verPedido')->name('usuario.ver.pedido');
 		Route::post('/datos/actualizar', 'UsuarioController@actualizarDatos')->name('usuario.actualizar.datos');
 		Route::post('/comentar', 'UsuarioController@comentar')->name('usuario.comentar');
 	});
@@ -39,6 +44,7 @@ Route::prefix('usuario')->middleware('auth')->group( function () {
 Route::prefix('panel')->middleware('auth')->group( function () {
 		Route::get('/productos', 'NegocioController@productos')->name('negocio.productos');
 		Route::get('/ventas', 'NegocioController@ventas')->name('negocio.ventas');
+		Route::get('/venta/orden/{id}', 'NegocioController@verVenta')->name('negocio.venta.orden');
 		Route::get('/datos', 'NegocioController@datos')->name('negocio.datos');
 		Route::get('/horario', 'NegocioController@horario')->name('negocio.horario');
 		Route::post('/horario', 'NegocioController@actualizarHorario')->name('negocio.actualizar.horario');
@@ -57,4 +63,6 @@ Route::prefix('admin')->middleware('auth')->group( function () {
 		Route::post('/seccion/{id}', 'AdminController@actualizarSeccion')->name('admin.actualizar.seccion');
 		Route::get('/usuarios', 'AdminController@usuarios')->name('admin.usuarios');
 		Route::post('/destacar/{id}', 'AdminController@destacar')->name('admin.destacar');
+		Route::get('/sugerencias', 'AdminController@sugerencias')->name('admin.sugerencias');
+		Route::get('/sugerir/{id}/{estatus}', 'AdminController@sugerirEstatus')->name('admin.sugerir');
 	});

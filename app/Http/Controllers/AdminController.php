@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Legal;
 use App\Negocio;
+use App\Sugerencia;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -15,6 +16,23 @@ class AdminController extends Controller
     	$legales = Legal::all();
 
     	return view('admin.configuraciones' , compact('legales'));
+    }
+
+    public function sugerencias()
+    {
+        $sugerenciasRef = new Sugerencia();
+        $sugerencias = $sugerenciasRef->sugerencias();
+
+        return view('admin.sugerencias' , compact('sugerencias'));
+    }
+
+    public function sugerirEstatus($id , $estatus)
+    {
+        $sugerencia = Sugerencia::findOrFail($id);
+        $sugerencia->estatus = $estatus;
+        $sugerencia->save();
+
+        return redirect()->back()->with('status' , 'Sugerencia Actualizada');
     }
 
     public function usuarios()

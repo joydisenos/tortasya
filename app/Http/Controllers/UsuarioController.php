@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Gloudemans\Shoppingcart\CartItem;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Orden as OrdenMail;
+use App\Mail\OrdenNegocio as OrdenNegocioMail;
 use App\User;
 use App\Producto;
 use App\Direccion;
@@ -14,6 +17,7 @@ use App\Favorito;
 use App\Orden;
 use App\Compra;
 use App\Comentario;
+use App\Sugerencia;
 
 class UsuarioController extends Controller
 {
@@ -26,7 +30,9 @@ class UsuarioController extends Controller
 
     public function direcciones()
     {
-    	return view('user.direcciones');
+        $direcciones = Auth::user()->direcciones->where('estatus' , 1);
+
+    	return view('user.direcciones' , compact('direcciones'));
     }
 
     public function datos()
@@ -39,6 +45,18 @@ class UsuarioController extends Controller
         $pedidos = Auth::user()->pedidos;
 
     	return view('user.pedidos' , compact('pedidos'));
+    }
+
+    public function verPedido($id)
+    {
+        $orden = Orden::findOrFail($id);
+
+        if($orden->user_id != Auth::user()->id){
+            return redirect()->back();
+        }else{
+            return view('negocio.orden' , compact('orden'));
+        }
+        
     }
 
     public function pago($slug , Request $request)
@@ -92,6 +110,12 @@ class UsuarioController extends Controller
 
             $compra = Compra::create($productoRequest);
         }
+
+        Mail::to(Auth::user()->email)
+                ->send(new OrdenMail($orden));
+
+        Mail::to($tienda->email)
+                ->send(new OrdenNegocioMail($orden));
 
         return redirect()->route('usuario.pedidos')->with('status' , 'Compra registrada');
 
@@ -179,6 +203,7 @@ class UsuarioController extends Controller
         {
             $user->foto_perfil = $nombreFoto;
         }
+        $user->telefono = $request->telefono;
         $user->save();
 
         return redirect()->back()->with('status' , 'Datos Actualizados');
@@ -187,11 +212,12 @@ class UsuarioController extends Controller
     public function agregarDireccion(Request $request)
     {
         $validatedData = $request->validate([
-            'direccion' => 'required',
+            'alias' => 'required',
             'ciudad' => 'required',
             ]);
 
-        $data = $request->all();
+        $data['direccion'] = json_encode($request->except(['ciudad' , '_token']));
+        $data['ciudad'] = $request->ciudad;
         $data['user_id'] = Auth::user()->id;
 
         $direccion = Direccion::create($data);
@@ -199,9 +225,56 @@ class UsuarioController extends Controller
         return redirect()->back()->with( 'status' , 'Dirección agregada');
     }
 
+    public function borrarDireccion($id)
+    {
+        $direccion = Direccion::findOrFail($id);
+        $direccion->estatus = 0;
+        $direccion->save();
+
+        return redirect()->back()->with( 'status' , 'Dirección eliminada');
+    }
+
+    public function editarDireccion($id)
+    {
+        $direccion = Direccion::findOrFail($id);
+
+        return view('user.direccion' , compact('direccion'));
+    }
+
+    public function actualizarDireccion(Request $request , $id)
+    {
+        $validatedData = $request->validate([
+            'alias' => 'required',
+            'ciudad' => 'required',
+            ]);
+
+        $data['direccion'] = json_encode($request->except(['ciudad' , '_token']));
+        $data['ciudad'] = $request->ciudad;
+        $data['user_id'] = Auth::user()->id;
+
+        $direccion = Direccion::findOrFail($id)->update($data);
+
+        return redirect()->route('usuario.direcciones')->with( 'status' , 'Dirección actualizada');
+    }
+
     public function sugerir(Request $request)
     {
-        return redirect('/');
+        $validatedData = $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'telefono' => 'required',
+            'nombre_negocio' => 'required',
+            'direccion' => 'required|min:6',
+            'ciudad' => 'required',
+            'region' => 'required',
+            'email' => 'required|email',
+            ]);
+
+        $datos = $request->all();
+
+        $sugerencia = Sugerencia::create($datos);
+
+        return redirect()->back()->with('status' , 'Sugerencia enviada, Muchas gracias!');
     }
 
     public function marcarFavorito($id)

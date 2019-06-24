@@ -13,4 +13,9 @@ class Compra extends Model
         'cantidad',
         'opciones',
     ];
+
+    public function producto()
+    {
+    	return $this->belongsTo(Producto::class , 'producto_id');
+    }
 }

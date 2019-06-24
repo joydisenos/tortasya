@@ -36,19 +36,21 @@
 @section('content')
 
 @component('components.header')
-    @slot('titulo' , 'Mi Cuenta')
+    @slot('titulo' , 'Mis Pedidos')
 @endcomponent
 
 <div class="container">
-	<div class="row">
+	<div class="row align-items-center">
 		@include('includes.nav-side')
 		<div class="col pt-4 pb-4 mt-4 mb-4">
-
+      
+      @if($pedidos->count() > 0)
 			<div class="table-responsive">
 				<table class="table">
 					<thead>
 						<th>Orden</th>
 						<th>Negocio</th>
+            <th>Detalles</th>
 						<th>Productos</th>
 						<th>Envío</th>
 						<th>Pago</th>
@@ -60,6 +62,7 @@
 						<tr>
 							<td>{{ $pedido->id }}</td>
 							<td>{{ $pedido->negocio->nombre_negocio }}</td>
+              <td><a href="{{ route('usuario.ver.pedido' , $pedido->id ) }}" class="btn btn-danger"><i class="fa fa-eye"></i></a></td>
 							<td>{{ $pedido->productos->count() }}</td>
 							<td>{{ $pedido->envio }}</td>
 							<td>{{ $pedido->pago }}</td>
@@ -74,6 +77,13 @@
 					</tbody>
 				</table>
 			</div>
+      @else
+      <div class="text-center">
+        <h3 class="color-primary mb-4">Todavía no realizaste pedidos</h3>
+        <h6 class="mb-4">¡Pruebanos ahora y te convertirás en fan!</h6>
+        <a href="{{ url('/') }}" class="btn btn-danger">Comenzar Ahora</a>
+      </div>
+      @endif
 			
 		</div>
 	</div>

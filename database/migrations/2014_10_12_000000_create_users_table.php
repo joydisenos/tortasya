@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('nombre_negocio')->nullable();
             $table->string('slug')->nullable();
             $table->string('direccion')->nullable();
+            $table->string('latitud')->nullable();
+            $table->string('longitud')->nullable();
             $table->string('ciudad')->nullable();
             $table->string('region')->nullable();
             $table->string('email')->unique();

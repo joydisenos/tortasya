@@ -29,6 +29,8 @@ class User extends Authenticatable
         'ciudad', 
         'region', 
         'password',
+        'latitud',
+        'longitud'
     ];
 
     /**

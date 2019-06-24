@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Preparar as PrepararMail;
 use App\Producto;
 use App\Negocio;
 use App\Orden;
@@ -198,6 +200,10 @@ class NegocioController extends Controller
         {
             $user->foto_perfil = $nombreFoto;
         }
+        $user->telefono = $request->telefono;
+        $user->direccion = $request->direccion_negocio;
+        $user->latitud = $request->latitud;
+        $user->longitud = $request->longitud;
         $user->save();
 
         $negocio = Negocio::firstOrCreate(['user_id' => Auth::user()->id]);
@@ -225,6 +231,18 @@ class NegocioController extends Controller
         return view('negocio.ventas' , compact('ventas'));
     }
 
+    public function verVenta($id)
+    {
+        $orden = Orden::findOrFail($id);
+
+        if($orden->negocio_id != Auth::user()->id){
+            return redirect()->back();
+        }else{
+            return view('negocio.orden' , compact('orden'));
+        }
+        
+    }
+
     public function estatusProducto($id , $estatus)
     {
         $producto = Producto::findOrFail($id);
@@ -236,9 +254,15 @@ class NegocioController extends Controller
 
     public function estatusOrden($id , $estatus)
     {
-        $producto = Orden::findOrFail($id);
-        $producto->estatus = $estatus;
-        $producto->save();
+        $orden = Orden::findOrFail($id);
+        $orden->estatus = $estatus;
+        $orden->save();
+
+        if($estatus == 2)
+        {
+            Mail::to($orden->user->email)
+                ->send(new PrepararMail($orden));
+        }
 
         return redirect()->back()->with('status' , 'Estatus actualizado');
     }

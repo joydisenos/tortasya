@@ -32,6 +32,7 @@
 	.contenedor-carrito{
 		max-width: 150px;
 	}
+	#mapid { height: 250px; width: 100%;}
 	@if($tienda->negocio != null && $tienda->negocio->foto_local != null )
 	.header-panel{
 		background-image: url('{{ asset( 'storage/archivos/'. $tienda->id . '/' . $tienda->negocio->foto_local) }}') !important;
@@ -176,11 +177,16 @@
 					  	<div class="row mb-4">
 					  		<div class="col">
 					  			<p>{{ $tienda->negocio != null ? $tienda->negocio->descripcion : '' }}</p>
+					  			<p><strong>Dirección:</strong> {{ $tienda->direccion }}</p>
 					  		</div>
 					  	</div>
+
+					  	@if($tienda->latitud != null && $tienda->longitud != null)
+					  	<div id="mapid"></div>
+					  	@endif
 						
 						@if($horario != null)
-					  	<div class="row mb-4">
+					  	<div class="row mb-4 mt-4">
 					  		<div class="col">
 					  			<h5>Horarios</h5>
 					  		</div>
@@ -373,5 +379,16 @@
         }
     }
 });
+	lat = {{ $tienda->latitud }};
+	long = {{ $tienda->longitud }};
+
+	var map = L.map('mapid', {
+    center: [lat , long],
+    zoom: 13
+});
+
+	L.marker([lat , long]).addTo(map)
+	    .bindPopup('{{ $tienda->nombre_negocio }}')
+	    .openPopup();
 </script>
 @endsection

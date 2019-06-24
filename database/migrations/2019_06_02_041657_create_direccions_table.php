@@ -19,6 +19,7 @@ class CreateDireccionsTable extends Migration
             $table->text('direccion');
             $table->string('ciudad');
             $table->boolean('principal')->default(0);
+            $table->integer('estatus')->default(1);
             $table->timestamps();
         });
     }
