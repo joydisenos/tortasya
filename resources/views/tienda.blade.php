@@ -32,6 +32,22 @@
 	.contenedor-carrito{
 		max-width: 150px;
 	}
+	.btn-carrito{
+		position: fixed;
+		bottom: 10px;
+		left: 10px;
+	}
+	.pagos{
+		background: #ffffff;
+		border-radius: 10px;
+		box-shadow: 4px 4px 10px rgba(0,0,0,0.6);
+		position: fixed;
+		top: 160px;
+		left: 300px;
+		padding: 20px;
+		z-index: 999;
+		display: none;
+	}
 	#mapid { height: 250px; width: 100%;}
 	@if($tienda->negocio != null && $tienda->negocio->foto_local != null )
 	.header-panel{
@@ -55,6 +71,7 @@
 		@endif
 	@endslot
     @slot('titulo' , title_case($tienda->nombre_negocio))
+    @slot('tienda' , $tienda)
     @slot('puntos')
     	<small><i class="fa fa-star text-warning"></i> {{ number_format($tienda->puntaje($tienda->id) , 1) }}</small> 
     @endslot
@@ -102,13 +119,23 @@
 							<p>{{ $destacado->descripcion }}</p>
 							<form action="{{ route('agregar.carrito' , $destacado->id) }}" method="get">
 								@csrf
-							@if($destacado->sabores != null)
-								<select name="sabor" class="form-control mb-4">
+								@if($destacado->sabores != null)
+								<!--<select name="sabor" class="form-control mb-4">
 									@foreach($destacado->sabores() as $sabor)
 										<option value="{{ $sabor }}">{{ $sabor }}</option>
 									@endforeach
-								</select>
+								</select>-->
+								<p>{{ $destacado->sabores }}</p>
 							@endif
+								<div class="row align-items-center mb-4">
+									<div class="col-6">
+										<p>Cantidad:</p>
+									</div>
+									<div class="col-6">
+										<input type="number" name="cantidad" value="1" min="1" class="form-control">
+									</div>
+								</div>
+							
 							<h6>${{ number_format($destacado->precio) }}</h6>
 							
 								<button type="submit" class="btn btn-danger rounded-circle btn-small floating">
@@ -142,16 +169,25 @@
 									<div class="col">
 										<h6>{{ title_case($producto->nombre) }}</h6>
 										<p>{{ $producto->descripcion }}</p>
-										
-										
-												
-													@if($producto->sabores != null)
-														<select name="sabor" class="form-control mb-4">
+										@if($producto->sabores != null)
+														<!--<select name="sabor" class="form-control mb-4">
 															@foreach($producto->sabores() as $sabor)
 																<option value="{{ $sabor }}">{{ $sabor }}</option>
 															@endforeach
-														</select>
+														</select>-->
+														<p>{{ $producto->sabores }}</p>
 													@endif
+										
+								<div class="row align-items-center">
+									<div class="col-6">
+										<p>Cantidad:</p>
+									</div>
+									<div class="col-6">
+										<input type="number" name="cantidad" value="1" min="1" class="form-control">
+									</div>
+								</div>
+												
+
 										<h6>${{ number_format($producto->precio) }}</h6>
 												
 										
@@ -321,6 +357,7 @@
 										<div class="col-2"><strong>Cant.</strong></div>
 										<div class="col"><strong>Nombre</strong></div>
 										<div class="col"><strong>Precio</strong></div>
+										<div class="col"></div>
 									</div>
 									<hr>
 
@@ -328,7 +365,8 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ $total += $carro->price * $carro->qty }}</div>
+										<div class="col">${{ number_format($total += $carro->price * $carro->qty) }}</div>
+										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></div>
 									</div>
 									<hr>
 									@endforeach
@@ -336,7 +374,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
-										<div class="col"><strong>${{ $total }}</strong></div>
+										<div class="col"><strong>${{ number_format($total) }}</strong></div>
 									</div>
 
 									<div class="row">
@@ -351,6 +389,70 @@
 				</div>
 	</div>
 </div>
+
+<button class="btn btn-danger btn-carrito d-lg-none" data-toggle="modal" data-target="#carrito-mobile"><i class="fa fa-shopping-cart"></i> {{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</button>
+
+ <div class="modal fade" id="carrito-mobile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document"> 
+            <div class="modal-content">
+              <div class="modal-header">
+              
+              	<h6 class="modal-title" id="exampleModalLongTitle">Mi Pedido <span class="badge badge-danger">{{ $carrito->count() > 0 ? ' '. $carrito->count() : ''}}</span></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+
+              	<div class="row">
+						<div class="col text-center p-4">
+							
+									@if($carrito->count() == 0)
+								<div class="contenedor-carrito mx-auto">
+									<img src="{{ asset('images/icon-cake.png') }}" class="img-fluid img-carrito mb-4" alt="">
+								</div>
+							<p class="mb-4">Aún no tienes pedidos</p>
+									@else
+									<div class="row mb-4 text-left">
+										<div class="col-2"><strong>Cant.</strong></div>
+										<div class="col"><strong>Nombre</strong></div>
+										<div class="col"><strong>Precio</strong></div>
+										<div class="col"></div>
+									</div>
+									<hr>
+
+									@foreach($carrito as $carro)
+									<div class="row mb-4 text-left">
+										<div class="col-2">{{ $carro->qty }}</div>
+										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
+										<div class="col">${{ number_format($totalMobile += $carro->price * $carro->qty) }}</div>
+										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></div>
+									</div>
+									<hr>
+									@endforeach
+
+									<div class="row mb-4 text-left">
+										<div class="col-2"></div>
+										<div class="col"><strong>Total:</strong></div>
+										<div class="col"><strong>${{ number_format($totalMobile) }}</strong></div>
+									</div>
+
+									<div class="row">
+										<div class="col text-center">
+											<a href="{{ route('ordenar' , [$tienda->slug]) }}" class="btn btn-danger">Ordenar</a>
+										</div>
+									</div>
+
+									@endif
+						</div>
+					</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -390,5 +492,16 @@
 	L.marker([lat , long]).addTo(map)
 	    .bindPopup('{{ $tienda->nombre_negocio }}')
 	    .openPopup();
+
+	$('.medios-pago').click(function(){
+		$('.pagos').toggle({
+			duration: 500,
+			easing: 'swing'
+		});
+	});
+
+	$('.medios-pago').mouseleave(function(){
+		$('.pagos').hide('slow');
+	});
 </script>
 @endsection

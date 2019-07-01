@@ -106,23 +106,39 @@
 							<input type="text" id="direccion" name="direccion_negocio" value="{{ Auth::user()->direccion }}" class="form-control" autocomplete="off">
 						</div>
 					</div>
+							<input type="hidden" name="latitud" id="lat" value="{{ Auth::user()->latitud }}" class="form-control">
+							<input type="hidden" name="longitud" id="long" value="{{ Auth::user()->longitud }}" class="form-control">
 
+					<div class="modal-body p-0 m-0">
 					<div class="row mb-4">
 						<div class="col-md-4">
-							<p>Latitud</p>
+							<p>Región</p>
 						</div>
 						<div class="col">
-							<input type="text" name="latitud" id="lat" value="{{ Auth::user()->latitud }}" class="form-control">
+							
+							<select name="ciudad" class="form-control select-ciudad" required>
+                                            
+                                    @foreach(App\Region::regiones() as $key => $region)
+                                        <option value="{{ $key }}" data-regiones="{{ json_encode($region) }}" {{ Auth::user()->ciudad == str_slug($key) ? 'selected' : '' }}>{{ $key }}</option>
+                                    @endforeach
+                                   
+                            </select>
 						</div>
 					</div>
 
 					<div class="row mb-4">
 						<div class="col-md-4">
-							<p>Longitud</p>
+							<p>Comuna</p>
 						</div>
 						<div class="col">
-							<input type="text" name="longitud" id="long" value="{{ Auth::user()->longitud }}" class="form-control">
+							
+							<select name="region" class="form-control select-region" required>
+                                            
+                                    
+                                           
+                                        </select>
 						</div>
+					</div>
 					</div>
 
 					<div class="row mb-4">

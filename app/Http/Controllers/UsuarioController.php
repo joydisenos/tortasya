@@ -54,7 +54,7 @@ class UsuarioController extends Controller
         if($orden->user_id != Auth::user()->id){
             return redirect()->back();
         }else{
-            return view('negocio.orden' , compact('orden'));
+            return view('user.compra' , compact('orden'));
         }
         
     }
@@ -138,16 +138,27 @@ class UsuarioController extends Controller
 
     public function agregarCarrito($id ,Request $request)
     {
+        $validatedData = $request->validate([
+        'cantidad' => 'required',
+        ]);
+
         $producto = Producto::findOrFail($id);
 
         if($request->has('sabor'))
         {
-            $cart = Cart::add($id, $producto->nombre, 1, $producto->precio , 0 ,['sabor' => $request->sabor]);
+            $cart = Cart::add($id, $producto->nombre, $request->cantidad, $producto->precio , 0 ,['sabor' => $request->sabor]);
         }else{
-            $cart = Cart::add($id, $producto->nombre, 1, $producto->precio);
+            $cart = Cart::add($id, $producto->nombre, $request->cantidad, $producto->precio);
         }
 
         return redirect()->back()->with('status' , 'Producto agregado');
+    }
+
+    public function eliminarCarrito($row)
+    {
+        Cart::remove($row);
+
+        return redirect()->back()->with('status' , 'Producto eliminado');
     }
 
     public function alta(Request $request)
@@ -204,6 +215,8 @@ class UsuarioController extends Controller
             $user->foto_perfil = $nombreFoto;
         }
         $user->telefono = $request->telefono;
+        $user->ciudad = $request->ciudad;
+        $user->region = $request->region;
         $user->save();
 
         return redirect()->back()->with('status' , 'Datos Actualizados');

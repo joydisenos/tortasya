@@ -19,7 +19,7 @@ class HomeController extends Controller
         $tiendas = $user->destacados();
         $refRegiones = new Region();
         $regiones = $refRegiones->regiones();
-        $regiones = $regiones['Metropolitana de Santiago'];
+        $regiones = $regiones;
         $logoRestaurant = $user->whereHas('negocio' , function ($query) {
             $query->where('logo_local', '!=', 'null');
         })->take(6)->get();
@@ -41,6 +41,11 @@ class HomeController extends Controller
 
     public function busquedaNegocios(Request $request)
     {
+        $validatedData = $request->validate([
+        'region' => 'required',
+        'ciudad' => 'required'
+        ]);
+
         $ciudad = str_slug($request->ciudad);
         $region = str_slug($request->region);
 
@@ -77,8 +82,9 @@ class HomeController extends Controller
 
         $carrito = Cart::content()->whereIn('id' , $productosId);
         $total = 0;
+        $totalMobile = 0;
 
-        return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total' , 'horario','comentariosEstadisticas'));
+        return view('tienda' , compact('tienda' , 'productos' , 'destacados' , 'carrito' , 'total' , 'totalMobile' , 'horario','comentariosEstadisticas'));
     }
 
     public function bienvenido()

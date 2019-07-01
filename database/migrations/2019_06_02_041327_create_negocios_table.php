@@ -23,7 +23,10 @@ class CreateNegociosTable extends Migration
             $table->string('horario')->nullable();
             $table->boolean('entrega_domicilio')->default(0);
             $table->boolean('entrega_local')->default(0);
+            $table->boolean('envio_convenir')->default(0);
             $table->boolean('tarjeta_delivery')->default(0);
+            $table->boolean('deposito_banco')->default(0);
+            $table->boolean('red_compra')->default(0);
             $table->boolean('envio_entrega')->default(0);
             $table->float('costo_envio')->nullable();
             $table->boolean('costo_fijo')->default(0);

@@ -44,7 +44,7 @@ class Orden extends Model
     			break;
 
     		case 2:
-    			$respuesta = 'Enviado';
+    			$respuesta = 'Enviado/Entregado';
     			break;
 
             case 3:
@@ -63,15 +63,15 @@ class Orden extends Model
     {
         $direccionRef = Direccion::findOrFail($id);
         $direccion = json_decode($direccionRef->direccion);
+        
         if($direccion == null){
-            $direccion = json_encode([
-                                        "alias" => null,
-                                        "comuna" => null,
-                                        "calle" => null,
-                                        "numero" => null,
-                                        "departamento" => null,
-                                        "referencia" => null
-                                    ]);
+            $direccion = json_decode('{
+                            "alias":null,
+                            "comuna":null,
+                            "calle":null,
+                            "numero":null,
+                            "departamento":null,
+                            "referencia":null}');
         }
 
         return $direccion;

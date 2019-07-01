@@ -18,6 +18,7 @@ Route::get('/nosotros', 'HomeController@nosotros')->name('nosotros');
 Route::get('/nosotros/{pagina}', 'HomeController@nosotros')->name('nosotros.pagina');
 Route::get('/tienda/{tienda}', 'HomeController@tienda')->name('tienda');
 Route::get('/agregarcarro/{id}', 'UsuarioController@agregarCarrito')->name('agregar.carrito');
+Route::get('/eliminarcarro/{row}', 'UsuarioController@eliminarCarrito')->name('eliminar.carrito');
 Route::get('/marcar/favorito/{id}', 'UsuarioController@marcarFavorito')->name('marcar.favorito');
 Route::get('/negocios/{ciudad}/{region}', 'HomeController@buscarNegocios')->name('negocios.ciudad');
 Route::post('/buscar', 'HomeController@busquedaNegocios')->name('buscar.negocios.ciudad');

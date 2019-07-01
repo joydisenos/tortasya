@@ -145,13 +145,26 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
-							<p>Se puede retirar por el local?</p>
+							<p>Se puede retirar por el local o Domicilio?</p>
 						</div>
 						<div class="col">
 
 							<span class="button-checkbox">
 						        <button type="button" class="btn" data-color="danger"></button>
 						        <input type="checkbox"  class="hidden"  name="entrega_local" {{ $negocio->entrega_local == 1 ? 'checked' : '' }}/>
+						    </span>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>A convenir</p>
+						</div>
+						<div class="col">
+
+							<span class="button-checkbox">
+						        <button type="button" class="btn" data-color="danger"></button>
+						        <input type="checkbox"  class="hidden"  name="envio_convenir" {{ $negocio->envio_convenir == 1 ? 'checked' : '' }}/>
 						    </span>
 						</div>
 					</div>
@@ -179,7 +192,33 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
-							<p>Envío contra entrega</p>
+							<p>Depósito Bancario</p>
+						</div>
+						<div class="col">
+
+							<span class="button-checkbox">
+						        <button type="button" class="btn" data-color="danger"></button>
+						        <input type="checkbox"  class="hidden" name="deposito_banco" {{ $negocio->deposito_banco == 1 ? 'checked' : '' }}/>
+						    </span>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Red Compra</p>
+						</div>
+						<div class="col">
+
+							<span class="button-checkbox">
+						        <button type="button" class="btn" data-color="danger"></button>
+						        <input type="checkbox"  class="hidden" name="red_compra" {{ $negocio->red_compra == 1 ? 'checked' : '' }}/>
+						    </span>
+						</div>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<p>Abono 50% y 50% contra entrega</p>
 						</div>
 						<div class="col">
 							<span class="button-checkbox">
@@ -239,7 +278,7 @@
 
 					<div class="row mb-4">
 						<div class="col-md-4">
-							<p>Costo de envío</p>
+							<p>Costo de envío ($)</p>
 						</div>
 						<div class="col">
 							<input type="number" class="form-control" name="costo_envio" value="{{ $negocio->costo_envio }}">

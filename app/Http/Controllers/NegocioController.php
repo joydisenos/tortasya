@@ -145,7 +145,10 @@ class NegocioController extends Controller
         $negocio->horario = $horarioString;
         $negocio->entrega_domicilio = $request->has('entrega_domicilio') ? 1 : 0;
         $negocio->entrega_local = $request->has('entrega_local') ? 1 : 0;
+        $negocio->envio_convenir = $request->has('envio_convenir') ? 1 : 0;
         $negocio->tarjeta_delivery = $request->has('tarjeta_delivery') ? 1 : 0;
+        $negocio->deposito_banco = $request->has('deposito_banco') ? 1 : 0;
+        $negocio->red_compra = $request->has('red_compra') ? 1 : 0;
         $negocio->envio_entrega = $request->has('envio_entrega') ? 1 : 0;
         $negocio->envio_gratis = $request->has('envio_gratis') ? 1 : 0;
         $negocio->variable = $request->has('variable') ? 1 : 0;
@@ -202,6 +205,8 @@ class NegocioController extends Controller
         }
         $user->telefono = $request->telefono;
         $user->direccion = $request->direccion_negocio;
+        $user->ciudad = str_slug($request->ciudad);
+        $user->region = str_slug($request->region);
         $user->latitud = $request->latitud;
         $user->longitud = $request->longitud;
         $user->save();

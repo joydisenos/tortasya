@@ -76,7 +76,10 @@
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <!--<a class="navbar-brand" href="#">Tortas Ya!</a>-->
                             <a href="{{ url('/') }}">
-                                <img src="{{ asset('images/logotipo-blanco.svg') }}" class="img-fluid">
+                                <img src="{{ asset('images/logotipo-blanco.svg') }}" class="img-fluid"> <br>
+                                <div class="text-right">
+                                    <small class="text-white">By </small> <img src="{{ asset('images/logo-casa.png') }}" style="width: 100px" alt="logo Casa Costa Repostería">
+                                </div>
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon-menu"></span>
@@ -86,7 +89,7 @@
                                     
                                     
                                     <li class="nav-item">
-                                        <a class="btn btn-outline-light top-btn" href="#" data-toggle="modal" data-target="#registro-modal"><i class="fa fa-rocket mr-2"></i> Sugiere Negocios</a>
+                                        <a class="btn btn-outline-light top-btn sugiere" href="#" data-toggle="modal" data-target="#registro-modal"><i class="fa fa-rocket mr-2"></i> Sugiere Negocios</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Contacto</a>
@@ -230,6 +233,7 @@
                 </div>
                 <div class="col-2">
                     <img src="{{ asset('images/logotipo-blanco.svg') }}" class="img-fluid">
+                    
                 </div>
             </div>
         </div>
@@ -243,10 +247,10 @@
     
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="tab-btn nav-link active" data-target=".alta" href="#">Tengo negocio</a>
+                    <a class="tab-btn nav-link registra-btn active" data-target=".alta" href="#">Tengo negocio</a>
                   </li>
                   <li class="nav-item">
-                    <a class="tab-btn nav-link" data-target=".sugerir" href="#">Sugerir negocio</a>
+                    <a class="tab-btn nav-link sugerir-btn" data-target=".sugerir" href="#">Sugerir negocio</a>
                   </li>
                 </ul>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -344,9 +348,11 @@
 
                             <div class="col-md-10">
                                 <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
-                                <select name="ciudad" class="form-control" required>
+                                <select name="ciudad" class="form-control select-ciudad" required>
                                             
-                                    <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                                    @foreach(App\Region::regiones() as $key => $region)
+                                        <option value="{{ $key }}" data-regiones="{{ json_encode($region) }}" {{ $key == "Metropolitana de Santiago"? 'selected' : '' }}>{{ $key }}</option>
+                                    @endforeach
                                    
                                 </select>
 
@@ -363,12 +369,12 @@
 
                             <div class="col-md-10">
                                 <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
-                                <select name="region" class="form-control" required>
-                                            <option value="">Seleccione Una Región</option>
+                                <select name="region" class="form-control select-region" required>
+                                            @foreach( App\Region::regiones()['Metropolitana de Santiago'] as $region )
+                                           <option value="{{ str_slug($region) }}">{{ $region }}</option>
+                                           @endforeach
                                             
-                                            @foreach(App\Region::regiones()['Metropolitana de Santiago'] as $region)
-                                            <option value="{{ $region }}">{{ $region }}</option>
-                                            @endforeach
+                                            
                                            
                                         </select>
 
@@ -514,9 +520,11 @@
 
                             <div class="col-md-10">
                                 <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
-                                <select name="ciudad" class="form-control" required>
+                                <select name="ciudad" class="form-control select-ciudad" required>
                                             
-                                    <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                                    @foreach(App\Region::regiones() as $key => $region)
+                                        <option value="{{ $key }}" data-regiones="{{ json_encode($region) }}" {{ $key == "Metropolitana de Santiago"? 'selected' : '' }}>{{ $key }}</option>
+                                    @endforeach
                                    
                                 </select>
 
@@ -533,12 +541,11 @@
 
                             <div class="col-md-10">
                                 <!--<input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" value="{{ old('ciudad') }}" placeholder="Ciudad" required autocomplete="ciudad" autofocus>-->
-                                <select name="region" class="form-control" required>
-                                            <option value="">Seleccione Una Región</option>
-                                            
-                                            @foreach(App\Region::regiones()['Metropolitana de Santiago'] as $region)
-                                            <option value="{{ $region }}">{{ $region }}</option>
-                                            @endforeach
+                                <select name="region" class="form-control select-region" required>
+                                            @foreach( App\Region::regiones()['Metropolitana de Santiago'] as $region )
+                                           <option value="{{ str_slug($region) }}">{{ $region }}</option>
+                                           @endforeach
+                                    
                                            
                                         </select>
 
@@ -833,6 +840,26 @@
     
     <script>
         $(document).ready(function(){
+            $('.sugiere').click(function(){
+
+                $('#registro-modal .alta').hide();
+                $('#registro-modal .sugerir').show();
+
+                $('#registro-modal .tab-btn').removeClass('active');
+                $('.sugerir-btn').addClass('active');
+
+            });
+
+            $('.registra').click(function(){
+
+                $('#registro-modal .sugerir').hide();
+                $('#registro-modal .alta').show();
+
+                $('#registro-modal .tab-btn').removeClass('active');
+                $('.registra-btn').addClass('active');
+
+            });
+
             $('.tab-btn').click(function(e){
 
                 e.preventDefault();
@@ -848,6 +875,87 @@
                 button.addClass('active');
 
             });
+
+
+            @guest
+            @else
+            $('.select-ciudad').each(function(){
+
+                select = $(this).parents('.modal-body').find('.select-region');
+
+            if($(this).val() == 0)
+            {
+                select.prop('disabled' , true);
+            }else{
+
+                select.prop('disabled' , false);
+
+                regiones = $(this).find('option:selected').data('regiones');
+         
+                select.empty();
+                
+                actual = '{{ Auth::user()->region }}' ;
+
+                regiones.forEach(function(region , index) {
+                    
+                    regionCompare = convertToSlug(region);
+
+                    // console.log(regionCompare);
+                    
+                    if(regionCompare == actual)
+                    {
+                         select.append(new Option(region, region , true , true));  
+                    }else{
+                        select.append(new Option(region, region));
+                    }
+                });
+            }
+            
+            
+        });
+            @endguest
+            
+            $('.select-ciudad').change(function(){
+
+                select = $(this).parents('.modal-body').find('.select-region');
+
+            if($(this).val() == 0)
+            {
+                select.prop('disabled' , true);
+            }else{
+
+                select.prop('disabled' , false);
+
+                regiones = $(this).find('option:selected').data('regiones');
+         
+                select.empty();
+                
+                regiones.forEach(function(region , index) {
+                    select.append(new Option(region, region));
+                });
+            }
+            
+            
+        });
+
+
+            function convertToSlug(str) {
+                  str = str.replace(/^\s+|\s+$/g, ''); // trim
+                  str = str.toLowerCase();
+
+                  // remove accents, swap ñ for n, etc
+                  var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+                  var to   = "aaaaaeeeeeiiiiooooouuuunc------";
+                  for (var i=0, l=from.length ; i<l ; i++) {
+                    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+                  }
+
+                  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                    .replace(/-+/g, '-'); // collapse dashes
+
+                  return str;
+                }
         })
     </script>
 </body>

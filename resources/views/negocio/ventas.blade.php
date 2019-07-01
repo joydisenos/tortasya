@@ -8,7 +8,7 @@
 <div class="container">
 	<div class="row">
 		@include('includes.nav-side')
-		<div class="col pt-4 pb-4 mt-4 mb-4">
+		<div class="col-md-9 pt-4 pb-4 mt-4 mb-4">
 
 			<div class="row mb-4">
 				<div class="col">
@@ -27,7 +27,8 @@
 						<th>Total</th>
 						<th>Detalles</th>
 						<th>Estatus</th>
-						<th>Marcar</th>
+						<th>Enviado/Entregado</th>
+						<th>Eliminar</th>
 					</thead>
 					<tbody class="list">
 						@foreach($ventas as $venta)
@@ -45,6 +46,9 @@
 								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
 								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 								@endif
+							</td>
+							<td>
+								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 5]) }}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 						@endforeach

@@ -60,7 +60,8 @@
 						<p>Teléfono:</p>
 					</div>
 					<div class="col-8">
-						<p><strong>{{ $orden->user->telefono }}</strong></p>
+						<p><strong>{{ $orden->user->telefono }}</strong> <a target="_blank" class="text-success" href="https://wa.me/{{ str_slug($orden->negocio->telefono) }}"><i class="fa fa-whatsapp"></i></a></p>
+				
 					</div>
 				</div>
 
@@ -89,6 +90,7 @@
 				<hr>
 
 				@if($orden->direccion_id > 0)
+				
 				<div class="row mb-4">
 					<div class="col-4">
 						<p>Dirección:</p>

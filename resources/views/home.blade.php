@@ -44,21 +44,22 @@
                                 <form class="form-wrap mt-4" method="post" action="{{ route('buscar.negocios.ciudad') }}">
                                     @csrf
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <select name="ciudad" class="btn-group1" required>
+                                        <select name="ciudad" class="form-control" id="select-ciudad" required>
                                             
-                                            <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
-                                           
-                                        </select>
-                                        <!--<input type="text" placeholder="Distrito / Barrio" class="btn-group2">-->
-                                        <select name="region" class="btn-group2" required>
-                                            <option value="">Seleccione Una Región</option>
-                                            
-                                            @foreach($regiones as $region)
-                                            <option value="{{ $region }}">{{ $region }}</option>
+                                            <option value="0" >Seleccione una Región</option>
+                                            @foreach($regiones as $key => $region)
+                                            <option value="{{ $key }}" data-regiones="{{ json_encode($region) }}" {{ $key == "Metropolitana de Santiago"? 'selected' : '' }}>{{ $key }}</option>
                                             @endforeach
                                            
                                         </select>
-                                        <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>Buscar<i class="pe-7s-angle-right"></i></button>
+                                        <!--<input type="text" placeholder="Distrito / Barrio" class="btn-group2">-->
+                                        <select name="region" class="form-control" id="select-region" required>
+                                           @foreach( $regiones['Metropolitana de Santiago'] as $region )
+                                           <option value="{{ str_slug($region) }}">{{ $region }}</option>
+                                           @endforeach
+                                           
+                                        </select>
+                                        <button type="submit" class="btn btn-danger"><span class="icon-magnifier search-icon"></span>Buscar<i class="pe-7s-angle-right"></i></button>
                                     </div>
                                     <h6 class="text-white mt-3">Indicanos tu dirección</h6>
                                 </form>
@@ -266,7 +267,7 @@
                         <h2>¿Quieres publicar con nosotros?</h2>
                         <p>Nuestra plataforma le abrirá la puerta a tu negocio a exponerte a miles de clientes</p>
                         <div class="featured-btn-wrap">
-                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#registro-modal">¡Sugiérelo aquí!</a>
+                        <a href="#" class="btn btn-danger registra" data-toggle="modal" data-target="#registro-modal">¡Sugiérelo aquí!</a>
                     </div>
                     </div>
                 </div>
@@ -291,4 +292,29 @@
     </section>
  
     
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $('#select-ciudad').change(function(){
+            if($(this).val() == 0)
+            {
+                $('#select-region').prop('disabled' , true);
+            }else{
+
+                $('#select-region').prop('disabled' , false);
+
+                regiones = $(this).find('option:selected').data('regiones');
+         
+                $("#select-region").empty();
+                
+                regiones.forEach(function(region , index) {
+                    $("#select-region").append(new Option(region, region));
+                });
+            }
+            
+            
+        });
+    });
+</script>
 @endsection
