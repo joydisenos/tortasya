@@ -1,6 +1,7 @@
 @extends('master.front')
 
 @section('header')
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
 <style>
 	.fotos{
 		height: 200px;
@@ -136,7 +137,7 @@
 									</div>
 								</div>
 							
-							<h6>${{ number_format($destacado->precio) }}</h6>
+							<h6>${{ number_format($destacado->precio , 2  , ',' , '.') }}</h6>
 							
 								<button type="submit" class="btn btn-danger rounded-circle btn-small floating">
 									<i class="fa fa-plus"></i>
@@ -188,7 +189,7 @@
 								</div>
 												
 
-										<h6>${{ number_format($producto->precio) }}</h6>
+										<h6>${{ number_format($producto->precio , 2  , ',' , '.') }}</h6>
 												
 										
 										
@@ -218,7 +219,8 @@
 					  	</div>
 
 					  	@if($tienda->latitud != null && $tienda->longitud != null)
-					  	<div id="mapid"></div>
+					  	<!--<div id="mapid"></div>-->
+					  	<div id='map' style='width: 100%; height: 300px;'></div>
 					  	@endif
 						
 						@if($horario != null)
@@ -365,7 +367,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($total += $carro->price * $carro->qty) }}</div>
+										<div class="col">${{ number_format($total += $carro->price * $carro->qty , 2  , ',' , '.') }}</div>
 										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></div>
 									</div>
 									<hr>
@@ -374,7 +376,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
-										<div class="col"><strong>${{ number_format($total) }}</strong></div>
+										<div class="col"><strong>${{ number_format($total , 2  , ',' , '.') }}</strong></div>
 									</div>
 
 									<div class="row">
@@ -426,7 +428,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($totalMobile += $carro->price * $carro->qty) }}</div>
+										<div class="col">${{ number_format($totalMobile += $carro->price * $carro->qty , 2  , ',' , '.') }}</div>
 										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></div>
 									</div>
 									<hr>
@@ -435,7 +437,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
-										<div class="col"><strong>${{ number_format($totalMobile) }}</strong></div>
+										<div class="col"><strong>${{ number_format($totalMobile , 2  , ',' , '.') }}</strong></div>
 									</div>
 
 									<div class="row">
@@ -456,6 +458,7 @@
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
 <script>
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var datos = [{{ $comentariosEstadisticas }}];
@@ -484,14 +487,36 @@
 	lat = {{ $tienda->latitud }};
 	long = {{ $tienda->longitud }};
 
-	var map = L.map('mapid', {
+	mapboxgl.accessToken = 'pk.eyJ1Ijoiam95ZGlzZW5vcyIsImEiOiJjanhsNjl1OHMwMnVoM3hxZWtjamJxeGpoIn0.fsWaR9XzZr2IcBCNZCzQ6A';
+
+	var map2 = new mapboxgl.Map({
+	container: 'map', // container id
+	style: 'mapbox://styles/mapbox/streets-v11',
+	center: [long, lat], // starting position
+	zoom: 9 // starting zoom
+	});
+
+	new mapboxgl.Marker()
+		.setLngLat([long, lat])
+		.addTo(map2);
+
+	/*var map = L.map('mapid', {
     center: [lat , long],
     zoom: 13
 });
 
+	var map = L.map('mapid').setView([lat , long], 13);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets/18/1/1.mvt?access_token=sk.eyJ1Ijoiam95ZGlzZW5vcyIsImEiOiJjanhsNmc5emEwMnhuM3hvYTF5ajBpOXFpIn0.NuVHktr-KvGLpVybs480tA', {
+		    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		    maxZoom: 18,
+		    id: 'mapbox.streets',
+		    accessToken: 'sk.eyJ1Ijoiam95ZGlzZW5vcyIsImEiOiJjanhsNmc5emEwMnhuM3hvYTF5ajBpOXFpIn0.NuVHktr-KvGLpVybs480tA'
+		}).addTo(map);
+
 	L.marker([lat , long]).addTo(map)
 	    .bindPopup('{{ $tienda->nombre_negocio }}')
-	    .openPopup();
+	    .openPopup();*/
 
 	$('.medios-pago').click(function(){
 		$('.pagos').toggle({

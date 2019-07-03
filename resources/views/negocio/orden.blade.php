@@ -60,7 +60,7 @@
 						<p>Teléfono:</p>
 					</div>
 					<div class="col-8">
-						<p><strong>{{ $orden->user->telefono }}</strong> <a target="_blank" class="text-success" href="https://wa.me/{{ str_slug($orden->negocio->telefono) }}"><i class="fa fa-whatsapp"></i></a></p>
+						<p><strong>{{ $orden->user->telefono }}</strong> <a target="_blank" class="ml-4 btn btn-success" href="https://wa.me/{{ str_slug($orden->negocio->telefono) }}">Comunícate directo por Whatsapp <i class="fa fa-whatsapp"></i></a></p>
 				
 					</div>
 				</div>
@@ -116,7 +116,7 @@
 							<table class="table">
 								<thead>
 									<th>Producto</th>
-									<th>Sabor</th>
+									<th></th>
 									<th>Cantidad</th>
 									<th>Precio</th>
 								</thead>
@@ -127,10 +127,10 @@
 											{{ $producto->producto->nombre }}
 										</td>
 										<td>
-											{{ json_decode($producto->opciones) != null ? json_decode($producto->opciones)->sabor : '' }}
+											
 										</td>
 										<td>{{ $producto->cantidad }}</td>
-										<td class="text-right">${{ number_format($producto->producto->precio * $producto->cantidad , 2) }}</td>
+										<td class="text-right">${{ number_format($producto->producto->precio * $producto->cantidad , 2  , ',' , '.') }}</td>
 									</tr>
 									@endforeach
 									@if($orden->envio == 'Delivery')
@@ -138,14 +138,14 @@
 										<td></td>
 										<td></td>
 										<td>Envío:</td>
-										<td class="text-right">${{ number_format($orden->negocio->negocio->costo_envio , 2) }}</td>
+										<td class="text-right">${{ number_format($orden->negocio->negocio->costo_envio , 2 , ',' , '.') }}</td>
 									</tr>
 									@endif
 									<tr>
 										<td></td>
 										<td></td>
-										<td>Total Facturado:</td>
-										<td class="text-right">${{ number_format($orden->total , 2) }}</td>
+										<td>Total a Pagar:</td>
+										<td class="text-right">${{ number_format($orden->total , 2 , ',' , '.') }}</td>
 									</tr>
 								</tbody>
 							</table>

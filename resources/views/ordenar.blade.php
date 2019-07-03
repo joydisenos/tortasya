@@ -28,7 +28,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($total += $carro->price * $carro->qty) }}</div>
+										<div class="col">${{ number_format($total += $carro->price * $carro->qty , 2  , ',' , '.') }}</div>
 									</div>
 									<hr>
 									@endforeach
@@ -36,7 +36,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Sub total:</strong></div>
-										<div class="col"><strong>${{ number_format($total) }}</strong></div>
+										<div class="col"><strong>${{ number_format($total ,2  , ',' , '.') }}</strong></div>
 									</div>
 
 									<hr>
@@ -46,7 +46,7 @@
 										<div class="col-2"></div>
 										<div class="col"><strong>Envío:</strong></div>
 										@if($tienda->negocio->costo_fijo != 0 && $tienda->negocio->costo_envio != 0 && $tienda->negocio->envio_gratis == 0)
-										<div class="col"><strong>${{ $envio = number_format($tienda->negocio->costo_envio) }}</strong></div>
+										<div class="col"><strong>${{ $envio = number_format($tienda->negocio->costo_envio , 2  , ',' , '.') }}</strong></div>
 										@endif
 
 										@if($tienda->negocio->envio_gratis == 1)
@@ -65,9 +65,9 @@
 										
 											
 											@if(isset($envio))
-											<div class="col"><strong>${{ number_format($total + $envio) }}</strong></div>
+											<div class="col"><strong>${{ number_format($total + $envio , 2  , ',' , '.') }}</strong></div>
 											@else
-											<div class="col"><strong>${{ number_format($total) }}</strong></div>
+											<div class="col"><strong>${{ number_format($total , 2  , ',' , '.') }}</strong></div>
 											@endif
 							
 

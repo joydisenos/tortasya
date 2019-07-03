@@ -38,13 +38,13 @@
 							<td>{{ $venta->productos->count() }}</td>
 							<td>{{ $venta->envio }}</td>
 							<td>{{ $venta->pago }}</td>
-							<td class="text-right">${{ number_format($venta->total) }}</td>
+							<td class="text-right">${{ number_format($venta->total , 2  , ',' , '.') }}</td>
 							<td><a href="{{ route('negocio.venta.orden' , $venta->id) }}" class="btn btn-danger"><i class="fa fa-eye"></i></a></td>
 							<td>{{ $venta->verEstatus($venta->estatus) }}</td>
 							<td>
 								@if($venta->estatus == 1)
 								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
-								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+								<!--<a href="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>-->
 								@endif
 							</td>
 							<td>

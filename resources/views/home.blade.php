@@ -260,14 +260,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center">
-                    <img src="{{ asset('images/pastelero.png') }}" alt="">
+                    <img src="{{ asset('images/bakery.jpg') }}" class="img-fluid" alt="">
                 </div>
                 <div class="col-md-6">
                     <div class="add-listing-wrap">
                         <h2>¿Quieres publicar con nosotros?</h2>
                         <p>Nuestra plataforma le abrirá la puerta a tu negocio a exponerte a miles de clientes</p>
                         <div class="featured-btn-wrap">
-                        <a href="#" class="btn btn-danger registra" data-toggle="modal" data-target="#registro-modal">¡Sugiérelo aquí!</a>
+                        <a href="#" class="btn btn-danger registra" data-toggle="modal" data-target="#registro-modal">Inscribete Aqui Gratis</a>
+
+                        <a href="#" class="btn btn-danger sugiere" data-toggle="modal" data-target="#registro-modal">¡Sugiérelo aquí!</a> 
                     </div>
                     </div>
                 </div>

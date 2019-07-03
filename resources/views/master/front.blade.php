@@ -92,6 +92,9 @@
                                         <a class="btn btn-outline-light top-btn sugiere" href="#" data-toggle="modal" data-target="#registro-modal"><i class="fa fa-rocket mr-2"></i> Sugiere Negocios</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link registra" href="#" data-toggle="modal" data-target="#registro-modal"> Inscribete Aqui Gratis</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#">Contacto</a>
                                     </li>
                                     <li class="nav-item">
@@ -249,6 +252,7 @@
                   <li class="nav-item">
                     <a class="tab-btn nav-link registra-btn active" data-target=".alta" href="#">Tengo negocio</a>
                   </li>
+
                   <li class="nav-item">
                     <a class="tab-btn nav-link sugerir-btn" data-target=".sugerir" href="#">Sugerir negocio</a>
                   </li>
@@ -430,6 +434,8 @@
                         </div>
                     </form>
               </div>
+
+             
 
               <div class="modal-body modal-body mt-4 mb-4 ocultar sugerir">
                    <form method="POST" action="{{ route('sugerir') }}">
