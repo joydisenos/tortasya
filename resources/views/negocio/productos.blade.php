@@ -45,7 +45,7 @@
 										</td>
 										<td>{{ title_case($producto->nombre) }}</td>
 										<td>{{ str_limit($producto->descripcion , 30) }}</td>
-										<td>{{ number_format($producto->precio , 2  , ',' , '.') }}</td>
+										<td>${{ number_format($producto->precio , 0  , ',' , '.') }}</td>
 										<td></td>
 										<td>{{ $producto->estatusProducto($producto->estatus) }}</td>
 										<td>

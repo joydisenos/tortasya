@@ -28,7 +28,7 @@
 				<div class="col text-center">
 					
 						<h3 class="color-primary mb-4">Bienvenid@, {{ title_case(Auth::user()->nombre) }} {{ title_case(Auth::user()->apellido) }}</h3>
-						 	<p class="mb-4">Estás registrado como @role('admin') Administrador @else @role('negocio') Local o Emprendedor @else Usuario @endrole @endrole</p>
+						 	<p class="mb-4">Estás registrado como @role('admin') Administrador @else @role('negocio') Local, Negocio y/o Emprendedor @else Usuario @endrole @endrole</p>
 						@role('negocio')
 
 						<div class="row">

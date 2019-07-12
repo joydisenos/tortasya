@@ -26,6 +26,11 @@ class Orden extends Model
     	return $this->belongsTo(User::class , 'negocio_id');
     }
 
+    public function direccion()
+    {
+        return $this->belongsTo(Direccion::class , 'direccion_id');
+    }
+
     public function productos()
     {
     	return $this->hasMany(Compra::class , 'orden_id');
@@ -36,19 +41,27 @@ class Orden extends Model
     	switch ($estatus) {
 
             case 0:
-                $respuesta = 'Rechazado';
+                $respuesta = 'Fallido';
                 break;
 
     		case 1:
-    			$respuesta = 'Pendiente';
+    			$respuesta = 'Pendiente de entrega';
     			break;
 
     		case 2:
-    			$respuesta = 'Enviado/Entregado';
+    			$respuesta = 'Entregado o Recepcionado';
     			break;
 
             case 3:
                 $respuesta = 'Comentado';
+                break;
+
+            case 4:
+                $respuesta = 'En espera de contacto';
+                break;
+
+            case 5:
+                $respuesta = 'Trabajando';
                 break;
     		
     		default:

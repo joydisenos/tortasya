@@ -137,7 +137,7 @@
 									</div>
 								</div>
 							
-							<h6>${{ number_format($destacado->precio , 2  , ',' , '.') }}</h6>
+							<h6>${{ number_format($destacado->precio , 0  , ',' , '.') }}</h6>
 							
 								<button type="submit" class="btn btn-danger rounded-circle btn-small floating">
 									<i class="fa fa-plus"></i>
@@ -189,7 +189,7 @@
 								</div>
 												
 
-										<h6>${{ number_format($producto->precio , 2  , ',' , '.') }}</h6>
+										<h6>${{ number_format($producto->precio , 0  , ',' , '.') }}</h6>
 												
 										
 										
@@ -367,7 +367,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($total += $carro->price * $carro->qty , 2  , ',' , '.') }}</div>
+										<div class="col">${{ number_format($total += $carro->price * $carro->qty , 0  , ',' , '.') }}</div>
 										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></div>
 									</div>
 									<hr>
@@ -376,7 +376,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
-										<div class="col"><strong>${{ number_format($total , 2  , ',' , '.') }}</strong></div>
+										<div class="col"><strong>${{ number_format($total , 0  , ',' , '.') }}</strong></div>
 									</div>
 
 									<div class="row">
@@ -428,7 +428,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($totalMobile += $carro->price * $carro->qty , 2  , ',' , '.') }}</div>
+										<div class="col">${{ number_format($totalMobile += $carro->price * $carro->qty , 0  , ',' , '.') }}</div>
 										<div class="col"><a href="{{ route('eliminar.carrito' , $carro->rowId) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></div>
 									</div>
 									<hr>
@@ -437,7 +437,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Total:</strong></div>
-										<div class="col"><strong>${{ number_format($totalMobile , 2  , ',' , '.') }}</strong></div>
+										<div class="col"><strong>${{ number_format($totalMobile , 0  , ',' , '.') }}</strong></div>
 									</div>
 
 									<div class="row">

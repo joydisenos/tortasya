@@ -118,7 +118,7 @@
 						<p>Dirección a enviar:</p>
 					</div>
 					<div class="col-8">
-						<p>Ciudad: <strong>{{ $orden->ciudad }}</strong></p>
+						<p>Ciudad: <strong>{{ $orden->direccion->ciudad }}</strong></p>
 						<p>Comuna: <strong>{{ $orden->verDireccion($orden->direccion_id)->comuna }}</strong></p>
 						<p>Calle: <strong>{{ $orden->verDireccion($orden->direccion_id)->calle }}</strong></p>
 						<p>Número: <strong>{{ $orden->verDireccion($orden->direccion_id)->numero }}</strong></p>
@@ -152,7 +152,7 @@
 											
 										</td>
 										<td>{{ $producto->cantidad }}</td>
-										<td class="text-right">${{ number_format($producto->producto->precio * $producto->cantidad , 2  , ',' , '.') }}</td>
+										<td class="text-right">${{ number_format($producto->producto->precio * $producto->cantidad , 0  , ',' , '.') }}</td>
 									</tr>
 									@endforeach
 									@if($orden->envio == 'Delivery')
@@ -160,14 +160,14 @@
 										<td></td>
 										<td></td>
 										<td>Envío:</td>
-										<td class="text-right">${{ number_format($orden->negocio->negocio->costo_envio , 2 , ',' , '.') }}</td>
+										<td class="text-right">${{ number_format($orden->negocio->negocio->costo_envio , 0 , ',' , '.') }}</td>
 									</tr>
 									@endif
 									<tr>
 										<td></td>
 										<td></td>
 										<td>Total a Pagar:</td>
-										<td class="text-right">${{ number_format($orden->total , 2 , ',' , '.') }}</td>
+										<td class="text-right">${{ number_format($orden->total , 0 , ',' , '.') }}</td>
 									</tr>
 								</tbody>
 							</table>

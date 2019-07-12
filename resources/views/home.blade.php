@@ -121,7 +121,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-5">
-                    <div class="styled-heading">
+                    <div class="styled-heading" data-aos="fade-up">
                         <h3>Destacados</h3>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
             <div class="row">
 
                 @foreach($tiendas as $tienda)
-                <div class="col-md-3 mb-4 featured-responsive">
+                <div class="col-md-3 mb-4 featured-responsive" data-aos="fade-left">
                     <div class="featured-place-wrap">
                         <a href="{{ route('tienda' , [$tienda->slug]) }}">
                             
@@ -183,14 +183,14 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="styled-heading">
+                    <div class="styled-heading" data-aos="fade-up">
                         <h3>Los mejores Negocios</h3>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 @foreach($logoRestaurant as $rest)
-                <div class="col-2">
+                <div class="col-2" data-aos="fade-up">
                     <a href="{{ route('tienda' , [$rest->slug]) }}">
                         <img src="{{ asset('storage/archivos/' . $rest->id . '/' . $rest->negocio->logo_local) }}" class="img-fluid" alt="">
                     </a>
@@ -206,12 +206,12 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="styled-heading">
+                    <div class="styled-heading" data-aos="fade-up">
                         <h3>Nuestra Comunidad</h3>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" data-aos="fade-up">
                 @foreach($comentarios as $comentario)
 
                 <div class="col-md-2 text-center">
@@ -267,9 +267,9 @@
                         <h2>¿Quieres publicar con nosotros?</h2>
                         <p>Nuestra plataforma le abrirá la puerta a tu negocio a exponerte a miles de clientes</p>
                         <div class="featured-btn-wrap">
-                        <a href="#" class="btn btn-danger registra" data-toggle="modal" data-target="#registro-modal">Inscribete Aqui Gratis</a>
+                        <a href="#" class="btn btn-danger registra mb-2" data-toggle="modal" data-target="#registro-modal">Inscribete Aqui Gratis</a>
 
-                        <a href="#" class="btn btn-danger sugiere" data-toggle="modal" data-target="#registro-modal">¡Sugiérelo aquí!</a> 
+                        <a href="#" class="btn btn-danger sugiere mb-2" data-toggle="modal" data-target="#registro-modal">¡Sugiérelo aquí!</a> 
                     </div>
                     </div>
                 </div>
@@ -278,7 +278,7 @@
         </div>
     </section>
 
-    <section class="app align-items-center d-flex d-sm-none d-md-flex img-cont">
+    <section class="app align-items-center d-none d-md-flex img-cont" data-aos="flip-up">
         <div class="container">
             <div class="row align-items-center d-flex">
                 <div class="col-md-8">

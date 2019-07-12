@@ -13,27 +13,37 @@
 				      	<form action="{{ route('usuario.agregar.direccion') }}" method="post">
 				      		@csrf
 
-				      	<div class="row justify-content-center mb-3">
+				      	<!--<div class="row justify-content-center mb-3">
 				        	<div class="col-10">
 				        		<input type="text" name="alias" placeholder="Alias" class="form-control">
 				        	</div>
-				        </div>
+				        </div>-->
+				        <input type="hidden" name="alias" value="nulo">
 
 				        <div class="row justify-content-center mb-3">
 				        	<div class="col-10">
-				        		<!--<select name="ciudad" class="form-control">
-				        			<option value="">Seleccione su ciudad</option>
-				        		</select>-->
-				        		<input type="text" name="ciudad" placeholder="Ciudad" class="form-control">
+				        		
+				        		<select name="ciudad" class="form-control select-ciudad" required>
+                                            
+                                    @foreach(App\Region::regiones() as $key => $region)
+                                        <option value="{{ $key }}" data-regiones="{{ json_encode($region) }}" {{ $key == "Metropolitana de Santiago"? 'selected' : '' }}>{{ $key }}</option>
+                                    @endforeach
+                                   
+                                </select>
 				        	</div>
 				        </div>
 
 				        <div class="row justify-content-center mb-3">
 				        	<div class="col-10">
-				        		<!--<select name="ciudad" class="form-control">
-				        			<option value="">Seleccione su ciudad</option>
-				        		</select>-->
-				        		<input type="text" name="comuna" placeholder="Comuna" class="form-control">
+				        		
+				        		<select name="comuna" class="form-control select-region" required>
+                                            @foreach( App\Region::regiones()['Metropolitana de Santiago'] as $region )
+                                           <option value="{{ str_slug($region) }}">{{ $region }}</option>
+                                           @endforeach
+                                            
+                                            
+                                           
+                                        </select>
 				        	</div>
 				        </div>
 

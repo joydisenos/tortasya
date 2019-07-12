@@ -23,7 +23,7 @@ Ha recibido un pedido de {{ title_case($orden->user->nombre) }} {{ title_case($o
 
 				<div class="row mb-4">
 					<div>
-						<p>Teléfono: <strong>{{ $orden->user->telefono }}</strong></p>
+						<p>Teléfono: <strong>{{ $orden->user->telefono }}</strong> <a target="_blank" class="ml-4 btn btn-success" href="https://wa.me/{{ str_slug($orden->user->telefono) }}">Comunícate directo por Whatsapp <i class="fa fa-whatsapp"></i></a></p>
 					</div>
 				</div>
 
@@ -49,7 +49,7 @@ Ha recibido un pedido de {{ title_case($orden->user->nombre) }} {{ title_case($o
 				<div class="row mb-4">
 					<div>
 						<h4>Dirección de envío</h4>
-						<p>Ciudad: <strong>{{ $orden->ciudad }}</strong></p>
+						<p>Ciudad: <strong>{{ $orden->direccion->ciudad }}</strong></p>
 						<p>Comuna: <strong>{{ $orden->verDireccion($orden->direccion_id)->comuna }}</strong></p>
 						<p>Calle: <strong>{{ $orden->verDireccion($orden->direccion_id)->calle }}</strong></p>
 						<p>Número: <strong>{{ $orden->verDireccion($orden->direccion_id)->numero }}</strong></p>
@@ -83,7 +83,7 @@ Ha recibido un pedido de {{ title_case($orden->user->nombre) }} {{ title_case($o
 											{{ json_decode($producto->opciones) != null ? json_decode($producto->opciones)->sabor : '' }}
 										</td>
 										<td style="text-align: center">{{ $producto->cantidad }}</td>
-										<td style="text-align: right">${{ number_format($producto->producto->precio * $producto->cantidad , 2) }}</td>
+										<td style="text-align: right">${{ number_format($producto->producto->precio * $producto->cantidad , 0 , ',' , '.') }}</td>
 									</tr>
 									@endforeach
 									@if($orden->envio == 'Delivery')
@@ -91,14 +91,14 @@ Ha recibido un pedido de {{ title_case($orden->user->nombre) }} {{ title_case($o
 										<td></td>
 										<td></td>
 										<td>Envío:</td>
-										<td style="text-align: right">${{ number_format($orden->negocio->negocio->costo_envio , 2) }}</td>
+										<td style="text-align: right">${{ number_format($orden->negocio->negocio->costo_envio , 0 , ',' , '.') }}</td>
 									</tr>
 									@endif
 									<tr>
 										<td></td>
 										<td></td>
 										<td>Total Facturado:</td>
-										<td style="text-align: right">${{ number_format($orden->total , 2) }}</td>
+										<td style="text-align: right">${{ number_format($orden->total , 0 , ',' , '.') }}</td>
 									</tr>
 								</tbody>
 							</table>

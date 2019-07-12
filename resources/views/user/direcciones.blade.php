@@ -25,7 +25,7 @@
 						<div class="table-responsive" style="width: 100% ; overflow-x: scroll;">
 							<table class="table">
 								<thead>
-									<th>Alias</th>
+									<!--<th>Alias</th>-->
 									<th>Ciudad</th>
 									<th>Comuna</th>
 									<th>Calle</th>
@@ -38,7 +38,7 @@
 								<tbody>
 									@foreach($direcciones as $direccion)
 									<tr>
-										<td>{{ json_decode($direccion->direccion) != null ? json_decode($direccion->direccion)->alias : '' }}</td>
+										<!--<td>{{ json_decode($direccion->direccion) != null ? json_decode($direccion->direccion)->alias : '' }}</td>-->
 										<td>{{ $direccion->ciudad }}</td>
 										<td>{{ json_decode($direccion->direccion) != null ? json_decode($direccion->direccion)->comuna : '' }}</td>
 										<td>{{ json_decode($direccion->direccion) != null ? json_decode($direccion->direccion)->calle : '' }}</td>

@@ -38,13 +38,27 @@
 							<td>{{ $venta->productos->count() }}</td>
 							<td>{{ $venta->envio }}</td>
 							<td>{{ $venta->pago }}</td>
-							<td class="text-right">${{ number_format($venta->total , 2  , ',' , '.') }}</td>
+							<td class="text-right">${{ number_format($venta->total , 0  , ',' , '.') }}</td>
 							<td><a href="{{ route('negocio.venta.orden' , $venta->id) }}" class="btn btn-danger"><i class="fa fa-eye"></i></a></td>
-							<td>{{ $venta->verEstatus($venta->estatus) }}</td>
+							<td>
+								@if( $venta->estatus == 3)
+								{{ $venta->verEstatus($venta->estatus) }}
+								@else
+								<select name="estatus" id="estatus-{{ $venta->id }}" class="cambiar-estatus" class="form-control" style="border:none; width: 200px">
+									<option value="0" data-link="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" {{ $venta->estatus == 0 ? 'selected' : '' }}>Fallido</option>
+									<option value="1" data-link="{{ route('negocio.estatus.orden' , [$venta->id , 1]) }}" {{ $venta->estatus == 1 ? 'selected' : '' }}>Pendiente de entrega</option>
+									<option value="2" data-link="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" {{ $venta->estatus == 2 ? 'selected' : '' }}>Entregado o Recepcionado</option>
+									<option value="4" data-link="{{ route('negocio.estatus.orden' , [$venta->id , 4]) }}" {{ $venta->estatus == 4 ? 'selected' : '' }}>En espera de contacto</option>
+									<option value="5" data-link="{{ route('negocio.estatus.orden' , [$venta->id , 5]) }}" {{ $venta->estatus == 5 ? 'selected' : '' }}>Trabajando</option>
+								</select>
+								@endif
+							</td>
 							<td>
 								@if($venta->estatus == 1)
 								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
 								<!--<a href="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>-->
+								@else
+								<button class="btn btn-success" disabled><i class="fa fa-check"></i></button>
 								@endif
 							</td>
 							<td>
@@ -73,6 +87,12 @@
                   else
                   $(this).show();
               });
+            });
+
+            $('.cambiar-estatus').change( function(){
+
+            	link = $(this).find('option:selected').data('link');
+            	window.location.replace(link);
             });
         });
   </script>

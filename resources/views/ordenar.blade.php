@@ -28,7 +28,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2">{{ $carro->qty }}</div>
 										<div class="col">{{ $carro->name }} {{ $carro->options->sabor }}</div>
-										<div class="col">${{ number_format($total += $carro->price * $carro->qty , 2  , ',' , '.') }}</div>
+										<div class="col">${{ number_format($total += $carro->price * $carro->qty , 0  , ',' , '.') }}</div>
 									</div>
 									<hr>
 									@endforeach
@@ -36,7 +36,7 @@
 									<div class="row mb-4 text-left">
 										<div class="col-2"></div>
 										<div class="col"><strong>Sub total:</strong></div>
-										<div class="col"><strong>${{ number_format($total ,2  , ',' , '.') }}</strong></div>
+										<div class="col"><strong>${{ number_format($total , 0  , ',' , '.') }}</strong></div>
 									</div>
 
 									<hr>
@@ -65,9 +65,9 @@
 										
 											
 											@if(isset($envio))
-											<div class="col"><strong>${{ number_format($total + $envio , 2  , ',' , '.') }}</strong></div>
+											<div class="col"><strong>${{ number_format($total + $envio , 0  , ',' , '.') }}</strong></div>
 											@else
-											<div class="col"><strong>${{ number_format($total , 2  , ',' , '.') }}</strong></div>
+											<div class="col"><strong>${{ number_format($total , 0  , ',' , '.') }}</strong></div>
 											@endif
 							
 
@@ -95,9 +95,9 @@
 						<table class="table">
 							<thead>
 								<th></th>
-								<th>Alias</th>
 								<th>Ciudad</th>
 								<th>Comuna</th>
+								<th>Calle</th>
 							</thead>
 							<tbody>
 								@foreach(Auth::user()->direcciones as $direccion)
@@ -109,15 +109,15 @@
 								</td>
 
 								<td>
-									<label for="d-{{$direccion->id}}">{{ json_decode($direccion->direccion) != null ?  json_decode($direccion->direccion)->alias : '' }}, {{ $direccion->ciudad }}</label>
-								</td>
-
-								<td>
 									<label for="d-{{$direccion->id}}">{{ $direccion->ciudad }}</label>
 								</td>
 
 								<td>
 									<label for="d-{{$direccion->id}}">{{ json_decode($direccion->direccion) != null ?  json_decode($direccion->direccion)->comuna : '' }}</label>
+								</td>
+
+								<td>
+									<label for="d-{{$direccion->id}}">{{ json_decode($direccion->direccion) != null ?  json_decode($direccion->direccion)->calle : '' }}</label>
 								</td>
 							</tr>
 						@endforeach

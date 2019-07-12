@@ -8,5 +8,6 @@ class Negocio extends Model
 {
     protected $fillable = [
         'user_id',
+        'destacado'
     ];
 }

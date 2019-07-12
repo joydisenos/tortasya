@@ -10,6 +10,7 @@ use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Orden as OrdenMail;
 use App\Mail\OrdenNegocio as OrdenNegocioMail;
+use App\Mail\BienvenidoNegocio as BienvenidoNegocioMail;
 use App\User;
 use App\Producto;
 use App\Direccion;
@@ -18,6 +19,8 @@ use App\Orden;
 use App\Compra;
 use App\Comentario;
 use App\Sugerencia;
+use App\Negocio;
+use Carbon\Carbon;
 
 class UsuarioController extends Controller
 {
@@ -182,8 +185,14 @@ class UsuarioController extends Controller
 
         $user = User::create($datos);
         $user->assignRole('negocio');
+        $fecha = Carbon::now();
+        $destacar = $fecha->addDays($request->dias);
+        $negocio = Negocio::Create(['user_id' => $user->id , 'destacado' => $destacar]);
 
         Auth::login($user);
+
+        Mail::to($user->email)
+                ->send(new BienvenidoNegocioMail($user));
 
         return redirect('/');
     }
