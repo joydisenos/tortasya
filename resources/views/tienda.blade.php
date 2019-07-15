@@ -50,6 +50,18 @@
 		display: none;
 	}
 	#mapid { height: 250px; width: 100%;}
+	.mini-foto{
+		width: 100%;
+		height: 60px;
+	}
+	.producto-card{
+		transition: all ease .5s;
+		border-bottom: solid medium #ffffff;
+	}
+	.producto-card:hover{
+		border-bottom: solid medium #C01829;
+		transform: translateY(-4px);
+	}
 	@if($tienda->negocio != null && $tienda->negocio->foto_local != null )
 	.header-panel{
 		background-image: url('{{ asset( 'storage/archivos/'. $tienda->id . '/' . $tienda->negocio->foto_local) }}') !important;
@@ -163,11 +175,22 @@
 					@foreach($productos as $producto)
 
 						
-							<div class="col-md-6 mb-4">
-									<form action="{{ route('agregar.carrito' , $destacado->id) }}" method="get">
+							<div class="col-md-6 mb-4 producto-card">
+									<form action="{{ route('agregar.carrito' , $producto->id) }}" method="get">
 								<div class="row">
 										@csrf
 									<div class="col">
+										<div class="mini-foto" 
+										@if($producto->foto != null)
+
+											style="background: url('{{ asset('storage/archivos/' . $tienda->id . '/' . $producto->foto) }}') center center; background-size: cover;"
+
+										@else
+
+											style="background: url('{{ asset('images/cake.jpg') }}') center center; background-size: cover;"
+
+										@endif
+										></div>
 										<h6>{{ title_case($producto->nombre) }}</h6>
 										<p>{{ $producto->descripcion }}</p>
 										@if($producto->sabores != null)

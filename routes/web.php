@@ -40,6 +40,7 @@ Route::prefix('usuario')->middleware('auth')->group( function () {
 		Route::get('/ver/pedido/{id}', 'UsuarioController@verPedido')->name('usuario.ver.pedido');
 		Route::post('/datos/actualizar', 'UsuarioController@actualizarDatos')->name('usuario.actualizar.datos');
 		Route::post('/comentar', 'UsuarioController@comentar')->name('usuario.comentar');
+		Route::get('/estatus/orden/{id}/{estatus}', 'NegocioController@estatusOrden')->name('usuario.estatus.orden');
 	});
 
 Route::prefix('panel')->middleware('auth')->group( function () {

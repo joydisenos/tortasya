@@ -186,7 +186,7 @@ class UsuarioController extends Controller
         $user = User::create($datos);
         $user->assignRole('negocio');
         $fecha = Carbon::now();
-        $destacar = $fecha->addDays($request->dias);
+        $destacar = $fecha->addDays(5);
         $negocio = Negocio::Create(['user_id' => $user->id , 'destacado' => $destacar]);
 
         Auth::login($user);

@@ -27,7 +27,6 @@
 						<th>Total</th>
 						<th>Detalles</th>
 						<th>Estatus</th>
-						<th>Enviado/Entregado</th>
 						<th>Eliminar</th>
 					</thead>
 					<tbody class="list">
@@ -53,14 +52,7 @@
 								</select>
 								@endif
 							</td>
-							<td>
-								@if($venta->estatus == 1)
-								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 2]) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
-								<!--<a href="{{ route('negocio.estatus.orden' , [$venta->id , 0]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>-->
-								@else
-								<button class="btn btn-success" disabled><i class="fa fa-check"></i></button>
-								@endif
-							</td>
+							
 							<td>
 								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 5]) }}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
 							</td>

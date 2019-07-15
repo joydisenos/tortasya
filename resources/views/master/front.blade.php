@@ -95,7 +95,7 @@
                                     </li>
                                     
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Contacto</a>
+                                        <a class="nav-link" href="mailto:contacto@tortaya.cl">Contacto</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a>

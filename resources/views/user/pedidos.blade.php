@@ -68,7 +68,9 @@
 							<td>{{ $pedido->pago }}</td>
 							<td>{{ $pedido->verEstatus($pedido->estatus) }}</td>
 							<td>
-								@if($pedido->estatus == 2)
+                @if($pedido->estatus == 1)
+                <a href="{{ route('usuario.estatus.orden' , [$pedido->id , 0]) }}" class="btn btn-danger">Cancelar orden</a>
+								@elseif($pedido->estatus == 2)
 										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#comment" data-pedido="{{$pedido->id}}">Comentar</button>
 								@endif
 							</td>

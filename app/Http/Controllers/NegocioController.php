@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Preparar as PrepararMail;
+use App\Mail\CambioEstatus as EstatusMail;
 use App\Producto;
 use App\Negocio;
 use App\Orden;
+use Carbon\Carbon;
 
 class NegocioController extends Controller
 {
@@ -34,6 +36,21 @@ class NegocioController extends Controller
         ]);
 
         $data = $request->except(['foto']);
+
+        if(Auth::user()->productos->count() == 0)
+        {
+            if(Auth::user()->negocio->destacado == null ||  Carbon::parse(Auth::user()->negocio->destacado) < Carbon::today() )
+            {
+                $fecha = Carbon::now();
+            }else{
+                $fecha = Carbon::parse(Auth::user()->negocio->destacado);
+            }
+
+            $negocio = Auth()->user()->negocio;
+            $negocio->destacado = $fecha->addDays(5);
+            $negocio->save();
+        }
+
         $data['user_id'] = Auth::user()->id;
 
     	if( $request->hasFile('foto') )
@@ -150,7 +167,12 @@ class NegocioController extends Controller
         $negocio->deposito_banco = $request->has('deposito_banco') ? 1 : 0;
         $negocio->red_compra = $request->has('red_compra') ? 1 : 0;
         $negocio->envio_entrega = $request->has('envio_entrega') ? 1 : 0;
-        $negocio->envio_gratis = $request->has('envio_gratis') ? 1 : 0;
+        if($request->has('variable') || $request->has('costo_fijo') || $request->costo_envio > 0)
+            {
+                $negocio->envio_gratis = 0;
+            }else{
+                $negocio->envio_gratis = $request->has('envio_gratis') ? 1 : 0;
+            }
         $negocio->variable = $request->has('variable') ? 1 : 0;
         $negocio->costo_fijo = $request->has('costo_fijo') ? 1 : 0;
         $negocio->costo_envio = $request->costo_envio;
@@ -265,8 +287,11 @@ class NegocioController extends Controller
 
         if($estatus == 2)
         {
-            Mail::to($orden->user->email)
+            Mail::to([$orden->user->email , $orden->negocio->email])
                 ->send(new PrepararMail($orden));
+        }else{
+            Mail::to([$orden->user->email , $orden->negocio->email])
+            ->send(new EstatusMail($orden));
         }
 
         return redirect()->back()->with('status' , 'Estatus actualizado');

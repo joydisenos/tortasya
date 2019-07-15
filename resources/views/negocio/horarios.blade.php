@@ -554,44 +554,44 @@
 						<div class="col">
 
 							<span class="button-checkbox">
-						        <button type="button" class="btn" data-color="danger"></button>
+						        <button type="button" class="btn envio-gratis" data-color="danger"></button>
 						        <input type="checkbox"  class="hidden" name="envio_gratis" {{ $negocio->envio_gratis == 1 ? 'checked' : '' }}/>
 						    </span>
 
 						</div>
 					</div>
 
-					<div class="row mb-4">
+					<div class="row mb-4 envio-pago">
 						<div class="col-md-4">
 							<p>Variable según zona</p>
 						</div>
 						<div class="col">
 
 							 <span class="button-checkbox">
-						        <button type="button" class="btn" data-color="danger"></button>
+						        <button type="button" class="btn envio-btn" data-color="danger"></button>
 						        <input type="checkbox"  class="hidden" name="variable" {{ $negocio->variable == 1 ? 'checked' : '' }}/>
 						    </span>
 						</div>
 					</div>
 
-					<div class="row mb-4">
+					<div class="row mb-4 envio-pago">
 						<div class="col-md-4">
 							<p>Costo fijo</p>
 						</div>
 						<div class="col">
 							 <span class="button-checkbox">
-						        <button type="button" class="btn" data-color="danger"></button>
+						        <button type="button" class="btn envio-btn" data-color="danger"></button>
 						        <input type="checkbox"  class="hidden" name="costo_fijo" {{ $negocio->costo_fijo == 1 ? 'checked' : '' }}/>
 						    </span>
 						</div>
 					</div>
 
-					<div class="row mb-4">
+					<div class="row mb-4 envio-pago">
 						<div class="col-md-4">
 							<p>Costo de envío ($)</p>
 						</div>
 						<div class="col">
-							<input type="text" class="form-control" name="costo_envio" id="costo_envio" value="{{ $negocio->costo_envio }}">
+							<input type="text" class="form-control costo-envio" name="costo_envio" id="costo_envio" value="{{ $negocio->costo_envio }}">
 						</div>
 					</div>
 					
@@ -605,6 +605,8 @@
 @section('scripts')
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script>
+	
+
 	$("#costo_envio").val(function (index, value ) {
             return value.replace(/\D/g, "")
                         .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");

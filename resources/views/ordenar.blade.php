@@ -165,7 +165,7 @@
 
 
 						<div class="text-center">
-							<button class="btn btn-danger" type="submit">Finalizar Compra</button>
+							<button class="btn btn-danger" type="submit">Comprar</button>
 						</div>
 
 					</form>
