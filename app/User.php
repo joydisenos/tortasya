@@ -137,11 +137,11 @@ class User extends Authenticatable
 
     public function pedidos()
     {
-        return $this->hasMany(Orden::class , 'user_id')->where('estatus' , '!=' , 5)->orderBy('id' , 'desc');
+        return $this->hasMany(Orden::class , 'user_id')->where('estatus' , '!=' , 6)->orderBy('id' , 'desc');
     }
 
     public function ventas()
     {
-        return $this->hasMany(Orden::class , 'negocio_id')->where('estatus' , '!=' , 5)->orderBy('id' , 'desc');
+        return $this->hasMany(Orden::class , 'negocio_id')->where('estatus' , '!=' , 6)->orderBy('id' , 'desc');
     }
 }

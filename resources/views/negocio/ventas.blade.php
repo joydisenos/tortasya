@@ -54,7 +54,7 @@
 							</td>
 							
 							<td>
-								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 5]) }}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+								<a href="{{ route('negocio.estatus.orden' , [$venta->id , 6]) }}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 						@endforeach

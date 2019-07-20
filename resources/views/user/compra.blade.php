@@ -20,7 +20,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -53,7 +53,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -76,7 +76,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -98,7 +98,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				<div class="row mb-4">
 					<div class="col-4">
@@ -109,7 +109,7 @@
 					</div>
 				</div>
 
-				<hr>
+				<hr class="m-0">
 
 				@if($orden->direccion_id > 0)
 				

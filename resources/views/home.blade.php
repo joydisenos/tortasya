@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="slider-content_wrap">
-                                    <h3 class="text-white"><strong>Postres y Tortas a domicilio o retiro en tienda</strong></h3>
+                                    <h3 class="text-white"><strong>Las Mejores Tortas y Delicias en un Solo Lugar</strong></h3>
                                     
                                 </div>
                             </div>

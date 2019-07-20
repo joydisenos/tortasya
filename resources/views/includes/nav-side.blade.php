@@ -53,7 +53,7 @@
 
 		<a href="{{ route('negocio.horario') }}">
 		  	<li class="list-group-item {{ (URL::current() == route('negocio.horario')) ? 'active' : ''}}">
-			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Horario y envíos
+			  	<i class="fa fa-info-circle mr-3" aria-hidden="true"></i> Horario, Formas de envío y Pago
 			</li>
 		</a>
 		<a href="{{ route('usuario.favoritos') }}">

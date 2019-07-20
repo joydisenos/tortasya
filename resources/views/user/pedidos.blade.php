@@ -40,7 +40,7 @@
 @endcomponent
 
 <div class="container">
-	<div class="row align-items-center">
+	<div class="row">
 		@include('includes.nav-side')
 		<div class="col pt-4 pb-4 mt-4 mb-4">
       

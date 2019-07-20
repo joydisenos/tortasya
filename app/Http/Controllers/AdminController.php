@@ -67,7 +67,7 @@ class AdminController extends Controller
         $negocio = Negocio::findOrFail($id);
 
         
-        if($negocio->destacado == null)
+        if($negocio->destacado == null ||  Carbon::parse(Auth::user()->negocio->destacado) < Carbon::today() )
         {
             $fecha = Carbon::now();
         }else{
