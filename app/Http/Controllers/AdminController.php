@@ -11,6 +11,11 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function configuraciones()
     {
     	$legales = Legal::all();
@@ -67,7 +72,7 @@ class AdminController extends Controller
         $negocio = Negocio::findOrFail($id);
 
         
-        if($negocio->destacado == null ||  Carbon::parse(Auth::user()->negocio->destacado) < Carbon::today() )
+        if($negocio->destacado == null ||  Carbon::parse($negocio->destacado) < Carbon::today() )
         {
             $fecha = Carbon::now();
         }else{

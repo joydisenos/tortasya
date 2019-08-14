@@ -40,13 +40,14 @@
 			</div>
 			@endif
 
-			@foreach($tiendas as $tienda)
+			<div class="row">
+            @foreach($tiendas as $tienda)
                 <div class="col-md-4 featured-responsive">
                     <div class="featured-place-wrap">
                         <a href="{{ route('tienda' , [$tienda->slug]) }}">
                             
                             <div class="imagen-tienda" style="background-image:url('{{ $tienda->negocio != null && $tienda->negocio->foto_local != null ? asset('storage/archivos/' . $tienda->id . '/' . $tienda->negocio->foto_local) : asset('images/cake.jpg')}}')"></div>
-                            <span class="featured-rating-orange">{{ rand(0 , 10) }}</span>
+                            <span class="featured-rating-orange">{{ number_format($tienda->puntaje($tienda->id) , 1) }}</span>
                             <div class="featured-title-box">
                                 <h6>{{ title_case($tienda->nombre_negocio) }}</h6>
                                 <!--<p>Restaurant </p> <span>• </span>
@@ -83,6 +84,7 @@
                     </div>
                 </div>
                 @endforeach
+                </div>
 			
 		</div>
 	</div>

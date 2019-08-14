@@ -483,6 +483,19 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
 <script>
+
+	$('.medios-pago').click(function(){
+		$('.pagos').toggle({
+			duration: 500,
+			easing: 'swing'
+		});
+	});
+
+	$('.medios-pago').mouseleave(function(){
+		$('.pagos').hide('slow');
+	});
+
+	
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var datos = [{{ $comentariosEstadisticas }}];
 	var chart = new Chart(ctx, {
@@ -507,8 +520,8 @@
         }
     }
 });
-	lat = {{ $tienda->latitud }};
-	long = {{ $tienda->longitud }};
+	lat = '{{ $tienda->latitud }}';
+	long = '{{ $tienda->longitud }}';
 
 	mapboxgl.accessToken = 'pk.eyJ1Ijoiam95ZGlzZW5vcyIsImEiOiJjanhsNjl1OHMwMnVoM3hxZWtjamJxeGpoIn0.fsWaR9XzZr2IcBCNZCzQ6A';
 
@@ -541,15 +554,6 @@
 	    .bindPopup('{{ $tienda->nombre_negocio }}')
 	    .openPopup();*/
 
-	$('.medios-pago').click(function(){
-		$('.pagos').toggle({
-			duration: 500,
-			easing: 'swing'
-		});
-	});
-
-	$('.medios-pago').mouseleave(function(){
-		$('.pagos').hide('slow');
-	});
+	
 </script>
 @endsection
